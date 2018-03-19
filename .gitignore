@@ -1,2 +1,5 @@
+# files not to be uploaded to git
 .Rapp.history
+.tex
+
 

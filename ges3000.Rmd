@@ -42,39 +42,137 @@ output            : papaja::apa6_pdf
 ---
 
 ```{r load_packages, include = FALSE}
-library("papaja")
-```
-
-```{r analysis_preferences}
-# Seed for random number generation
-set.seed(42)
+library(papaja)
 ```
 
 @bruner1974communication
 
-# Methods
-We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
+# General setup and procedure
+
+# Part 1.1: Spontaneous production of gestures
 
 ## Participants
 
-## Material
+## Design and Procedure
 
-## Procedure
-
-## Data analysis
-We used `r cite_r("r-references.bib")` for all our analyses.
+## Results and discussion
 
 
-# Results
+# Part 1.2: Uptake
 
-# Discussion
+## Participants
+
+## Design and Procedure
+
+## Results and discussion
+
+
+# Part 1.3: Comprehension
+
+## Participants
+
+## Design and Procedure
+
+## Results and discussion
+
+
+# Part 1.4: Abstract concepts (empty picture)
+
+## Participants
+
+## Design and Procedure
+
+## Results and discussion
+
+
+# Part 1.5: Convergence
+
+## Participants
+
+## Design and Procedure
+
+## Results and discussion
+
+
+# Part 1.6: Drift to arbitrary
+
+## Production
+
+### Participants
+
+### Design and Procedure
+
+### Results and discussion
+
+## Comprehension
+
+### Participants
+
+### Design and Procedure
+
+### Results and discussion
+
+
+# Part 2.1: Size
+
+## Participants
+
+## Design and Procedure
+
+## Results and discussion
+
+
+# Part 2.2: Number
+
+## Participants
+
+## Design and Procedure
+
+## Results and discussion
+
+
+# Part 2.3: Movement
+
+## Participants
+
+## Design and Procedure
+
+## Results and discussion
+
+
+# Part 2.4: Transitive actions with two agents 
+
+## Participants
+
+## Design and Procedure
+
+## Results and discussion
+
+
+# Part 2.5: Transitive actions with three agents 
+
+## Participants
+
+## Design and Procedure
+
+## Results and discussion
+
+
+# Part 2 overall analysis
+
+## Participants
+
+## Design and Procedure
+
+## Results and discussion
+
 
 
 \newpage
 
 # References
 ```{r create_r-references}
-r_refs(file = "r-references.bib")
+r_refs(file = "library.bib")
 ```
 
 \setlength{\parindent}{-0.5in}
