@@ -1,5 +1,5 @@
 ---
-title             : "The title"
+title             : "Children spontaneously re-create core properties of language in a new modality"
 shorttitle        : "Title"
 
 author: 
