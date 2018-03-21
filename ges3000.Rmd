@@ -49,6 +49,8 @@ library(papaja)
 
 # General setup and procedure
 
+Hallo Gregor
+
 # Part 1.1: Spontaneous production of gestures
 
 ## Participants
