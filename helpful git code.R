@@ -1,8 +1,6 @@
 
 
 Git code to use
-0847 
-aber online mache ich jetzt 0850 nochmal eine Änderung obwohl lokal auch Änderungen liegen
 
 # What I use before working to update my local version before working locally
 cd C:/Users/stoeb/ges3000
