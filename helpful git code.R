@@ -2,6 +2,7 @@
 
 Git code to use
 0847 
+aber online mache ich jetzt 0850 nochmal ein update
 # What I use before working to update my local version before working locally
 cd C:/Users/stoeb/ges3000
 git pull https://github.com/manuelbohn/ges3000.git
