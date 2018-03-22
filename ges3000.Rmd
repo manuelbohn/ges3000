@@ -51,6 +51,15 @@ library(papaja)
 
 Hallo Gregor
 
+Hey Manuel, habe gerade clone kennengelernt und probiere mich dann mal an push
+
+...hmm ich habe gerade den befehl
+git push origin master 
+laufen lassen und feedback bekommen dass alles up to date ist,
+aber online war dann von meinem neuen Text nichts zu sehen. Ich probiere es nochmal
+
+
+
 # Part 1.1: Spontaneous production of gestures
 
 ## Participants
