@@ -13,7 +13,7 @@ cd C:/Users/stoeb/ges3000
 git init
 git status
 git add .	
-git commit -m"Gregor practice2"
+git commit -m"Gregor practivce nr3"
 git pull
 git push 
 
@@ -34,21 +34,20 @@ git config --global color.ui auto
 git clone https://github.com/manuelbohn/ges3000.git
 # get repository for ges3000 FOR THE FIRST TIME
 
+
+
+
 ### things we might need later
 
  git status
 # Lists all new or modified files to be commited
- git add [file]
-# Snapshots the file in preparation for versioning
- git reset [file]
-# Unstages the file, but preserve its contents
- git diff
+
+git diff
 # Shows file differences not yet staged
+
  git diff --staged
 # Shows file differences between staging and the last file version
  
- git commit -m "[descriptive message]"
-# Records file snapshots permanently in version history
- 
+
  
  
