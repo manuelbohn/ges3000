@@ -2,15 +2,18 @@
 
 Git code to use
 
-
+# What I use before working to update my local version
 git init ges3000
-# ruft das repository wieder auf
+git init
+
+# and then
+git pull origin master
+
+# or this one?
+git pull ges3000
 
 
-
-# what I use everytime I want to commit changes from my local path to the online repository
-# das wars
-
+# What I use when I want to load things up after working locally
 cd C:/Users/stoeb/ges3000
 git init
 git status
