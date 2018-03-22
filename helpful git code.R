@@ -1,10 +1,13 @@
 
 
 Git code to use
-
+0847 
 # What I use before working to update my local version before working locally
 cd C:/Users/stoeb/ges3000
 git pull https://github.com/manuelbohn/ges3000.git
+git fetch --all
+git reset --hard origin/master
+git pull origin master
 
 
 # What I use when I want to load things up after working locally
