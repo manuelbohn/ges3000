@@ -2,21 +2,20 @@
 
 # What I use before working to update my local version before working locally
 cd C:/Users/stoeb/ges3000
-git pull https://github.com/manuelbohn/ges3000.git
-git fetch --all
+git pull https://github.com/manuelbohn/ges3000.git ### Wenn Du in dem entsprechende ordner bist, müsste nur git pull reichen ohne das ganze was danach kommt
+git fetch --all 
 git reset --hard origin/master
 git pull origin master
 
 
 # What I use when I want to load things up after working locally
 cd C:/Users/stoeb/ges3000
-git init
-git status
+git init   # brauchst du nur ganz am anfangum den ordner als git ordner zu markieren, später nicht mehr
+git status 
 git add .	
 git commit -m"Gregor practivce nr3"
-git pull
+git pull # brauchst du nicht unbedingt 
 git push 
-
 
 
 

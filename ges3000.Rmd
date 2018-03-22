@@ -50,7 +50,15 @@ library(papaja)
 # General setup and procedure
 
 Hallo Manuel,
-danke für den Code von gestern. Ich kann jetzt Änderungen, die ich lokal vorgenommen habe in das online repository pushen. Habe das jetzt auch drei mal gemacht und für den wichtigsten Git Code mal ein R-file angelegt mit den wichtigsten Befehlen für uns. 
+danke f?r den Code von gestern. Ich kann jetzt ?nderungen, die ich lokal vorgenommen habe in das online repository pushen. Habe das jetzt auch drei mal gemacht und f?r den wichtigsten Git Code mal ein R-file angelegt mit den wichtigsten Befehlen f?r uns. 
+
+Hi Gregor,
+
+das scheint zu funktionieren. Ich hab einfach git pull verwendet und somit mein file auf den neusten stand gebracht. Alles wunderbar. 
+Ich hab ein paar kommentare in dem git commands file gemacht. Kannst du ja mal ausprobieren.
+Ich push das alles gleich nochmal und fÃ¼ge auch einen Ordner in dem wir pdfs sammeln kÃ¶nnen. 
+
+
 
 
 # Part 1.1: Spontaneous production of gestures
