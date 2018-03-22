@@ -13,6 +13,7 @@ git init ges3000
 cd C:/Users/stoeb/ges3000
 git init
 git status
+
 git add .	
 git commit -m"Gregor practice"
 git push 
