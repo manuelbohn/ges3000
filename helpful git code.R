@@ -9,13 +9,14 @@ git init ges3000
 
 
 # what I use everytime I want to commit changes from my local path to the online repository
+# das wars
 
 cd C:/Users/stoeb/ges3000
 git init
 git status
 
 git add .	
-git commit -m"Gregor practice"
+git commit -m"Gregor practice2"
 git push 
 
 
