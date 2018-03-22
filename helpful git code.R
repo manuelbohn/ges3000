@@ -8,7 +8,14 @@ git init ges3000
 
 
 
+# what I use everytime I want to commit changes from my local path to the online repository
 
+cd C:/Users/stoeb/ges3000
+git init
+git status
+git add .	
+git commit -m"Gregor practice"
+git push 
 
 
 
@@ -27,21 +34,7 @@ git config --global color.ui auto
 git clone https://github.com/manuelbohn/ges3000.git
 # get repository for ges3000 FOR THE FIRST TIME
 
-
-# cd /c/user/my_project
-cd C:/Users/stoeb/ges3000
-  
-  $ git init
-
-
-
-
-git add .	
-#| der Punkt is wichtig, speichert quasi deine Änderungen 
-git commit -m"bla bla"
-# | macht das gespeicherte final mit Kommentar dazu
-git push 
-
+### things we might need later
 
  git status
 # Lists all new or modified files to be commited

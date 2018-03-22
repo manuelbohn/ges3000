@@ -51,12 +51,7 @@ library(papaja)
 
 Hallo Gregor
 
-Hey Manuel, habe gerade clone kennengelernt und probiere mich dann mal an push
-
-...hmm ich habe gerade den befehl
-git push origin master 
-laufen lassen und feedback bekommen dass alles up to date ist,
-aber online war dann von meinem neuen Text nichts zu sehen. Ich probiere es nochmal
+habe eben zum ersten mal Änderungen gepusht. Ich mache das jetzt direkt nochmal und füge files hinzu
 
 
 
