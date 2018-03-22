@@ -2,15 +2,9 @@
 
 Git code to use
 
-# What I use before working to update my local version
-git init ges3000
-git init
-
-# and then
-git pull origin master
-
-# or this one?
-git pull ges3000
+# What I use before working to update my local version before working locally
+cd C:/Users/stoeb/ges3000
+git pull https://github.com/manuelbohn/ges3000.git
 
 
 # What I use when I want to load things up after working locally
