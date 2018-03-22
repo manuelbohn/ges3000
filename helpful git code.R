@@ -1,10 +1,4 @@
 
-0901 letzte Ã„nderungen online
-
-Git code to use
-
-0900 letzte änderung lokal
-
 
 # What I use before working to update my local version before working locally
 cd C:/Users/stoeb/ges3000
@@ -18,9 +12,9 @@ git pull origin master
 cd C:/Users/stoeb/ges3000
 git init
 git status
-
 git add .	
 git commit -m"Gregor practice2"
+git pull
 git push 
 
 
