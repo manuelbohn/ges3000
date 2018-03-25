@@ -1,8 +1,11 @@
 
 
-# What I use before working to update my local version before working locally
+# efore working locally update files
 cd C:/Users/stoeb/ges3000
-git pull https://github.com/manuelbohn/ges3000.git ### Wenn Du in dem entsprechende ordner bist, müsste nur git pull reichen ohne das ganze was danach kommt
+git pull 
+
+### Wenn Du in dem entsprechende ordner bist, müsste nur git pull reichen ohne das ganze was danach kommt
+git pull https://github.com/manuelbohn/ges3000.git 
 git fetch --all 
 git reset --hard origin/master
 git pull origin master
