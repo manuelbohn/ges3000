@@ -296,6 +296,7 @@ ggplot(d4.p2,
 # Production
 # prompts per age group and phase
 d5 <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
+  mutate(block = ifelse(block == "Uptake","Uptake","Spontaneous")) %>%
   filter(stimulus == "Nichts") %>%
   mutate(Age = ifelse(age == "M48","4yo","6yo")) %>%
   na.omit(prompts)
@@ -303,7 +304,6 @@ d5 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
 # plot production
 d5.p <- d5 %>%
   mutate(prompts = ifelse(prompts > 0,1,0)) %>%
-  mutate(block = ifelse(block == "Uptake","Uptake","Spontaneous")) %>%
   group_by(Age, block) %>%
   summarise(prompts = sum(prompts))
 
@@ -320,7 +320,6 @@ ggplot(d5.p,
  
 # do 4yo need more prompts compared to 6yo?
 d5 %>%
-  mutate(block = ifelse(block == "Uptake","Uptake","Spontaneous")) %>%
   group_by(age, block, dyad_id) %>%
   summarise(prompts = sum(prompts)) %>%
   mutate(prompts = ifelse(prompts > 0,1,0)) %>%
@@ -334,6 +333,36 @@ d5 %>%
   select(block,sum4,sum6,stat,p_value) %>%
   knitr::kable(digits = 5)
 
+
+# Comprehension
+
+# comparison against chance per age group and phase
+d5 %>%
+  group_by(Age, block, dyad_id)%>%
+  summarise(comp = mean(comp))%>%
+  summarise(comp = list(comp)) %>%
+  group_by(Age, block) %>%
+  mutate(df= t.test(unlist(comp), mu = 0.25)$parameter,
+         t_value = t.test(unlist(comp), mu = 0.25)$statistic,
+         p_value = t.test(unlist(comp), mu = 0.25)$p.value) %>%
+  select(Age, block ,df,t_value,p_value) %>%
+  knitr::kable(digits = 5)
+
+# plot per age group and phase
+d5.p <- d5 %>%
+  group_by(Age, block, dyad_id)%>%
+  summarise(comp = mean(comp))%>%
+  multi_boot_standard(col = "comp")
+
+ggplot(d5.p, 
+       aes(x = Age, y = mean, col = Age)) +
+  geom_pointrange(aes(ymin = ci_lower, ymax = ci_upper), 
+                  position = position_dodge(width = .1)) + 
+  geom_hline(yintercept = 0.25, lty=2)+
+  facet_grid(~block)+
+  scale_y_continuous(name = "Proportion Correct", limits = c(0,1))+
+  theme_few() + 
+  scale_colour_solarized()
 
 ```
 
