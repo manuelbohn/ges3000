@@ -47,25 +47,38 @@ library(papaja)
 
 @bruner1974communication
 
+
 # General setup and procedure
 
-Hallo Manuel,
-danke f?r den Code von gestern. Ich kann jetzt ?nderungen, die ich lokal vorgenommen habe in das online repository pushen. Habe das jetzt auch drei mal gemacht und f?r den wichtigsten Git Code mal ein R-file angelegt mit den wichtigsten Befehlen f?r uns. 
+All studies used the same general setup and procedure. We established an audio-video connection between two separate rooms within a child laboratory. In each room a Panasonic XX video camera was mounted on a tripod which was placed behind a XX" XXX TV screen. Each camera captured an area in front of the TV, which was marked with black tape on the floor. Children were encouraged to stay within the marked area to ensure that their partner could see them. A black cross in the center of the area marked children's starting position in each trial. A little fence was used in each room to prevent participants from approaching the TV and/or the camera. The connection was established through DVI cables that went from the camera in one room to the TV in the other room and vice versa. External microphones were plugged into the cameras to capture children's speech. The direct connection between camera and TV made sure that that participants could interact in a smooth and contingent way. One of the rooms was assigned to be the Production Room (PR) and the other the Comprehension Room (CR). A third camera was put in the back of the CR, capturing the child as well as the TV screen. This was an additional measure to ensure that we could link the two videos recorded by the two main cameras.
 
-Hi Gregor,
+The two rooms were located on the same hallway. When stepping outside, the experimenters (E1 and E2) could easily talk to one another and coordinate their actions. In each room, we installed a picture board. Importantly, the picture boards were never visible on the TV in the other room. In part 1, the picture board was a wooden, turn-able wheel with five triangular pictures, showing 1) a hammering hand, 2) a female person combing her hair, 3) a boy on a bicycle, 4) a woman eating with a fork and 5) nothing (a white piece of paper, see Figure X). On top of the wheel was a little red arrow that was used to indicate which picture children had to communicate to their partner. A picture was selected by turning the wheel until the picture was on top underneath the arrow. In part 2, the board was a larger, rectangular board. The pictures differed from experiment to experiment and are therefore described later in more detail. In part 2, a sticky red paper arrow was used to indicate a picture.
 
-das scheint zu funktionieren. Ich hab einfach git pull verwendet und somit mein file auf den neusten stand gebracht. Alles wunderbar. 
-Ich hab ein paar kommentare in dem git commands file gemacht. Kannst du ja mal ausprobieren.
-Ich push das alles gleich nochmal und füge auch einen Ordner in dem wir pdfs sammeln können. 
+In the beginning of each trial, E1 was with the child in PR (Production Child - PC) and E2 with the child in CR (Comprehension Child - CC). The general trial structure in all experiments went as follows: Children were first asked to take their starting position (facing away from the board towards the wall). Next, E1 selected a picture in PR. On a visual signal from E1, both Es said "ready, set, go" and left the room. Children were now allowed to turn around. The task of the child in PR was to communicate the content of the selected picture to the child in CR. The child in CR made a choice by selecting a picture on her board and knocking on the door. Thereupon, Es opened the doors, E2 told E1 across the hallway which picture had been selected in the PR and E1 checked if this was the picture she had selected in the PR. If the pictures were the same, children received a marble, which they collected in a tube. At the end of the study, children exchanged the marbles for stickers. If the pictures were different, children were told that it didn't work out his time but that they could try again in the next trial.
+
+All children started with a training phase in which the video as well as the audio connection was still intact. In the beginning of the training phase, children and Es entered their respective rooms. They greeted each other through the TV and established that they could only be seen by their partner when they were inside the marked area. Next, E1 and PC "discovered" the picture board. E1 encouraged PC to ask CC if they also had a picture board in their room. When CC confirmed that they did, PC went through all pictures (including the empty one) and asked CC if had the same kind of picture on her board. This established common ground between children that they had the same pictures on their board. Es did not provide label for the pictures but let children label them. Es used whatever label children used to refer to the pictures. Next, E1 suggested that they could play a fun game in which children could win marbles. Children were told that the game involves PC communicating to CC which picture was selected on her board and CC selecting the same picture. This marked the beginning of the training phase in which the audio connection was still working. PC could therefore simply tell CC which picture was selected. The training familiarized children with the structure of the game. During training, each picture was selected twice (???). 
+
+After the last training trial, children were told that they could play the game in a different way to make it more fun. Children and Es left the room and met in the hallway. Next, one E went into each room and cut the audio connection by turning off the volume at each TV. To strengthen the impression that the other one could not longer hear what was being said as well as to prevent children from trying to communicate via shouting, low instrumental Jazz music was played in both rooms (Chet Baker - "Out of nowhere"). If children shouted nevertheless, the experimenters asked them to be quiet. When children re-entered the room, each E drew her child's attention to the music and encouraged her to ask the other child whether she also heard the music. This way children discovered that they could no longer hear each other. After stating that they could not hear anybody in the other room, children and Es left the room to meet in the hallway. There they confirmed that they could not hear each other when in the room. E1 asked the children if they wanted to play the game nevertheless and also reminded them of the game's structure. Gestures as an alternative means of communication were never mentioned. Next, children went into their respective room and the first test trial started.
+
+In each test trial, children had one minute to establish communication. If they remained passive, E1 entered the PR and prompted PC to use iconic gestures in three steps. Between prompts, she waited for 30s to see if the child would start gesturing. As first prompt, E1 said:"[CCs name] can't hear you, but she can see you, maybe you can *show* (German: zeigen) it to her". The second prompt was: "She can't hear you but she can see you, look we can wave to her, maybe you can *demonstrate* (German: vormachen) it to her". As the final prompt, she said: "Oh, I have an idea ... this way it could work" and started to perform an iconic gesture depicting the action corresponding to the selected picture. As soon as the child also used the gesture, E1 left the room and the trail continued as described above. During prompting, E2 entered CR and encouraged CC to attend to the TV.  
 
 
-
-
-# Part 1.1: Spontaneous production of gestures
+# Part 1.1.1: Spontaneous production of gestures by 4- and 6-year olds in peer context 
 
 ## Participants
 
-## Design and Procedure
+## Design and procedure
+Empty not used in training
+
+If child remained passive in the first trial, they switched rooms
+## Results and discussion
+
+
+# Part 1.1.2: Spontaneous production of gestures by 3- and 4-year-olds when communicationg with an adult.
+
+## Participants
+
+## Design and procedure
 
 ## Results and discussion
 
@@ -74,7 +87,7 @@ Ich push das alles gleich nochmal und füge auch einen Ordner in dem wir pdfs sa
 
 ## Participants
 
-## Design and Procedure
+## Design and procedure
 
 ## Results and discussion
 
