@@ -95,16 +95,18 @@ d1 %>%
   select(sum4,sum6,stat,p_value) %>%
   knitr::kable(digits = 5)
 
-# Do 4yo get better with trials
+# Do they get better with trials? Are 6yo better than 4yo?
 library(lme4)
 
 m1 <- d1 %>%
-  filter(age=="M48") %>%
+  #filter(age=="M48") %>%
   filter(blocktrial < 5) %>%
-  group_by(blocktrial,dyad_id) %>%
+  mutate(blocktrial = scale(as.numeric(blocktrial), center = TRUE, scale=TRUE))%>%
+  group_by(blocktrial,dyad_id,age) %>%
   summarise(prompts = sum(prompts))%>%
   mutate(prompts = ifelse(prompts > 0,1,0)) %>%
-  glmer(prompts ~ blocktrial + (blocktrial|dyad_id), family = binomial, data = .)
+  glmer(prompts ~ blocktrial*age + (blocktrial|dyad_id), family = binomial, data = .,
+        control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 summary(m1)
 
