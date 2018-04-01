@@ -145,11 +145,17 @@ d2 <- read.csv(file="data/pt1_trans_3_4.csv")
 # first trial corresponds to spontaneous production and is therefore removed for this analysis
 # to get equal number of trials in the two blocks, the last trial is also removed.
 m2 <- d2 %>%
-  filter(trial != 1, trial != 12) %>%
+  # filter(trial != 1, trial != 12) %>%
+  #filter(block == "Transfer") %>%
+  mutate(trial = scale(as.numeric(trial), center = FALSE, scale=TRUE))  %>%
+  glmer(prompts ~ block*age*trial + (1|id), family = binomial, data = .,
+        control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
   #glmer(prompts ~ block*age + (1|id), family = binomial, data = .) # remove interaction
   glmer(prompts ~ block+age + (1|id), family = binomial, data = .)
 
 summary(m2)
+
+drop1(m2, test = "Chi")
 
 # plot 
 d2.p <- d2 %>%
