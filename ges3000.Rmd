@@ -235,7 +235,6 @@ library(langcog)
 
 d4 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
   mutate(Age = ifelse(age == "M48","4yo","6yo")) %>%
-  filter(stimulus != "Nichts") %>%
   mutate(block = ifelse(block == "Uptake","Uptake","Spontaneous")) %>%
   na.omit(comp)
 
@@ -254,15 +253,18 @@ d4 %>%
 # plot per age group and phase
 d4.p <- d4 %>%
   group_by(Age, block, dyad_id)%>%
-  summarise(comp = mean(comp))%>%
+  summarise(comp = mean(comp))
+
+d4.p1 <- d4.p %>%
   multi_boot_standard(col = "comp")
 
-ggplot(d4.p, 
-       aes(x = Age, y = mean, col = Age)) +
-  geom_pointrange(aes(ymin = ci_lower, ymax = ci_upper), 
-                  position = position_dodge(width = .1)) + 
+ggplot() +
+  geom_jitter(data = d4.p, aes(x = block, y = comp, col = Age, alpha = .2), width = .2)+
+  geom_pointrange(data = d4.p1,aes(x = block, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
+                  position = position_dodge(width = .5)) + 
   geom_hline(yintercept = 0.25, lty=2)+
-  facet_grid(~block)+
+  guides(alpha = F)+
+  #facet_grid(~block)+
   scale_y_continuous(name = "Proportion Correct", limits = c(0,1))+
   theme_few() + 
   scale_colour_solarized()
@@ -301,7 +303,7 @@ ggplot() +
 # prompts per age group and phase
 d5 <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
   mutate(block = ifelse(block == "Uptake","Uptake","Spontaneous")) %>%
-  filter(stimulus == "Nichts") %>%
+  filter(stimulus == "Nothing") %>%
   mutate(Age = ifelse(age == "M48","4yo","6yo")) %>%
   na.omit(prompts)
 
@@ -314,9 +316,9 @@ d5.p <- d5 %>%
 
 
 ggplot(d5.p, 
-       aes(x = Age, y = prompts, col = Age)) +
-  geom_point(aes(group= Age, size = 3))+
-  facet_grid(~block)+
+       aes(x = block, y = prompts, col = Age)) +
+  geom_point(aes(group= Age, size = 3),position = position_dodge(width = .5))+
+  #facet_grid(~block)+
   scale_y_continuous(name = "Dyads with Prompts", limits = c(0,12), breaks = c(0,2,4,6,8,10,12))+
   theme_few() + 
   guides(size=FALSE)+
@@ -337,40 +339,6 @@ d5 %>%
   select(block,sum4,sum6,stat,p_value) %>%
   knitr::kable(digits = 5)
 
-
-# Comprehension
-
-# comparison against chance per age group and phase
-d5 %>%
-  group_by(Age, block, dyad_id)%>%
-  summarise(comp = mean(comp))%>%
-  summarise(comp = list(comp)) %>%
-  group_by(Age, block) %>%
-  mutate(df= t.test(unlist(comp), mu = 0.25)$parameter,
-         t_value = t.test(unlist(comp), mu = 0.25)$statistic,
-         p_value = t.test(unlist(comp), mu = 0.25)$p.value) %>%
-  select(Age, block ,df,t_value,p_value) %>%
-  knitr::kable(digits = 5)
-
-# plot per age group and phase
-d5.p <- d5 %>%
-  group_by(Age, block, dyad_id)%>%
-  summarise(comp = mean(comp))
-
-d5.p1 <- d5.p %>%
-  multi_boot_standard(col = "comp")
-
-
-ggplot() +
-  geom_jitter(data = d5.p, aes(x = Age, y = comp, col = Age, alpha = .2), width = .1)+
-  geom_pointrange(data = d5.p1,aes(x = Age, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper)) + 
-  geom_hline(yintercept = 0.25, lty=2)+
-  facet_grid(~block)+
-  guides(alpha = F)+
-  scale_y_continuous(name = "Proportion Correct", limits = c(0,1))+
-  theme_few() + 
-  scale_colour_solarized()
-
 ```
 
 
@@ -382,6 +350,63 @@ ggplot() +
 ## Design and Procedure
 
 ## Results and discussion
+```{r part 1.5}
+d6 <- read.csv(file="data/pt1_convergence.csv") %>% 
+  mutate(Age = ifelse(age == "M48","4yo","6yo"))
+
+# Do raters choose the gesture from the same dyad above chance in both age groups?
+d6 %>%
+  group_by(Age, rater)%>%
+  summarise(corr = mean(corr))%>%
+  summarise(corr = list(corr)) %>%
+  group_by(Age) %>%
+  mutate(mean = mean(unlist(corr)),
+         df= t.test(unlist(corr), mu = 0.5)$parameter,
+         t_value = t.test(unlist(corr), mu = 0.5)$statistic,
+         p_value = t.test(unlist(corr), mu = 0.5)$p.value) %>%
+  select(Age,mean,df,t_value,p_value) %>%
+  knitr::kable(digits = 3)
+
+# plot per age group
+d6.p <- d6 %>%
+  group_by(Age, rater)%>%
+  summarise(corr = mean(corr))
+
+d6.p1 <- d6.p %>%
+  multi_boot_standard(col = "corr")
+
+
+ggplot() +
+  geom_jitter(data = d6.p, aes(x = Age, y = corr, col = Age, alpha = .2), width = .1)+
+  geom_pointrange(data = d6.p1,aes(x = Age, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5)) + 
+  geom_hline(yintercept = 0.5, lty=2)+
+  #facet_grid(~block)+
+  guides(alpha = F)+
+  scale_y_continuous(name = "Proportion Gesture from Same Dyad Chosen", limits = c(0,1))+
+  theme_few() + 
+  scale_colour_solarized()+
+  theme(axis.text.x=element_blank(),axis.ticks.x=element_blank(),axis.title.x=element_blank())
+
+
+# plot per age group and stimulus
+d6.p2 <- d6 %>%
+  group_by(Age, stimulus, rater)%>%
+  summarise(corr = mean(corr))
+
+d6.p3 <- d6.p2 %>%
+  multi_boot_standard(col = "corr")
+
+
+ggplot() +
+  geom_jitter(data = d6.p2, aes(x = stimulus, y = corr, col = Age, alpha = .2), width = .1)+
+  geom_pointrange(data = d6.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5)) + 
+  geom_hline(yintercept = 0.5, lty=2)+
+  #facet_grid(~block)+
+  guides(alpha = F)+
+  scale_y_continuous(name = "Proportion Gesture from Same Dyad Chosen", limits = c(0,1))+
+  theme_few() + 
+  scale_colour_solarized()
+```
 
 
 # Part 1.6: Drift to arbitrary
