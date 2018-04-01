@@ -104,7 +104,7 @@ m1 <- d1 %>%
   group_by(blocktrial,dyad_id) %>%
   summarise(prompts = sum(prompts))%>%
   mutate(prompts = ifelse(prompts > 0,1,0)) %>%
-  glmer(prompts ~ blocktrial + (1|dyad_id), family = binomial, data = .)
+  glmer(prompts ~ blocktrial + (blocktrial|dyad_id), family = binomial, data = .)
 
 summary(m1)
 
@@ -141,21 +141,16 @@ ggplot(d1.p,
 ```{r part 1.1.2}
 d2 <- read.csv(file="data/pt1_trans_3_4.csv") 
 
-# do 3yo and 4yo need more prompts in transfer compared to imitation?
-# first trial corresponds to spontaneous production and is therefore removed for this analysis
-# to get equal number of trials in the two blocks, the last trial is also removed.
+# do 4yo transfer more rapidly compared to 3yo?
+# 3-way interaction: slope for trial is steeper in 4yo only in transfer but not in imitation
+
 m2 <- d2 %>%
-  # filter(trial != 1, trial != 12) %>%
-  #filter(block == "Transfer") %>%
-  mutate(trial = scale(as.numeric(trial), center = FALSE, scale=TRUE))  %>%
-  glmer(prompts ~ block*age*trial + (1|id), family = binomial, data = .,
+  mutate(trial = scale(as.numeric(blocktrial), center = TRUE, scale=TRUE))  %>%
+  glmer(prompts ~ block*age*blocktrial + (blocktrial + block||id), family = binomial, data = .,
         control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
-  #glmer(prompts ~ block*age + (1|id), family = binomial, data = .) # remove interaction
-  glmer(prompts ~ block+age + (1|id), family = binomial, data = .)
 
 summary(m2)
 
-drop1(m2, test = "Chi")
 
 # plot 
 d2.p <- d2 %>%
