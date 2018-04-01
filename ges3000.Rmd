@@ -270,14 +270,17 @@ ggplot(d4.p,
 # plot by item, age group and phase
 d4.p2 <- d4 %>%
   group_by(Age, stimulus, block, dyad_id)%>%
-  summarise(comp = mean(comp))%>%
+  summarise(comp = mean(comp))
+
+d4.p3 <- d4.p2 %>%
   multi_boot_standard(col = "comp")
 
-ggplot(d4.p2, 
-       aes(x = stimulus, y = mean, col = Age)) +
-  geom_pointrange(aes(ymin = ci_lower, ymax = ci_upper), 
+ggplot() +
+  geom_jitter(data = d4.p2, aes(x = stimulus, y = comp, col = Age, alpha = .2), width = .2)+
+  geom_pointrange(data = d4.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
                   position = position_dodge(width = .5)) + 
   geom_hline(yintercept = 0.25, lty=2)+
+  guides(alpha = F)+
   facet_grid(~block)+
   scale_y_continuous(name = "Proportion Correct", limits = c(0,1))+
   theme_few() + 
@@ -351,15 +354,18 @@ d5 %>%
 # plot per age group and phase
 d5.p <- d5 %>%
   group_by(Age, block, dyad_id)%>%
-  summarise(comp = mean(comp))%>%
+  summarise(comp = mean(comp))
+
+d5.p1 <- d5.p %>%
   multi_boot_standard(col = "comp")
 
-ggplot(d5.p, 
-       aes(x = Age, y = mean, col = Age)) +
-  geom_pointrange(aes(ymin = ci_lower, ymax = ci_upper), 
-                  position = position_dodge(width = .1)) + 
+
+ggplot() +
+  geom_jitter(data = d5.p, aes(x = Age, y = comp, col = Age, alpha = .2), width = .1)+
+  geom_pointrange(data = d5.p1,aes(x = Age, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper)) + 
   geom_hline(yintercept = 0.25, lty=2)+
   facet_grid(~block)+
+  guides(alpha = F)+
   scale_y_continuous(name = "Proportion Correct", limits = c(0,1))+
   theme_few() + 
   scale_colour_solarized()
