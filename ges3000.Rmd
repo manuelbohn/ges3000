@@ -399,10 +399,11 @@ ggplot() +
   geom_hline(yintercept = 0.5, lty=2)+
   #facet_grid(~block)+
   guides(alpha = F)+
-  scale_y_continuous(name = "Proportion Gesture from Same Dyad Chosen", limits = c(0,1))+
   theme_few() + 
+  scale_y_continuous(name = "Proportion Gesture from Same Dyad Chosen", limits = c(0,1))+
   scale_colour_solarized()+
   theme(axis.text.x=element_blank(),axis.ticks.x=element_blank(),axis.title.x=element_blank())
+  
 
 ```
 
@@ -435,6 +436,15 @@ d7 %>%
          p_value = t.test(unlist(corr), mu = 0.5)$p.value) %>%
   select(Age,day,mean,df,t_value,p_value) %>%
   knitr::kable(digits = 3)
+
+
+### better with more repititions? That is, 6yo better than 4yo and day 2 better than day 1 (not the best model since pictures on day 2 were different compared to day 1).
+
+m7 <- glmer(corr ~ Age+day+(Age+day|rater), family = binomial, data = d7, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+
+summary(m7)
+
+drop1(m7,test="Chi")
 
 
 # plot per age group  and day
@@ -526,16 +536,25 @@ d4.p2 <- d4 %>%
 d4.p3 <- d4.p2 %>%
   multi_boot_standard(col = "comp")
 
+
+d4.p4 <- d4 %>%
+  group_by(Age, block, dyad_id)%>%
+  summarise(comp = mean(comp)) %>%
+  multi_boot_standard(col = "comp")%>%
+  mutate(stimulus = "Overall")
+
 ggplot() +
   geom_jitter(data = d4.p2, aes(x = stimulus, y = comp, col = Age, alpha = .2), width = .1,height = .05)+
   geom_pointrange(data = d4.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
-                  position = position_dodge(width = .5), size = 1) + 
+                  position = position_dodge(width = .5), size = 1, alpha = .5) +
+  geom_pointrange(data = d4.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
+                  position = position_dodge(width = .5), size = 1) +
   geom_hline(yintercept = 0.25, lty=2)+
   guides(alpha = F)+
   facet_grid(~block)+
   scale_y_continuous(name = "Proportion Correct", limits = c(-0.05,1.05))+
   theme_few() + 
-  scale_colour_solarized()
+  scale_colour_solarized()+ coord_flip()
 ```
 
 ## Convergence
@@ -550,15 +569,24 @@ d6.p3 <- d6.p2 %>%
   multi_boot_standard(col = "corr")
 
 
+d6.p4 <- d6 %>%
+  group_by(Age,rater) %>%
+  summarise(corr = mean(corr)) %>%
+  multi_boot_standard(col = "corr") %>%
+  mutate(stimulus = "Overall")
+
+
 ggplot() +
   geom_jitter(data = d6.p2, aes(x = stimulus, y = corr, col = Age, alpha = .2), width = .1,height = .05)+
-  geom_pointrange(data = d6.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1) + 
+  geom_pointrange(data = d6.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1, alpha = .5) + 
+  geom_pointrange(data = d6.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1)+
   geom_hline(yintercept = 0.5, lty=2)+
   #facet_grid(~block)+
   guides(alpha = F)+
   scale_y_continuous(name = "Proportion Gesture from Same Dyad Chosen", limits = c(-0.05,1.05))+
   theme_few() + 
-  scale_colour_solarized()
+  scale_colour_solarized()+ coord_flip()
+
 ```
 
 ## Drift to arbitrary
@@ -571,15 +599,25 @@ d7.p2 <- d7 %>%
 d7.p3 <- d7.p2 %>%
   multi_boot_standard(col = "corr")
 
+
+d7.p4 <- d7 %>%
+  group_by(Age,day,rater) %>%
+  summarise(corr = mean(corr)) %>%
+  multi_boot_standard(col = "corr") %>%
+  mutate(stimulus = "Overall")
+
 ggplot() +
   geom_jitter(data = d7.p2, aes(x = stimulus, y = corr, col = Age, alpha = .2), width = .1,height = .05)+
-  geom_pointrange(data = d7.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1) + 
+  geom_pointrange(data = d7.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1, alpha = .5) +
+  geom_pointrange(data = d7.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1) +
   geom_hline(yintercept = 0.5, lty=2)+
-  facet_grid(~day,scales = "free_x", space = "free_x")+
+  geom_vline(xintercept = 8.5, lty=1)+
+  facet_grid(day~.,scales = "free_y", space = "free_y", drop = T)+
   guides(alpha = F)+
   scale_y_continuous(name = "Proportion Later Chosen", limits = c(-0.05,1.05))+
   theme_few() + 
-  scale_colour_solarized()
+  scale_colour_solarized()+ 
+  coord_flip()
 ```
 # Part 2.1: Size
 
