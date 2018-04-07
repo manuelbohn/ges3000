@@ -328,9 +328,9 @@ d5 %>%
 # are 6yo better than 4yo at comprehension
 
 d5.m <- d5 %>%
-  mutate(trial = scale(as.numeric(blocktrial), center = TRUE, scale=TRUE))
+  mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE))
 
-m5 <- glmer(comp ~ block*age + (1|dyad_id), family = binomial, data = d5.m,
+m5 <- glmer(comp ~ block+age + (1|dyad_id), family = binomial, data = d5.m,
         control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 summary(m5)
@@ -440,7 +440,7 @@ d7 %>%
 
 ### better with more repititions? That is, 6yo better than 4yo and day 2 better than day 1 (not the best model since pictures on day 2 were different compared to day 1).
 
-m7 <- glmer(corr ~ Age+day+(Age+day|rater), family = binomial, data = d7, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m7 <- glmer(corr ~ Age+day+(Age+day||rater)+(1|stimulus), family = binomial, data = d7, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 summary(m7)
 
@@ -479,7 +479,7 @@ d8.m <- d8  %>%
   mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE))
 
 # model 
-m8 <- glmer(corr ~ age+phase + (trial|id) + (1|stimulus), family = binomial, data = d8.m, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m8 <- glmer(corr ~ age+phase + (trial+phase|id) + (age+phase|stimulus), family = binomial, data = d8.m, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 # summary
 summary(m8)
 # p values
