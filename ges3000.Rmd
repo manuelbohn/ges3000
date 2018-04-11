@@ -83,7 +83,7 @@ The intermediate prompts were not helpful for most children and we therefore do 
 
 ## Results and discussion
 
-```{r part 1.1.1, echo=FALSE}
+```{r part 1-1-1, echo=FALSE}
 d1 <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
   filter(block == "Spontaneous") %>%
   na.omit(prompts) # remove trials without 
@@ -150,7 +150,7 @@ ggplot(d1.p,
 ## Design and procedure
 
 ## Results and discussion
-```{r part 1.1.2}
+```{r part 1-1-2}
 d2 <- read.csv(file="data/pt1_trans_3_4.csv") 
 
 # do 4yo transfer more rapidly compared to 3yo?
@@ -194,7 +194,7 @@ ggplot(d2.p,
 ## Design and procedure
 
 ## Results and discussion
-```{r part 1.2}
+```{r part 1-2}
 # prompts needed during uptake phase
 d3 <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
   filter(block == "Uptake") %>%
@@ -245,7 +245,7 @@ ggplot(d3.p,
 ## Design and Procedure
 
 ## Results and discussion
-```{r pt 1.3}
+```{r pt 1-3}
 # comprehension by phase excluding empty picture
 
 d4 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
@@ -306,7 +306,7 @@ ggplot() +
 ## Design and Procedure
 
 ## Results and discussion
-```{r part 1.4}
+```{r part 1-4}
 #### Production
 # prompts per age group and phase
 d5 <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
@@ -387,7 +387,7 @@ ggplot() +
 ## Design and Procedure
 
 ## Results and discussion
-```{r part 1.5}
+```{r part 1-5}
 d6 <- read.csv(file="data/pt1_convergence.csv") %>% 
   mutate(Age = ifelse(age == "M48","4yo","6yo"))
 
@@ -436,7 +436,7 @@ ggplot() +
 ### Design and Procedure
 
 ### Results and discussion
-```{r part 1.6 production}
+```{r part 1-6 production}
 d7 <- read.csv(file="data/pt1_drift_production.csv") %>% 
   mutate(Age = ifelse(age == "M48","4yo","6yo"))%>%
   filter(phase != "Uptake")  #filtering out uptake because 4yo only got 1 trial per stimulus in uptake
@@ -488,7 +488,7 @@ ggplot() +
 
 
 ## Comprehension
-```{r part 1.6 comprehension}
+```{r part 1-6 comprehension}
 d8 <- read.csv(file="data/pt1_drift_comprehension.csv") %>% 
   mutate(Age = ifelse(age == "M48","4yo","6yo"))
 

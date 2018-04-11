@@ -2,7 +2,7 @@
 \ifnextchar[{\eatarg}{}
 [htbp]
 \centering
-\includegraphics{ges3000_files/figure-latex/part 1.1.1-1.pdf}
+\includegraphics{ges3000_files/figure-latex/part 1-1-1-1.pdf}
 \caption{}
 \end{figure*}
 \efloatseparator
@@ -11,7 +11,7 @@
 \ifnextchar[{\eatarg}{}
 [htbp]
 \centering
-\includegraphics{ges3000_files/figure-latex/part 1.1.2-1.pdf}
+\includegraphics{ges3000_files/figure-latex/part 1-1-2-1.pdf}
 \caption{}
 \end{figure*}
 \efloatseparator
@@ -20,7 +20,7 @@
 \ifnextchar[{\eatarg}{}
 [htbp]
 \centering
-\includegraphics{ges3000_files/figure-latex/part 1.2-1.pdf}
+\includegraphics{ges3000_files/figure-latex/part 1-2-1.pdf}
 \caption{}
 \end{figure*}
 \efloatseparator
@@ -29,7 +29,7 @@
 \ifnextchar[{\eatarg}{}
 [htbp]
 \centering
-\includegraphics{ges3000_files/figure-latex/pt 1.3-1.pdf}
+\includegraphics{ges3000_files/figure-latex/pt 1-3-1.pdf}
 \caption{}
 \end{figure*}
 \efloatseparator
@@ -38,7 +38,7 @@
 \ifnextchar[{\eatarg}{}
 [htbp]
 \centering
-\includegraphics{ges3000_files/figure-latex/part 1.4-1.pdf}
+\includegraphics{ges3000_files/figure-latex/part 1-4-1.pdf}
 \caption{}
 \end{figure*}
 \efloatseparator
@@ -47,7 +47,7 @@
 \ifnextchar[{\eatarg}{}
 [htbp]
 \centering
-\includegraphics{ges3000_files/figure-latex/part 1.5-1.pdf}
+\includegraphics{ges3000_files/figure-latex/part 1-5-1.pdf}
 \caption{}
 \end{figure*}
 \efloatseparator
@@ -56,7 +56,25 @@
 \ifnextchar[{\eatarg}{}
 [htbp]
 \centering
-\includegraphics{ges3000_files/figure-latex/part 1.6 production-1.pdf}
+\includegraphics{ges3000_files/figure-latex/part 1-6 production-1.pdf}
+\caption{}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[htbp]
+\centering
+\includegraphics{ges3000_files/figure-latex/plots by stimulus: comprehension-1.pdf}
+\caption{}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[htbp]
+\centering
+\includegraphics{ges3000_files/figure-latex/plots by stimulus: convergence-1.pdf}
 \caption{}
 \end{figure*}
 \efloatseparator
