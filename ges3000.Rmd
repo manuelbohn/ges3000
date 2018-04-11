@@ -59,38 +59,42 @@ All studies used the same general setup and procedure. We established an audio-v
 
 The two rooms were located on the same hallway. When stepping outside, the experimenters (E1 and E2) could easily talk to one another and coordinate their actions. In each room, we installed a picture board. Importantly, the picture boards were never visible on the TV in the other room. In part 1, the picture board was a wooden, turn-able wheel with five triangular pictures, showing 1) a hammering hand, 2) a female person combing her hair, 3) a boy on a bicycle, 4) a woman eating with a fork and 5) nothing (a white piece of paper, see Figure X). On top of the wheel was a little red arrow that was used to indicate which picture children had to communicate to their partner. A picture was selected by turning the wheel until the picture was on top underneath the arrow. In part 2, the board was a larger, rectangular board. The pictures differed from experiment to experiment and are therefore described later in more detail. In part 2, a sticky red paper arrow was used to indicate a picture.
 
-In the beginning of each trial, E1 was with the child in PR (Production Child - PC) and E2 with the child in CR (Comprehension Child - CC). The general trial structure in all experiments went as follows: Children were first asked to take their starting position (facing away from the board towards the wall). Next, E1 selected a picture in PR. On a visual signal from E1, both Es said "ready, set, go" and left the room. Children were now allowed to turn around. The task of the child in PR was to communicate the content of the selected picture to the child in CR. The child in CR made a choice by selecting a picture on her board and knocking on the door. Thereupon, Es opened the doors, E2 told E1 across the hallway which picture had been selected in the PR and E1 checked if this was the picture she had selected in the PR. If the pictures were the same, children received a marble, which they collected in a tube. At the end of the study, children exchanged the marbles for stickers. If the pictures were different, children were told that it didn't work out his time but that they could try again in the next trial.
+In the beginning of each trial, E1 was with the child in PR (Production Child - PC) and E2 with the child in CR (Comprehension Child - CC). The general trial structure in all experiments went as follows: Children were first asked to take their starting position (facing away from the board towards the wall). Next, E1 selected a picture in PR. On a visual signal from E1, both Es said "ready, set, go" and left the room. Children were now allowed to turn around. The task of the child in PR was to communicate the content of the selected picture to the child in CR. The child in CR made a choice by selecting a picture on her board and knocking on the door. Thereupon, Es opened the doors, E2 told E1 across the hallway which picture had been selected in the CR and E1 checked if this was the same picture as in the PR. If the pictures were different, children were told that it didn't work out this time but that they could try again in the next trial. If the pictures were the same, children received a marble, which they collected in a tube. At the end of the study, children exchanged the marbles for stickers. 
 
-All children started with a training phase in which the video as well as the audio connection was still intact. In the beginning of the training phase, children and Es entered their respective rooms. They greeted each other through the TV and established that they could only be seen by their partner when they were inside the marked area. Next, E1 and PC "discovered" the picture board. E1 encouraged PC to ask CC if they also had a picture board in their room. When CC confirmed that they did, PC went through all pictures (including the empty one) and asked CC if had the same kind of picture on her board. This established common ground between children that they had the same pictures on their board. Es did not provide label for the pictures but let children label them. Es used whatever label children used to refer to the pictures. Next, E1 suggested that they could play a fun game in which children could win marbles. Children were told that the game involves PC communicating to CC which picture was selected on her board and CC selecting the same picture. This marked the beginning of the training phase in which the audio connection was still working. PC could therefore simply tell CC which picture was selected. The training familiarized children with the structure of the game. During training, each picture was selected twice (???). 
+All children started with a training phase in which the video as well as the audio connection was still intact. In the beginning of the training phase, children and Es entered their respective rooms. They greeted each other through the TV and established that they could only be seen by their partner when they were inside the marked area. Next, E1 and PC "discovered" the picture board. E1 encouraged PC to ask CC if they also had a picture board in their room. When CC confirmed that they did, PC went through all pictures (including the empty one) and asked CC if had the same kind of picture on her board. This established common ground between children that they had the same pictures on their board. Es did not provide label for the pictures but let children label them. Es used whatever label children used to refer to the pictures. Next, E1 suggested that they could play a fun game in which children could win marbles. Children were told that the game involves PC communicating to CC which picture was selected on her board and CC selecting the same picture. This marked the beginning of the training phase in which the audio connection was still working. PC could therefore simply tell CC which picture was selected. The training familiarized children with the structure of the game. During training, each picture was selected once. 
 
-After the last training trial, children were told that they could play the game in a different way to make it more fun. Children and Es left the room and met in the hallway. Next, one E went into each room and cut the audio connection by turning off the volume at each TV. To strengthen the impression that the other one could not longer hear what was being said as well as to prevent children from trying to communicate via shouting, low instrumental Jazz music was played in both rooms (Chet Baker - "Out of nowhere"). If children shouted nevertheless, the experimenters asked them to be quiet. When children re-entered the room, each E drew her child's attention to the music and encouraged her to ask the other child whether she also heard the music. This way children discovered that they could no longer hear each other. After stating that they could not hear anybody in the other room, children and Es left the room to meet in the hallway. There they confirmed that they could not hear each other when in the room. E1 asked the children if they wanted to play the game nevertheless and also reminded them of the game's structure. Gestures as an alternative means of communication were never mentioned. Next, children went into their respective room and the first test trial started.
+After the last training trial, children were told that they could play the game in a different way to make it more fun. Children and Es left the room and met in the hallway. Next, one E went into each room and cut the audio connection by turning off the volume at each TV. To strengthen the impression that the other one could not longer hear what was being said as well as to prevent children from trying to communicate via shouting, low instrumental Jazz music was played in both rooms (Chet Baker - "Out of nowhere"). If children shouted nevertheless, the experimenters asked them to lower their voice. When children re-entered the room, each E drew her child's attention to the music and encouraged her to ask the other child whether she also heard the music. This way children discovered that they could no longer hear each other. After stating that they could not hear anybody from the other room, children and Es left the room to meet in the hallway. There they confirmed that they could not hear each other when in the room. E1 asked the children if they wanted to play the game nevertheless and also reminded them of the game's structure. Gestures as an alternative means of communication was never mentioned. Next, children went into their respective room and the first test trial started.
 
-In each test trial, children had one minute to establish communication. If they remained passive, E1 entered the PR and prompted PC to use iconic gestures in three steps. Between prompts, she waited for 30s to see if the child would start gesturing. As first prompt, E1 said:"[CCs name] can't hear you, but she can see you, maybe you can *show* (German: zeigen) it to her". The second prompt was: "She can't hear you but she can see you, look we can wave to her, maybe you can *demonstrate* (German: vormachen) it to her". As the final prompt, she said: "Oh, I have an idea ... this way it could work" and started to perform an iconic gesture depicting the action corresponding to the selected picture. As soon as the child also used the gesture, E1 left the room and the trail continued as described above. During prompting, E2 entered CR and encouraged CC to attend to the TV.  
+In each test trial, children had one minute to establish communication. If they remained passive, E1 entered the PR and prompted PC to use iconic gestures in three steps. Between prompts, she waited for 30s to see if the child would start gesturing. As first prompt, E1 said:"[CCs name] can't hear you, but she can see you, maybe you can *show* (German: zeigen) it to her". The second prompt was: "She can't hear you but she can see you, look we can wave to her, maybe you can *demonstrate* (German: vormachen) it to her". As the final prompt, she said: "Oh, I have an idea ... this way it could work" and started to perform an iconic gesture depicting the action corresponding to the selected picture. As soon as the child also used the gesture, E1 left the room and the trial continued as described above. During prompting, E2 entered CR and encouraged CC to attend to the TV.
 
+In the following, we describe the methodological details and deviations from the general protocoll for each study.
 
 # Part 1.1.1: Spontaneous production of gestures by 4- and 6-year olds in peer context 
 
 ## Participants
+We tested 24 same sex, same age dyads of four- and six-year-olds (12 dyads per age group, six male and six female). Children came from an ethnically homogeneous, mid-sized German city (approx. 550.000 inhabitants, median income €1254 per month as of 2015), were mostly mono-lingual and had mixed socio-economic background. They were recruited from a database of children whose parents volunteered to take part in studies on child development. Data collection took place between April and September 2016. XX additional dyads were excluded because ...
 
 ## Design and procedure
-Empty not used in training
+The test phase following the training was divided in two parts, "spontaneous" and "uptake". Children were first tested with all pictures except the empty picture. We reasoned that including the empty picture from the beginning might discourage children from establishing communiation through gestures. The empty picture was introduced after each other picture had been selected at least once. The first trial of spontaneous assessed whether children would discover the idea to use gestures to communicate independently. If the PR remained passive for one minute in the first test trial, instead of receiving prompts, children switched rooms and the former CR got a chance to spontaneously start gesturing. If the new PR remained passive for another minute, E1 started prompting. The three trials follwoing the first trial, each with a new picture, assessed whether children would transfer the idea of using gestures. For the second part, uptake, children switched rooms and roles. In this part, all pictures were used from the beginning.
 
-If child remained passive in the first trial, they switched rooms
+Six-year-olds received a total of 30 test trials, 20 in spontaneous and 10 in uptake. Pilot testing suggested that this was too much for the younger age group and so four-year-olds received a total of 19 test trials, 14 in spontaneous and 5 in uptake. The order in which pictures were selected was randomized with the constraint that each picture was selected once before another picture could be selected again. 
 
-6yo more trials than 4yo
+The intermediate prompts were not helpful for most children and we therefore do not differentiate between them in the analysis. We only analyse whether a dyad received a prompt or not.
+
 ## Results and discussion
-```{r part 1.1.1}
+
+```{r part 1.1.1, echo=FALSE}
 d1 <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
   filter(block == "Spontaneous") %>%
   na.omit(prompts) # remove trials without 
 
 
 # Do 4yo need more prompts in trial 1 than 6yo?
-d1 %>%  
+d1.t <- d1 %>%  
   filter(blocktrial == 1) %>%
   group_by(age, dyad_id) %>%
   summarise(prompts = sum(prompts)) %>%
-  mutate(prompts = ifelse(prompts > 0,1,0)) %>%
+  #mutate(prompts = ifelse(prompts > 0,1,0)) %>%
   summarize(prompts = list(prompts)) %>%
   spread(age,prompts) %>%
   mutate(sum4 = sum(unlist(M48)),
@@ -115,13 +119,14 @@ m1 <- glmer(prompts ~ blocktrial+age + (blocktrial|dyad_id), family = binomial, 
 summary(m1)
 drop1(m1 ,test="Chi")
 
-# plot
+# plot for dyads producing gestures (instead of for dyads needing prompts)
 d1.p <- d1 %>%  
   mutate(prompts = ifelse(prompts > 0,1,0)) %>%
   mutate(Age = ifelse(age == "M48","4yo","6yo")) %>%
   filter(blocktrial<5) %>%
   group_by(Age, blocktrial) %>%
-  summarise(prompts = sum(prompts))
+  summarise(prompts = sum(prompts)) %>%
+  mutate(prompts = 12 - prompts)
 
 
 ggplot(d1.p, 
@@ -129,7 +134,7 @@ ggplot(d1.p,
   geom_line(aes(group= Age))+
   geom_point(aes(group= Age))+
   theme_few() + 
-  scale_y_continuous(name = "Dyads with Prompts", limits = c(0,12), breaks = c(0,2,4,6,8,10,12))+
+  scale_y_continuous(name = "Dyads Spontaneously Producing Gestures", limits = c(0,12), breaks = c(0,2,4,6,8,10,12))+
   scale_x_continuous(name = "Trial", breaks = c(1:4))+
   scale_colour_solarized()
 
@@ -166,7 +171,8 @@ d2.p <- d2 %>%
   mutate(Age = ifelse(age == "m36","3yo","4yo")) %>%
   mutate(block = relevel(block, ref = "Transfer")) %>%
   group_by(Age,trial, blocktrial,block) %>%
-  summarise(prompts = sum(prompts))
+  summarise(prompts = sum(prompts))%>%
+  mutate(prompts = 12 - prompts)
 
 ggplot(d2.p, 
        aes(x = blocktrial, y = prompts, col = Age)) +
@@ -174,7 +180,7 @@ ggplot(d2.p,
   geom_point(aes(group= Age))+
   facet_grid(~block)+
   theme_few() + 
-  scale_y_continuous(name = "Dyads with Prompts", limits = c(0,12), breaks = c(0,2,4,6,8,10,12))+
+  scale_y_continuous(name = "Dyads Spontaneously Producing Gestures", limits = c(0,12), breaks = c(0,2,4,6,8,10,12))+
   scale_x_continuous(name = "Trial", breaks = c(1:6))+
   scale_colour_solarized()
 
@@ -195,7 +201,7 @@ d3 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
   na.omit(prompts)
 
 d3 %>%  
-  filter(trial == 1) %>%
+  filter(blocktrial == 1) %>%
   group_by(age, dyad_id) %>%
   summarise(prompts = sum(prompts)) %>%
   mutate(prompts = ifelse(prompts > 0,1,0)) %>%
@@ -215,7 +221,8 @@ d3.p <- d3 %>%
   mutate(Age = ifelse(age == "M48","4yo","6yo")) %>%
   filter(trial<5) %>%
   group_by(Age, trial) %>%
-  summarise(prompts = sum(prompts))
+  summarise(prompts = sum(prompts))%>%
+  mutate(prompts = 12 - prompts)
 
 # plot
 ggplot(d3.p, 
@@ -223,7 +230,7 @@ ggplot(d3.p,
   geom_line(aes(group= Age))+
   geom_point(aes(group= Age))+
   theme_few() + 
-  scale_y_continuous(name = "Dyads with Prompts", limits = c(0,12), breaks = c(0,2,4,6,8,10,12))+
+  scale_y_continuous(name = "Dyads Spontaneously Producing Gestures", limits = c(0,12), breaks = c(0,2,4,6,8,10,12))+
   scale_x_continuous(name = "Trial", breaks = c(1:4))+
   scale_colour_solarized()
 
@@ -239,11 +246,10 @@ ggplot(d3.p,
 
 ## Results and discussion
 ```{r pt 1.3}
-# comprehension by phase excluding emppty picture
+# comprehension by phase excluding empty picture
 
 d4 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
   mutate(Age = ifelse(age == "M48","4yo","6yo")) %>%
-  mutate(block = ifelse(block == "Uptake","Uptake","Spontaneous")) %>%
   na.omit(comp)
 
 # Comparing comprehension against chance (25% correct)
@@ -257,6 +263,20 @@ d4 %>%
          p_value = t.test(unlist(comp), mu = 0.25)$p.value) %>%
   select(Age, block ,df,t_value,p_value) %>%
   knitr::kable(digits = 5)
+
+
+# are 6yo better than 4yo at comprehension
+
+d4.m <- d4 %>%
+  mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE))
+
+m4 <- glmer(comp ~ block+age + (block|dyad_id), family = binomial, data = d4.m,
+        control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+
+summary(m4)
+
+drop1(m4,test="Chi")
+
 
 # plot per age group and phase
 d4.p <- d4 %>%
@@ -290,7 +310,6 @@ ggplot() +
 #### Production
 # prompts per age group and phase
 d5 <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
-  mutate(block = ifelse(block == "Uptake","Uptake","Spontaneous")) %>%
   filter(stimulus == "Nothing") %>%
   mutate(Age = ifelse(age == "M48","4yo","6yo")) %>%
   na.omit(prompts)
@@ -546,7 +565,7 @@ d4.p4 <- d4 %>%
 ggplot() +
   geom_jitter(data = d4.p2, aes(x = stimulus, y = comp, col = Age, alpha = .2), width = .1,height = .05)+
   geom_pointrange(data = d4.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
-                  position = position_dodge(width = .5), size = 1, alpha = .5) +
+                  position = position_dodge(width = .5), size = 0.5, alpha = .5) +
   geom_pointrange(data = d4.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
                   position = position_dodge(width = .5), size = 1) +
   geom_hline(yintercept = 0.25, lty=2)+
