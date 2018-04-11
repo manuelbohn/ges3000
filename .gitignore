@@ -1,7 +1,9 @@
 # files not to be uploaded to git
 
+.Rhistory
 ges3000.pdf
 *.Rapp.history
 *.tex
+*.fff
 
 
