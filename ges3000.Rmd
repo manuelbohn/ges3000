@@ -30,7 +30,7 @@ wordcount         : "X"
 
 bibliography      : ["library.bib"]
 
-figsintext        : no
+figsintext        : yes
 figurelist        : no
 tablelist         : no
 footnotelist      : no
@@ -41,7 +41,7 @@ class             : "man"
 output            : papaja::apa6_pdf
 ---
 
-```{r load_packages, include = FALSE}
+```{r load_packages, echo = FALSE}
 library(papaja)
 library(tidyverse)
 library(ggthemes)
@@ -67,46 +67,46 @@ After the last training trial, children were told that they could play the game 
 
 In each test trial, children had one minute to establish communication. If they remained passive, E1 entered the PR and prompted PC to use iconic gestures in three steps. Between prompts, she waited for 30s to see if the child would start gesturing. As first prompt, E1 said:"[CCs name] can't hear you, but she can see you, maybe you can *show* (German: zeigen) it to her". The second prompt was: "She can't hear you but she can see you, look we can wave to her, maybe you can *demonstrate* (German: vormachen) it to her". As the final prompt, she said: "Oh, I have an idea ... this way it could work" and started to perform an iconic gesture depicting the action corresponding to the selected picture. As soon as the child also used the gesture, E1 left the room and the trial continued as described above. During prompting, E2 entered CR and encouraged CC to attend to the TV.
 
-In the following, we describe the methodological details and deviations from the general protocoll for each study.
+In the following, we describe the methodological details and deviations from the general protocol for each study.
 
-# Part 1.1.1: Spontaneous production of gestures by 4- and 6-year olds in peer context 
+# Part 1.1.1: Spontaneous production of gestures by 4- and 6-year-old children in a peer context 
 
 ## Participants
-We tested 24 same sex, same age dyads of four- and six-year-olds (12 dyads per age group, six male and six female). Children came from an ethnically homogeneous, mid-sized German city (approx. 550.000 inhabitants, median income €1254 per month as of 2015), were mostly mono-lingual and had mixed socio-economic background. They were recruited from a database of children whose parents volunteered to take part in studies on child development. Data collection took place between April and September 2016. XX additional dyads were excluded because ...
-
-## Design and procedure
-The test phase following the training was divided in two parts, "spontaneous" and "uptake". Children were first tested with all pictures except the empty picture. We reasoned that including the empty picture from the beginning might discourage children from establishing communiation through gestures. The empty picture was introduced after each other picture had been selected at least once. The first trial of spontaneous assessed whether children would discover the idea to use gestures to communicate independently. If the PR remained passive for one minute in the first test trial, instead of receiving prompts, children switched rooms and the former CR got a chance to spontaneously start gesturing. If the new PR remained passive for another minute, E1 started prompting. The three trials follwoing the first trial, each with a new picture, assessed whether children would transfer the idea of using gestures. For the second part, uptake, children switched rooms and roles. In this part, all pictures were used from the beginning.
-
-Six-year-olds received a total of 30 test trials, 20 in spontaneous and 10 in uptake. Pilot testing suggested that this was too much for the younger age group and so four-year-olds received a total of 19 test trials, 14 in spontaneous and 5 in uptake. The order in which pictures were selected was randomized with the constraint that each picture was selected once before another picture could be selected again. 
-
-The intermediate prompts were not helpful for most children and we therefore do not differentiate between them in the analysis. We only analyse whether a dyad received a prompt or not.
-
-## Results and discussion
-
-```{r part 1-1-1, echo=FALSE}
+```{r part 1-1-1 data, include = FALSE}
 d1 <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
   filter(block == "Spontaneous") %>%
   na.omit(prompts) # remove trials without 
+```
 
+We tested 24 same sex, same age dyads of four (mean age within dyad = `r round(mean(d1$mage[d1$age=="M48"]),2)`, range = `r round(range(d1$mage[d1$age=="M48"])[1],2)` to `r round(range(d1$mage[d1$age=="M48"])[2],2)`) and six year-old children (mean age within dyad = `r round(mean(d1$mage[d1$age=="M72"]),2)`, range = `r round(range(d1$mage[d1$age=="M72"])[1],2)` to `r round(range(d1$mage[d1$age=="M72"])[2],2)`), with 12 dyads per age group, six male and six female. Children came from an ethnically homogeneous, mid-sized German city (approx. 550.000 inhabitants, median income €1254 per month as of 2015), were mostly mono-lingual and had mixed socio-economic background. They were recruited from a database of children whose parents volunteered to take part in studies on child development. Data collection took place between April and September 2016. XX additional dyads were excluded because ...
 
+## Design and procedure
+The test phase following the training was divided into two parts, "spontaneous" and "uptake". Children were first tested with all pictures except the empty picture. We reasoned that including the empty picture from the beginning might discourage children from establishing communiation through gestures. The empty picture was introduced after each other picture had been selected at least once (twice for six-year-olds). The first trial of the spontaneous phase assessed whether children would discover the idea to use gestures to communicate independently. If the PR remained passive for one minute in the first test trial, instead of receiving prompts, children switched rooms and the former CR got a chance to spontaneously start gesturing. If the new PR remained passive for another minute, E1 started prompting. The three trials follwoing the first trial, each with a new picture, assessed whether children would transfer the idea of using gestures. For the second part, uptake, children switched rooms and roles. In this part, all pictures were used right away.
+
+Six-year-olds received a total of 30 test trials, 20 in spontaneous and 10 in uptake. Pilot testing suggested that this was too long for the younger age group and so four-year-olds received a total of 19 test trials, 14 in spontaneous and 5 in uptake. The order in which pictures were selected was randomized with the constraint that each picture was selected once before another picture could be selected again. 
+
+For most children, the intermediate prompts were not helpful and we therefore do not differentiate between them in the analysis. We only analyse whether a dyad received a prompt or not.
+
+## Results and discussion
+
+```{r part 1-1-1, include = FALSE}
 # Do 4yo need more prompts in trial 1 than 6yo?
 d1.t <- d1 %>%  
   filter(blocktrial == 1) %>%
   group_by(age, dyad_id) %>%
   summarise(prompts = sum(prompts)) %>%
-  #mutate(prompts = ifelse(prompts > 0,1,0)) %>%
+  mutate(prompts = ifelse(prompts > 0,1,0)) %>%
   summarize(prompts = list(prompts)) %>%
   spread(age,prompts) %>%
   mutate(sum4 = sum(unlist(M48)),
          sum6 = sum(unlist(M72)),
          stat = wilcox.exact(unlist(M48),unlist(M72))$statistic,
          p_value = wilcox.exact(unlist(M48),unlist(M72))$p.value)%>%
-  select(sum4,sum6,stat,p_value) %>%
-  knitr::kable(digits = 5)
+  select(sum4,sum6,stat,p_value)
 
-# Do they get better with trials? Are 6yo better than 4yo?
+# Do 4yo get better with trials? 
 d1.m <- d1 %>%
-  #filter(age=="M48") %>%
+  filter(age=="M48") %>%
   filter(blocktrial < 5) %>%
   mutate(blocktrial = scale(as.numeric(blocktrial), center = TRUE, scale=TRUE))%>%
   group_by(blocktrial,dyad_id,age) %>%
@@ -114,11 +114,14 @@ d1.m <- d1 %>%
   mutate(prompts = ifelse(prompts > 0,1,0))
   
   
-m1 <- glmer(prompts ~ blocktrial+age + (blocktrial|dyad_id), family = binomial, data = d1.m, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m1 <- glmer(prompts ~ blocktrial + (blocktrial|dyad_id), family = binomial, data = d1.m, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 summary(m1)
-drop1(m1 ,test="Chi")
 
+```
+
+
+```{r plot1,echo = FALSE, fig.cap="\\label{fig:figs}Spontaneous gesture production without prompts in the first trials of the test phase. Each of the first four trials involved a different picture."}
 # plot for dyads producing gestures (instead of for dyads needing prompts)
 d1.p <- d1 %>%  
   mutate(prompts = ifelse(prompts > 0,1,0)) %>%
@@ -137,22 +140,27 @@ ggplot(d1.p,
   scale_y_continuous(name = "Dyads Spontaneously Producing Gestures", limits = c(0,12), breaks = c(0,2,4,6,8,10,12))+
   scale_x_continuous(name = "Trial", breaks = c(1:4))+
   scale_colour_solarized()
-
-
-
 ```
 
+First we looked at the production of iconic gestures in the beginning of the test phase. Figure \ref{fig:plot1} shows that the majority of six-year-olds spontaneously produced gestures already in trial 1, more so compared to four-year-olds (*p* = `r sub('^(-)?0[.]', '\\1.', round(d1.t$p_value, 3))`, Wilcoxon test). Even though four-year-olds initially only produced gestures after receiving prompts, they needed fewer prompts in later trials, showing that they transferred the idea of iconically depicting an referent to new pictures (effect of trial: $\beta$ = `r round(summary(m1)$coefficients[2,1], 2)`, *p* = `r sub('^(-)?0[.]', '\\1.', round(summary(m1)$coefficients[2,4], 3))`; model: `` prompts ~ trial + (trial|dyad_id)``). Thus, while both age groups successfully adopted a novel means of communication (iconic gestures) to coordinate, siy-year-olds did so spontaneously while four-year-olds needed an initial hint.  
 
 # Part 1.1.2: Spontaneous production of gestures by 3- and 4-year-olds when communicationg with an adult.
 
+Part 1.1.2 follows up on 1.1.1 developmentally. We repeated the initial phase ofthe first study with three- and four-year-olds to investigate if and how younger children would be able to substitute speech for iconic gestures. The main focus of the study was on gesture production and so we tested children with an adult partner to streamline the procedure. We also added more pictures to prolong the phase in which children could transfer the idea of using iconic gestrures to new pictures. 
+
 ## Participants
+```{r part 1-1-2 data, include = FALSE}
+d2 <- read.csv(file="data/pt1_trans_3_4.csv") 
+```
+
+Twelve three-year-olds (mean = `r round(mean(d2$mage[d2$age=="m36"]),2)`, range = `r round(range(d2$mage[d2$age=="m36"])[1],2)` to `r round(range(d2$mage[d2$age=="m36"])[2],2)`) and 12 four-year-olds (mean = `r round(mean(d2$mage[d2$age=="m48"]),2)`, range = `r round(range(d2$mage[d2$age=="m48"])[1],2)` to `r round(range(d2$mage[d2$age=="m48"])[1],2)`) participated in the study. Recruitment was the same as in 1.1.1. Xx additional children were excluded because ... . Data was collected between January and March 2017.
 
 ## Design and procedure
 
-## Results and discussion
-```{r part 1-1-2}
-d2 <- read.csv(file="data/pt1_trans_3_4.csv") 
+The procedure was the same as for part 1.1.1 with the following changes: Instead of testing peer dyads, children were tested with E2 as the CC. We removed the empty picture and used two different ones instead, one depicting a duck and the second one depicting a deer (see Fig. X). All children received 12 trials, two trials with each picture. In the first phase (transfer), children started with the four pictures from part 1.1.1 in a randomized order followed by the two new pictures, also in a randomized order. In the second phase (imitation), pictures were repeated in the same way. Since there was no CC, thrre was no uptake phase. Pilot testing showed that three-year-olds felt uncomfortable alone in the room. Therefore E1 remained in the room throughout a trial but pretended to be working on something else while the child was communicating with E2. We dropped the intermediate prompts and E1 directly presented an iconic gesture as the solution if the child remained passvive for more than 1 minute.
 
+## Results and discussion
+```{r part 1-1-2, include = FALSE}
 # do 4yo transfer more rapidly compared to 3yo?
 # 3-way interaction: slope for trial is steeper in 4yo only in transfer but not in imitation
 
@@ -165,7 +173,9 @@ m2 <- glmer(prompts ~ block*age*blocktrial + (blocktrial + block||id) + (1|stimu
 summary(m2)
 
 drop1(m2,test="Chi")
+```
 
+```{r plot2,echo = FALSE, fig.cap="\\label{fig:figs}Spontaneous gesture production without prompts in the first trials of the transfer phase. Each of the first six trials involved a different picture and pictures were repeated in the imitation phase.}
 # plot 
 d2.p <- d2 %>%
   mutate(Age = ifelse(age == "m36","3yo","4yo")) %>%
@@ -185,6 +195,7 @@ ggplot(d2.p,
   scale_colour_solarized()
 
 ```
+
 
 
 # Part 1.2: Uptake

@@ -51,5 +51,7 @@ git diff
 # Shows file differences between staging and the last file version
  
 
+
+https://stackoverflow.com/questions/14046122/github-locks-up-mac-terminal-when-using-pull-command
  
  
