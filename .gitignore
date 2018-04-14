@@ -5,5 +5,4 @@ ges3000.pdf
 *.Rapp.history
 *.tex
 *.fff
-
-
+/ges3000_files/*
