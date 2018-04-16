@@ -1,6 +1,6 @@
 ---
 title             : "Children spontaneously re-create core properties of language in a new modality"
-shorttitle        : "language in a new modality"
+shorttitle        : "Language in a new modality"
 
 author: 
   - name          : "First Author"
@@ -67,7 +67,7 @@ In each test trial, children had one minute to establish communication. If they 
 
 ## General note on analysis
 
-Data and analysis scripts can be found online at ``htps://github.com/manuelbohn/ges3000``. To improve readability, we only report a small set statistics in the text itself (estimates and p-values for model parameters and p-values for non-parametric tests). For additional information as well as further analysis, we ask the reader to directly consult the analysis scripts online. All tests were run in R [@R-base] and for models we used the function glmer of the lme4 package [@R-lme4]. Random effect structures were maximal whenever possible. Model p-values were based on likelihood ratio tests [@dobson2008introduction] and were computed via the function ``drop1``. We removed non-significant interaction terms from models unless they were the target of the inference.
+Data and analysis scripts can be found online at ``htps://github.com/manuelbohn/ges3000``. To improve readability, we only report a small set of statistics in the text itself (estimates, standard errors and p-values for models and p-values for non-parametric tests). For additional information we ask the reader to directly run the code and look at the model outputs. For all analysis, we used R [@R-base] and for models we used the function glmer of the lme4 package [@R-lme4]. Random effect structures were maximal whenever possible. Model p-values were based on likelihood ratio tests [@dobson2008introduction] and were computed via the function ``drop1``. We removed non-significant interaction terms from models unless they were the target of the inference.
 
 # Part 1.1.1: Spontaneous production of gestures by 4- and 6-year-old children in a peer context 
 
@@ -141,9 +141,9 @@ ggplot(d1.p,
   scale_colour_solarized()
 ```
 
-First we looked at the production of iconic gestures in the beginning of the test phase. Figure \ref{fig:plot1} shows that the majority of six-year-olds spontaneously produced gestures already in trial 1, more so compared to four-year-olds (trial 1: *p* = `r sub('^(-)?0[.]', '\\1.', round(d1.t$p_value, 3))`, Wilcoxon test; trial 1-4: $\beta$ = `r round(summary(m1)$coefficients[3,1], 2)`, *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m1,test="Chi")[3,4], 3))`, model: `` prompts ~ age + trial + (trial|dyad_id)``). Even though four-year-olds initially only produced gestures after receiving prompts, they needed fewer prompts in later trials, showing that they transferred the idea of iconically depicting an referent to new pictures (main effect of trial: $\beta$ = `r round(summary(m1)$coefficients[2,1], 2)`, *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m1,test="Chi")[2,4], 3))`). Thus, while both age groups successfully adopted a novel means of communication (iconic gestures) to coordinate, siy-year-olds did so spontaneously while four-year-olds needed an initial hint.  
+First we looked at the production of iconic gestures in the beginning of the test phase. Figure \ref{fig:plot1} shows that the majority of six-year-olds spontaneously produced gestures already in trial 1, more so compared to four-year-olds (trial 1: *p* = `r sub('^(-)?0[.]', '\\1.', round(d1.t$p_value, 3))`, Wilcoxon test; trial 1-4: $\beta$ = `r round(summary(m1)$coefficients[3,1], 2)`, se = `r round(summary(m1)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m1,test="Chi")[3,4], 3))`, model: `` prompts ~ age + trial + (trial|dyad_id)``). Even though four-year-olds initially only produced gestures after receiving prompts, they needed fewer prompts in later trials, showing that they transferred the idea of iconically depicting an referent to new pictures (main effect of trial: $\beta$ = `r round(summary(m1)$coefficients[2,1], 2)`, se = `r round(summary(m1)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m1,test="Chi")[2,4], 3))`). Thus, while both age groups successfully adopted a novel means of communication (iconic gestures) to coordinate, six-year-olds did so spontaneously while four-year-olds needed an initial hint.  
 
-# Part 1.1.2: Spontaneous production of gestures by 3- and 4-year-olds when communicationg with an adult.
+# Part 1.1.2: Spontaneous production of gestures by 3- and 4-year-olds when communicating with an adult.
 
 Part 1.1.2 follows up on 1.1.1 developmentally. We repeated the initial phase ofthe first study with three- and four-year-olds to investigate if and how younger children would be able to substitute speech for iconic gestures. The main focus of the study was on gesture production and so we tested children with an adult partner to streamline the procedure. We also added more pictures to prolong the phase in which children could transfer the idea of using iconic gestrures to new pictures. 
 
@@ -197,15 +197,17 @@ ggplot(d2.p,
 
 ```
 
-Figure \ref{fig:plot2} shows the production of iconic gestures in the transfer and imitation phase. Like in 1.1.1 four-year-olds did not spontaneously create iconic gestures in trial 1 but rapidly transferred the idea of doing so to new pictures. Three-year-olds relied mostly on prompts throughout the transfer phase. In the imitation phase, at least half of the three-year-olds produced gestures independently. We confirmed the differential rate of transfer in the transfer phase statistically by fitting a model to the data (``prompts ~ block * age * trial + (trial + block||id) + (1|stimulus)``) finding a significant three-way-interaction, suggesting a steeper slope for trial for four-year-olds in the transfer but not the imitation phase ($\beta$ = `r round(summary(m2)$coefficients[8,1], 2)`, *p* = `r sub('^(-)?0[.]', '\\1.', round(summary(m2)$coefficients[8,4], 3))`). 
+Figure \ref{fig:plot2} shows the production of iconic gestures in the transfer and imitation phase. Like in 1.1.1 four-year-olds did not spontaneously create iconic gestures in trial 1 but rapidly transferred the idea of doing so to new pictures. Three-year-olds relied mostly on prompts throughout the transfer phase. In the imitation phase, at least half of the three-year-olds produced gestures independently. We confirmed the differential rate of transfer statistically by fitting a model (``prompts ~ block * age * trial + (trial + block||id) + (1|stimulus)``) finding a significant three-way-interaction, suggesting a steeper slope for trial for four-year-olds in the transfer but not the imitation phase ($\beta$ = `r round(summary(m2)$coefficients[8,1], 2)`, se = `r round(summary(m2)$coefficients[8,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(summary(m2)$coefficients[8,4], 3))`). 
 
 Summarizing the results for production, we may say that six-year-olds independently create iconic gestures as an alternative means of communication when spoken language cannot be used. Four-year-olds initially struggle but rapidly transfer the idea of using gestures to new instances. Three-year-olds rarely create their own gestures but mostly rely on imitating gestures they were taught by others. 
 
 # Part 1.2: Uptake
 
-## Participants
+Next, we investigated gesture production during uptake. That is, whether children, who previously played the role of CC, would spontaneously produce gestures when they play the role of the PC. For this analysis we return to the dataset from 1.1.1.
 
-## Design and procedure
+## Participants, design and procedure
+
+See 1.1.1. 
 
 ## Results and discussion
 ```{r part 1-2}
@@ -214,7 +216,7 @@ d3 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
   filter(block == "Uptake") %>%
   na.omit(prompts)
 
-d3 %>%  
+d3.t <- d3 %>%  
   filter(blocktrial == 1) %>%
   group_by(age, dyad_id) %>%
   summarise(prompts = sum(prompts)) %>%
@@ -225,34 +227,50 @@ d3 %>%
          sum6 = sum(unlist(M72)),
          stat = wilcox.exact(unlist(M48),unlist(M72))$statistic,
          p_value = wilcox.exact(unlist(M48),unlist(M72))$p.value)%>%
-  select(sum4,sum6,stat,p_value) %>%
-  knitr::kable(digits = 5)
+  select(sum4,sum6,stat,p_value)
 
-  
+d3.t2 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%  
+  filter(blocktrial == 1 & age =="M48") %>%
+  group_by(block, dyad_id) %>%
+  summarise(prompts = sum(prompts)) %>%
+  mutate(prompts = ifelse(prompts > 0,1,0)) %>%
+  summarize(prompts = list(prompts)) %>%
+  spread(block,prompts) %>%
+  mutate(sumS = sum(unlist(Spontaneous)),
+         sumU = sum(unlist(Uptake)),
+         stat = wilcox.exact(unlist(Spontaneous),unlist(Uptake))$statistic,
+         p_value = wilcox.exact(unlist(Spontaneous),unlist(Uptake))$p.value)%>%
+  select(sumS,sumU,stat,p_value)
+
+```
+
+```{r plot3, echo = FALSE, fig.cap="\\label{fig:plot2}Spontaneous gesture production without prompts in the first trials of the uptake part. Here the production child was previously the comprehension child during the spontaneous part. Each trial involved a different picture, including the empty one."}
 # plot
 d3.p <- d3 %>%  
   mutate(prompts = ifelse(prompts > 0,1,0)) %>%
   mutate(Age = ifelse(age == "M48","4yo","6yo")) %>%
-  filter(trial<5) %>%
-  group_by(Age, trial) %>%
+  filter(blocktrial<6) %>%
+  group_by(Age, blocktrial) %>%
   summarise(prompts = sum(prompts))%>%
   mutate(prompts = 12 - prompts)
 
 # plot
 ggplot(d3.p, 
-       aes(x = trial, y = prompts, col = Age)) +
+       aes(x = blocktrial, y = prompts, col = Age)) +
   geom_line(aes(group= Age))+
   geom_point(aes(group= Age))+
   theme_few() + 
   scale_y_continuous(name = "Dyads Spontaneously Producing Gestures", limits = c(0,12), breaks = c(0,2,4,6,8,10,12))+
-  scale_x_continuous(name = "Trial", breaks = c(1:4))+
+  scale_x_continuous(name = "Trial", breaks = c(1:5))+
   scale_colour_solarized()
-
-
 
 ```
 
+Figure \ref{fig:plot3} shows that all six-year-olds and also most of the four year-olds spontaneously produced gestures. Statistically, there was no difference between the age groups at trial 1 (*p* = `r sub('^(-)?0[.]', '\\1.', round(d3.t$p_value, 3))`, Wilcoxon test). Furthermore, fewer four-year-olds needed prompts in trial 1 during uptake compared to spontaneous (*p* = `r sub('^(-)?0[.]', '\\1.', round(d3.t2$p_value, 3))`). These results show that, once one child established a way of referring to the pictures the other child easily picked it up. 
+
 # Part 1.3: Comprehension
+
+Next we looked at whether the gestures that children produced were understood by their partners. We did not have any specific hypothesis about differences between items and we therefore do not analyse them seperately. Nevertheless, to give an impression of the variability in the data set, plots also show results by stimulus.
 
 ## Participants
 
