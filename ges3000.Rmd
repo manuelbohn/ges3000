@@ -49,7 +49,14 @@ library(langcog)
 library(lme4)
 library(exactRankTests)
 ```
+# Introduction
 
+Two disperate literatures, one looking at how children without a language model create their own structured communication system and the tother looking at how communication changes and structure emerges over repeated interactions in adults. Here we show that children who have already mastered one communciation system, wuickly switch modalities to create a new one. Furthermore, we show that these newly created communication systems already possess some of the core properties of language.
+
+Lit: 
+Clark tangram studies: Clark, H. H., & Wilkes-Gibbs, D. (1986). Referring as a collaborative process. Cognition, 22(1), 1-39.
+
+word order: Gibson, E., Piantadosi, S. T., Brink, K., Bergen, L., Lim, E., & Saxe, R. (2013). A Noisy-Channel Account of Crosslinguistic Word-Order Variation. Psychological Science, 24(7), 1079–1088. http://doi.org/10.1177/0956797612463705
 
 # General setup and procedure
 
@@ -138,6 +145,7 @@ ggplot(d1.p,
   theme_few() + 
   scale_y_continuous(name = "Dyads Spontaneously Producing Gestures", limits = c(0,12), breaks = c(0,2,4,6,8,10,12))+
   scale_x_continuous(name = "Trial", breaks = c(1:4))+
+  theme_few() +
   scale_colour_solarized()
 ```
 
@@ -197,7 +205,7 @@ ggplot(d2.p,
 
 ```
 
-Figure \ref{fig:plot2} shows the production of iconic gestures in the transfer and imitation phase. Like in 1.1.1 four-year-olds did not spontaneously create iconic gestures in trial 1 but rapidly transferred the idea of doing so to new pictures. Three-year-olds relied mostly on prompts throughout the transfer phase. In the imitation phase, at least half of the three-year-olds produced gestures independently. We confirmed the differential rate of transfer statistically by fitting a model (``prompts ~ block * age * trial + (trial + block||id) + (1|stimulus)``) finding a significant three-way-interaction, suggesting a steeper slope for trial for four-year-olds in the transfer but not the imitation phase ($\beta$ = `r round(summary(m2)$coefficients[8,1], 2)`, se = `r round(summary(m2)$coefficients[8,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(summary(m2)$coefficients[8,4], 3))`). 
+Figure \ref{fig:plot2} shows the production of iconic gestures in the transfer and imitation phase. Like in 1.1.1 four-year-olds did not spontaneously create iconic gestures in trial 1 but rapidly transferred the idea of doing so to new pictures. Three-year-olds relied mostly on prompts throughout the transfer phase. In the imitation phase, at least half of the three-year-olds produced gestures independently. We confirmed the differential rate of transfer statistically by fitting a model (``prompts ~ block * age * trial + (trial + block||id) + (1|stimulus)``) finding a significant three-way-interaction, suggesting a steeper slope for trial for four-year-olds in the transfer but not the imitation phase ($\beta$ = `r round(summary(m2)$coefficients[8,1], 2)`, se = `r round(summary(m2)$coefficients[8,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m2,test="Chi")[2,4], 3))`). 
 
 Summarizing the results for production, we may say that six-year-olds independently create iconic gestures as an alternative means of communication when spoken language cannot be used. Four-year-olds initially struggle but rapidly transfer the idea of using gestures to new instances. Three-year-olds rarely create their own gestures but mostly rely on imitating gestures they were taught by others. 
 
@@ -210,7 +218,7 @@ Next, we investigated gesture production during uptake. That is, whether childre
 See 1.1.1. 
 
 ## Results and discussion
-```{r part 1-2}
+```{r part 1-2, include = FALSE}
 # prompts needed during uptake phase
 d3 <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
   filter(block == "Uptake") %>%
@@ -229,6 +237,7 @@ d3.t <- d3 %>%
          p_value = wilcox.exact(unlist(M48),unlist(M72))$p.value)%>%
   select(sum4,sum6,stat,p_value)
 
+#comparing prompts in spontaneous to prompts in uptake
 d3.t2 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%  
   filter(blocktrial == 1 & age =="M48") %>%
   group_by(block, dyad_id) %>%
@@ -266,78 +275,98 @@ ggplot(d3.p,
 
 ```
 
-Figure \ref{fig:plot3} shows that all six-year-olds and also most of the four year-olds spontaneously produced gestures. Statistically, there was no difference between the age groups at trial 1 (*p* = `r sub('^(-)?0[.]', '\\1.', round(d3.t$p_value, 3))`, Wilcoxon test). Furthermore, fewer four-year-olds needed prompts in trial 1 during uptake compared to spontaneous (*p* = `r sub('^(-)?0[.]', '\\1.', round(d3.t2$p_value, 3))`). These results show that, once one child established a way of referring to the pictures the other child easily picked it up. 
+Figure \ref{fig:plot3} shows that all six-year-olds and also most of the four year-olds spontaneously produced gestures. Statistically, there was no difference between the age groups at trial 1 (*p* = `r sub('^(-)?0[.]', '\\1.', round(d3.t$p_value, 3))`, Wilcoxon test). Furthermore, fewer four-year-olds needed prompts in trial 1 during uptake compared to spontaneous (*p* = `r sub('^(-)?0[.]', '\\1.', round(d3.t2$p_value, 3))`). These results show that once one child established a way of referring to the pictures the other child easily picked it up. 
 
 # Part 1.3: Comprehension
 
-Next we looked at whether the gestures that children produced were understood by their partners. We did not have any specific hypothesis about differences between items and we therefore do not analyse them seperately. Nevertheless, to give an impression of the variability in the data set, plots also show results by stimulus.
+Next we looked at whether the gestures that children produced were understood by their partners. We did not have any specific hypothesis about differences between items and we therefore do not analyse them seperately. Nevertheless, to give an impression of the variability in the data set, plots show the overall results as well as the results by stimulus.
 
-## Participants
+## Participants, design and procedure
 
-## Design and Procedure
+See 1.1.1. We excluded trials with the empty picture. These trials will be analysed speparately in the next section. 
 
 ## Results and discussion
-```{r pt 1-3}
+```{r pt 1-3, include = FALSE}
 # comprehension by phase excluding empty picture
-
 d4 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
   filter(stimulus != "Nothing") %>%
   mutate(block = ifelse(block=="Uptake","Uptake","Spontaneous"))%>%
-  mutate(Age = ifelse(age == "M48","4yo","6yo")) %>%
-  na.omit(comp)
+  mutate(Age = ifelse(age == "M48","4yo","6yo"))
 
+# are 6yo better than 4yo at comprehension
+# 6yo got more trials, for comparison we select those trials for 6yo that 4yo also got.
+d4.m <- d4 %>%
+  filter(ifelse(block=="Uptake",blocktrial<6,blocktrial<15)) %>%
+  mutate(trial = scale(as.numeric(blocktrial), center = TRUE, scale=TRUE))
+
+# non-sognificant interaction removed
+m4 <- glmer(comp ~ age+block+trial+ (trial+block|dyad_id), family = binomial, data = d4.m,
+        control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+
+summary(m4)
+
+drop1(m4,test="Chi")[4,4]
+```
+
+Table \ref{tab:table1} and Figure \ref{fig:plot4} show that that the gestures produced by the PC were generally understood by the CC in both age groups. To compare comprehension across age groups over trials and in blocks, we fit the following model: `comp ~ age + block + trial + (trial + block | dyad_id)`. Because six-year-olds received more trials in spontaneous and uptake, we removed all trials that went beyond the number that four-year-olds got. We also removed trials with the empty picture, which we analysed separately. Comprehension improved with trial ($\beta$ = `r round(summary(m4)$coefficients[4,1], 2)`, se = `r round(summary(m4)$coefficients[4,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m4,test="Chi")[4,4], 3))`) and was also slightly better in uptake compared to spontaneous ($\beta$ = `r round(summary(m4)$coefficients[3,1], 2)`, se = `r round(summary(m4)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m4,test="Chi")[3,4], 3))`). There was no difference between age groups ($\beta$ = `r round(summary(m4)$coefficients[2,1], 2)`, se = `r round(summary(m4)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m4,test="Chi")[2,4], 3))`). This shows that children generally depicted the content of the pictures in a way that was comprehensible to their partner.
+```{r table1, results = "asis"}
 # Comparing comprehension against chance (25% correct)
-d4 %>%
+t4 <- d4 %>%
   group_by(Age, block, dyad_id)%>%
   summarise(comp = mean(comp))%>%
   summarise(comp = list(comp)) %>%
   group_by(Age, block) %>%
   mutate(df= t.test(unlist(comp), mu = 0.25)$parameter,
+         mean = mean(unlist(comp)),
          t_value = t.test(unlist(comp), mu = 0.25)$statistic,
          p_value = t.test(unlist(comp), mu = 0.25)$p.value) %>%
-  select(Age, block ,df,t_value,p_value) %>%
-  knitr::kable(digits = 5)
+  select(Age, block ,mean,df,t_value,p_value)
 
 
-# are 6yo better than 4yo at comprehension
-
-d4.m <- d4 %>%
-  mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE))
-
-m4 <- glmer(comp ~ block+age + (block|dyad_id), family = binomial, data = d4.m,
-        control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
-
-summary(m4)
-
-drop1(m4,test="Chi")
-
-
-# plot per age group and phase
-d4.p <- d4 %>%
-  group_by(Age, block, dyad_id)%>%
-  summarise(comp = mean(comp))
-
-d4.p1 <- d4.p %>%
-  multi_boot_standard(col = "comp")
-
-ggplot() +
-  geom_jitter(data = d4.p, aes(x = block, y = comp, col = Age, alpha = .2), width = .1,height = .05)+
-  geom_pointrange(data = d4.p1,aes(x = block, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
-                  position = position_dodge(width = .5), size = 1) + 
-  geom_hline(yintercept = 0.25, lty=2)+
-  guides(alpha = F)+
-  #facet_grid(~block)+
-  scale_y_continuous(name = "Proportion Correct", limits = c(-0.05,1.05))+
-  theme_few() + 
-  scale_colour_solarized()
+apa_table(t4,
+            caption = "Gesture comprehension compared to chance.",
+          note = "Statistics are based on two-tailed one sample t-tests with data aggregated for each dyad. Trials with empty pictures were excluded, hence we chose a more conservative comparison level of .25.")
 ```
 
+```{r plot4, echo = FALSE, fig.cap="\\label{fig:plot2}Proportion correct picture chosen by the CC by part and item. First row shows overall comprehension. Dotted line indicates performance expected by chance. Error bars are 95% confidence intervals based on non-parametric bootstraps."}
+# plot per age group and phase
+d4.p2 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
+  mutate(block = ifelse(block=="Uptake","Uptake","Spontaneous"))%>%
+  mutate(Age = ifelse(age == "M48","4yo","6yo")) %>%
+  group_by(Age, stimulus, block, dyad_id)%>%
+  summarise(comp = mean(comp))
+
+d4.p3 <- d4.p2 %>%
+  multi_boot_standard(col = "comp")
+
+d4.p4 <- d4.p2 %>%
+  group_by(Age, block, dyad_id)%>%
+  summarise(comp = mean(comp)) %>%
+  multi_boot_standard(col = "comp")%>%
+  mutate(stimulus = "Overall")
+
+ggplot() +
+  geom_jitter(data = d4.p2, aes(x = stimulus, y = comp, col = Age, alpha = .2), width = .1,height = .05)+
+  geom_pointrange(data = d4.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
+                  position = position_dodge(width = .5), size = 0.5, alpha = .5) +
+  geom_pointrange(data = d4.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
+                  position = position_dodge(width = .5), size = 1) +
+  geom_hline(yintercept = 0.25, lty=2)+
+  guides(alpha = F)+
+  facet_grid(~block)+
+  labs(x="Stimulus")+
+  scale_y_continuous(name = "Proportion Correct", limits = c(-0.05,1.05))+
+  theme_few() + 
+  scale_colour_solarized()+ coord_flip()
+```
 
 # Part 1.4: Abstract concepts (empty picture)
 
-## Participants
+Ans mentioned above, we analysed production and comprehension separately for trials in which the empty picture was selected. In contrast to the other pictures, the eompty picture did not show an actio that could be turned into an iconic gesture. Children therefore had to find a different way to establish reference. On the comprehension side, children could select the empty picture either because PC's gesture successfully communicated the "emptiness" of the picture or because the gesture they saw did not match any of the other pictures. The latter was possible because we introduced the empty picture only after all other pictures had been selected at least once.
 
-## Design and Procedure
+## Participants, design and procedure
+
+see 1.1.1.
 
 ## Results and discussion
 ```{r part 1-4}
@@ -345,6 +374,7 @@ ggplot() +
 # prompts per age group and phase
 d5 <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
   filter(stimulus == "Nothing") %>%
+  mutate(block = ifelse(block=="Uptake","Uptake","Spontaneous"))%>%
   mutate(Age = ifelse(age == "M48","4yo","6yo")) %>%
   na.omit(prompts)
 
@@ -381,7 +411,7 @@ d5 %>%
 # are 6yo better than 4yo at comprehension
 
 d5.m <- d5 %>%
-  mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE))
+  filter(ifelse(block=="Uptake",blocktrial<6,blocktrial<15))
 
 m5 <- glmer(comp ~ block+age + (1|dyad_id), family = binomial, data = d5.m,
         control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
@@ -493,7 +523,7 @@ d7 %>%
 
 ### better with more repititions? That is, 6yo better than 4yo and day 2 better than day 1 (not the best model since pictures on day 2 were different compared to day 1).
 
-m7 <- glmer(corr ~ Age+day+(Age+day||rater)+(1|stimulus), family = binomial, data = d7, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m7 <- glmer(corr ~ Age+day+(Age|rater)+(1|stimulus), family = binomial, data = d7, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 summary(m7)
 
@@ -515,6 +545,34 @@ ggplot() +
   #facet_grid(~day,scales = "free_x", space = "free_x")+
   guides(alpha = F)+
   scale_y_continuous(name = "Proportion Later Gesture Chosen", limits = c(0,1))+
+  theme_few() + 
+  scale_colour_solarized()
+
+
+# abstract and effort
+# correlation
+d7.r <- d7 %>%
+  group_by(Age,group)%>%
+  summarise(corr = mean(corr),
+            effort = mean(effort))%>%
+  group_by(Age)%>%
+  summarise(r = cor.test(corr,effort)$estimate,
+            p = cor.test(corr,effort)$p.value)
+
+
+# plot
+d7.p2 <- d7%>%
+  group_by(Age,group)%>%
+  summarise(corr = mean(corr),
+            effort = mean(effort))
+
+ggplot(data = d7.p2,aes(x = effort, y = corr, col = Age)) +
+  geom_jitter(aes(alpha = .2), width = .02,height = .02)+
+  #facet_grid(~day,scales = "free_x", space = "free_x")+
+  geom_smooth(method = "lm", se = T , level = 0.95, aes(colour=Age))+
+  guides(alpha = F)+
+  scale_y_continuous(name = "Abstract", limits = c(-0.05,1.05))+
+  scale_x_continuous(name = "Effort", limits = c(-0.05,1.05))+
   theme_few() + 
   scale_colour_solarized()
 
@@ -555,6 +613,7 @@ d8 %>%
 
 # plot per age group, condition and phase
 d8.p <- d8 %>%
+  mutate(condition = relevel(condition, ref = "Concrete")) %>%
   group_by(Age, condition, phase,id)%>%
   summarise(corr = mean(corr))
 
@@ -562,14 +621,14 @@ d8.p1 <- d8.p %>%
   multi_boot_standard(col = "corr")
 
 ggplot() +
-  geom_jitter(data = d8.p, aes(x = condition, y = corr, col = Age, alpha = .2), width = .1, height = .05)+
-  geom_pointrange(data = d8.p1,aes(x = condition, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1) + 
+  geom_jitter(data = d8.p, aes(x = phase, y = corr, col = Age, alpha = .2), width = .1, height = .05)+
+  geom_pointrange(data = d8.p1,aes(x = phase, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1) + 
   geom_hline(yintercept = 1/3, lty=2)+
-  facet_grid(~phase)+
+  facet_grid(~condition)+
   guides(alpha = F)+
   scale_y_continuous(name = "Proportion Later Chosen", limits = c(-0.05,1.05))+
   theme_few() + 
-  scale_colour_solarized()
+  scale_colour_solarized()+ coord_flip()
 ```
 ### Participants
 
@@ -608,6 +667,10 @@ ggplot() +
   scale_y_continuous(name = "Proportion Correct", limits = c(-0.05,1.05))+
   theme_few() + 
   scale_colour_solarized()+ coord_flip()
+
+
+
+
 ```
 
 ## Convergence
@@ -631,7 +694,7 @@ d6.p4 <- d6 %>%
 
 ggplot() +
   geom_jitter(data = d6.p2, aes(x = stimulus, y = corr, col = Age, alpha = .2), width = .1,height = .05)+
-  geom_pointrange(data = d6.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1, alpha = .5) + 
+  geom_pointrange(data = d6.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = .5, alpha = .5) + 
   geom_pointrange(data = d6.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1)+
   geom_hline(yintercept = 0.5, lty=2)+
   #facet_grid(~block)+
@@ -661,7 +724,7 @@ d7.p4 <- d7 %>%
 
 ggplot() +
   geom_jitter(data = d7.p2, aes(x = stimulus, y = corr, col = Age, alpha = .2), width = .1,height = .05)+
-  geom_pointrange(data = d7.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1, alpha = .5) +
+  geom_pointrange(data = d7.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.5, alpha = .5) +
   geom_pointrange(data = d7.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1) +
   geom_hline(yintercept = 0.5, lty=2)+
   geom_vline(xintercept = 8.5, lty=1)+
