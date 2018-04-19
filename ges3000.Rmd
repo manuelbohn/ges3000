@@ -51,7 +51,7 @@ library(exactRankTests)
 ```
 # Introduction
 
-Two disperate literatures, one looking at how children without a language model create their own structured communication system and the tother looking at how communication changes and structure emerges over repeated interactions in adults. Here we show that children who have already mastered one communciation system, wuickly switch modalities to create a new one. Furthermore, we show that these newly created communication systems already possess some of the core properties of language.
+Two disparate literatures, one looking at how children without a language model create their own structured communication system and the the other looking at how communication changes and structure emerges over repeated interactions in adults. Here we show that children who have already mastered one communication system, quickly switch modalities to create a new one. Furthermore, we show that these newly created communication systems already possess some of the core properties of language.
 
 Lit: 
 Clark tangram studies: Clark, H. H., & Wilkes-Gibbs, D. (1986). Referring as a collaborative process. Cognition, 22(1), 1-39.
@@ -70,11 +70,17 @@ All children started with a training phase in which the video as well as the aud
 
 After the last training trial, children were told that they could play the game in a different way to make it more fun. Children and Es left the room and met in the hallway. Next, one E went into each room and cut the audio connection by turning off the volume at each TV. To strengthen the impression that the other one could not longer hear what was being said as well as to prevent children from trying to communicate via shouting, low instrumental Jazz music was played in both rooms (Chet Baker - "Out of nowhere"). If children shouted nevertheless, the experimenters asked them to lower their voice. When children re-entered the room, each E drew her child's attention to the music and encouraged her to ask the other child whether she also heard the music. This way children discovered that they could no longer hear each other. After stating that they could not hear anybody from the other room, children and Es left the room to meet in the hallway. There they confirmed that they could not hear each other when in the room. E1 asked the children if they wanted to play the game nevertheless and also reminded them of the game's structure. Gestures as an alternative means of communication was never mentioned. Next, children went into their respective room and the first test trial started.
 
-In each test trial, children had one minute to establish communication. If they remained passive, E1 entered the PR and prompted PC to use iconic gestures in three steps. Between prompts, she waited for 30s to see if the child would start gesturing. As first prompt, E1 said:"[CCs name] can't hear you, but she can see you, maybe you can *show* (German: zeigen) it to her". The second prompt was: "She can't hear you but she can see you, look we can wave to her, maybe you can *demonstrate* (German: vormachen) it to her". As the final prompt, she said: "Oh, I have an idea ... this way it could work" and started to perform an iconic gesture depicting the action corresponding to the selected picture. As soon as the child also used the gesture, E1 left the room and the trial continued as described above. During prompting, E2 entered CR and encouraged CC to attend to the TV.
+In each test trial, children had one minute to establish communication. If they remained passive, E1 entered the PR and prompted PC to use iconic gestures in three steps. Between prompts, she waited for 30s to see if the child would start gesturing. As first prompt, E1 said:"[CCs name] can't hear you, but she can see you, maybe you can *show* (German: zeigen) it to her". The second prompt was: "She can't hear you but she can see you, look we can wave to her, maybe you can *demonstrate* (German: vormachen) it to her". As the final prompt, she said: "Oh, I have an idea ... this way it could work" and started to perform an iconic gesture depicting the action corresponding to the selected picture. 
+
+Describe gestrues demonstrated by E. 
+
+As soon as the child also used the gesture, E1 left the room and the trial continued as described above. During prompting, E2 entered CR and encouraged CC to attend to the TV.
 
 ## General note on analysis
 
 Data and analysis scripts can be found online at ``htps://github.com/manuelbohn/ges3000``. To improve readability, we only report a small set of statistics in the text itself (estimates, standard errors and p-values for models and p-values for non-parametric tests). For additional information we ask the reader to directly run the code and look at the model outputs. For all analysis, we used R [@R-base] and for models we used the function glmer of the lme4 package [@R-lme4]. Random effect structures were maximal whenever possible. Model p-values were based on likelihood ratio tests [@dobson2008introduction] and were computed via the function ``drop1``. We removed non-significant interaction terms from models unless they were the target of the inference.
+
+# Part 1: Production and comprehension
 
 # Part 1.1.1: Spontaneous production of gestures by 4- and 6-year-old children in a peer context 
 
@@ -91,7 +97,7 @@ d1 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
 We tested 24 same sex, same age dyads of four (mean age within dyad = `r round(mean(d1$mage[d1$age=="M48"]),2)`, range = `r round(range(d1$mage[d1$age=="M48"])[1],2)` to `r round(range(d1$mage[d1$age=="M48"])[2],2)`) and six year-old children (mean age within dyad = `r round(mean(d1$mage[d1$age=="M72"]),2)`, range = `r round(range(d1$mage[d1$age=="M72"])[1],2)` to `r round(range(d1$mage[d1$age=="M72"])[2],2)`), with 12 dyads per age group, six male and six female. Children came from an ethnically homogeneous, mid-sized German city (approx. 550.000 inhabitants, median income €1254 per month as of 2015), were mostly mono-lingual and had mixed socio-economic background. They were recruited from a database of children whose parents volunteered to take part in studies on child development. Data collection took place between April and September 2016. XX additional dyads were excluded because ...
 
 ## Design and procedure
-The test phase following the training was divided into two parts, "spontaneous" and "uptake". Children were first tested with all pictures except the empty picture. We reasoned that including the empty picture from the beginning might discourage children from establishing communiation through gestures. The empty picture was introduced after each other picture had been selected at least once (twice for six-year-olds). The first trial of the spontaneous phase assessed whether children would discover the idea to use gestures to communicate independently. If the PR remained passive for one minute in the first test trial, instead of receiving prompts, children switched rooms and the former CR got a chance to spontaneously start gesturing. If the new PR remained passive for another minute, E1 started prompting. The three trials follwoing the first trial, each with a new picture, assessed whether children would transfer the idea of using gestures. For the second part, uptake, children switched rooms and roles. In this part, all pictures were used right away.
+The test phase following the training was divided into two parts, "spontaneous" and "uptake". Children were first tested with all pictures except the empty picture. We reasoned that including the empty picture from the beginning might discourage children from establishing communication through gestures. The empty picture was introduced after each other picture had been selected at least once (twice for six-year-olds). The first trial of the spontaneous phase assessed whether children would discover the idea to use gestures to communicate independently. If the PR remained passive for one minute in the first test trial, instead of receiving prompts, children switched rooms and the former CR got a chance to spontaneously start gesturing. If the new PR remained passive for another minute, E1 started prompting. The three trials following the first trial, each with a new picture, assessed whether children would transfer the idea of using gestures. For the second part, uptake, children switched rooms and roles. In this part, all pictures were used right away.
 
 Six-year-olds received a total of 30 test trials, 20 in spontaneous and 10 in uptake. Pilot testing suggested that this was too long for the younger age group and so four-year-olds received a total of 19 test trials, 14 in spontaneous and 5 in uptake. The order in which pictures were selected was randomized with the constraint that each picture was selected once before another picture could be selected again. 
 
@@ -148,12 +154,13 @@ ggplot(d1.p,
   theme_few() +
   scale_colour_solarized()
 ```
+Describe some gesture variants produced by children
 
 First we looked at the production of iconic gestures in the beginning of the test phase. Figure \ref{fig:plot1} shows that the majority of six-year-olds spontaneously produced gestures already in trial 1, more so compared to four-year-olds (trial 1: *p* = `r sub('^(-)?0[.]', '\\1.', round(d1.t$p_value, 3))`, Wilcoxon test; trial 1-4: $\beta$ = `r round(summary(m1)$coefficients[3,1], 2)`, se = `r round(summary(m1)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m1,test="Chi")[3,4], 3))`, model: `` prompts ~ age + trial + (trial|dyad_id)``). Even though four-year-olds initially only produced gestures after receiving prompts, they needed fewer prompts in later trials, showing that they transferred the idea of iconically depicting an referent to new pictures (main effect of trial: $\beta$ = `r round(summary(m1)$coefficients[2,1], 2)`, se = `r round(summary(m1)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m1,test="Chi")[2,4], 3))`). Thus, while both age groups successfully adopted a novel means of communication (iconic gestures) to coordinate, six-year-olds did so spontaneously while four-year-olds needed an initial hint.  
 
 # Part 1.1.2: Spontaneous production of gestures by 3- and 4-year-olds when communicating with an adult.
 
-Part 1.1.2 follows up on 1.1.1 developmentally. We repeated the initial phase ofthe first study with three- and four-year-olds to investigate if and how younger children would be able to substitute speech for iconic gestures. The main focus of the study was on gesture production and so we tested children with an adult partner to streamline the procedure. We also added more pictures to prolong the phase in which children could transfer the idea of using iconic gestrures to new pictures. 
+Part 1.1.2 follows up on 1.1.1 developmentally. We repeated the initial phase of the first study with three- and four-year-olds to investigate if and how younger children would be able to substitute speech for iconic gestures. The main focus of the study was on gesture production and so we tested children with an adult partner to streamline the procedure. We also added more pictures to prolong the phase in which children could transfer the idea of using iconic gestures to new pictures. 
 
 ## Participants
 ```{r part 1-1-2 data, include = FALSE}
@@ -164,7 +171,7 @@ Twelve three-year-olds (mean = `r round(mean(d2$mage[d2$age=="m36"]),2)`, range 
 
 ## Design and procedure
 
-The procedure was the same as for part 1.1.1 with the following changes: Instead of testing peer dyads, children were tested with E2 as the CC. We removed the empty picture and used two different ones instead, one depicting a duck and the second one depicting a deer (see Fig. X). All children received 12 trials, two trials with each picture. In the first phase (transfer), children started with the four pictures from part 1.1.1 in a randomized order followed by the two new pictures, also in a randomized order. In the second phase (imitation), pictures were repeated in the same way. Since there was no CC, thrre was no uptake phase. Pilot testing showed that three-year-olds felt uncomfortable alone in the room. Therefore E1 remained in the room throughout a trial but pretended to be working on something else while the child was communicating with E2. We dropped the intermediate prompts and E1 directly presented an iconic gesture as the solution if the child remained passvive for more than 1 minute.
+The procedure was the same as for part 1.1.1 with the following changes: Instead of testing peer dyads, children were tested with E2 as the CC. We removed the empty picture and used two different ones instead, one depicting a duck and the second one depicting a deer (see Fig. X). All children received 12 trials, two trials with each picture. In the first phase (transfer), children started with the four pictures from part 1.1.1 in a randomized order followed by the two new pictures, also in a randomized order. In the second phase (imitation), pictures were repeated in the same way. Since there was no CC, there was no uptake phase. Pilot testing showed that three-year-olds felt uncomfortable alone in the room. Therefore E1 remained in the room throughout a trial but pretended to be working on something else while the child was communicating with E2. We dropped the intermediate prompts and E1 directly presented an iconic gesture as the solution if the child remained passive for more than 1 minute.
 
 ## Results and discussion
 ```{r part 1-1-2, include = FALSE}
@@ -279,11 +286,11 @@ Figure \ref{fig:plot3} shows that all six-year-olds and also most of the four ye
 
 # Part 1.3: Comprehension
 
-Next we looked at whether the gestures that children produced were understood by their partners. We did not have any specific hypothesis about differences between items and we therefore do not analyse them seperately. Nevertheless, to give an impression of the variability in the data set, plots show the overall results as well as the results by stimulus.
+Next we looked at whether the gestures that children produced were understood by their partners. We did not have any specific hypothesis about differences between items and we therefore do not analyse them separately. Nevertheless, to give an impression of the variability in the data set, plots show the overall results as well as the results by stimulus.
 
 ## Participants, design and procedure
 
-See 1.1.1. We excluded trials with the empty picture. These trials will be analysed speparately in the next section. 
+See 1.1.1. We excluded trials with the empty picture. These trials will be analysed separately in the next section. 
 
 ## Results and discussion
 ```{r pt 1-3, include = FALSE}
@@ -299,16 +306,17 @@ d4.m <- d4 %>%
   filter(ifelse(block=="Uptake",blocktrial<6,blocktrial<15)) %>%
   mutate(trial = scale(as.numeric(blocktrial), center = TRUE, scale=TRUE))
 
-# non-sognificant interaction removed
-m4 <- glmer(comp ~ age+block+trial+ (trial+block|dyad_id), family = binomial, data = d4.m,
+# non-sognificant higher order interactions removed
+# maximal converging model (model with trial as random slope within stimulus yields problems when doing case wise deletions)
+m4 <- glmer(comp ~ age+block+trial+ (trial+block|dyad_id) + (block|stimulus), family = binomial, data = d4.m,
         control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 summary(m4)
 
-drop1(m4,test="Chi")[4,4]
+drop1(m4,test="Chi")
 ```
 
-Table \ref{tab:table1} and Figure \ref{fig:plot4} show that that the gestures produced by the PC were generally understood by the CC in both age groups. To compare comprehension across age groups over trials and in blocks, we fit the following model: `comp ~ age + block + trial + (trial + block | dyad_id)`. Because six-year-olds received more trials in spontaneous and uptake, we removed all trials that went beyond the number that four-year-olds got. We also removed trials with the empty picture, which we analysed separately. Comprehension improved with trial ($\beta$ = `r round(summary(m4)$coefficients[4,1], 2)`, se = `r round(summary(m4)$coefficients[4,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m4,test="Chi")[4,4], 3))`) and was also slightly better in uptake compared to spontaneous ($\beta$ = `r round(summary(m4)$coefficients[3,1], 2)`, se = `r round(summary(m4)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m4,test="Chi")[3,4], 3))`). There was no difference between age groups ($\beta$ = `r round(summary(m4)$coefficients[2,1], 2)`, se = `r round(summary(m4)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m4,test="Chi")[2,4], 3))`). This shows that children generally depicted the content of the pictures in a way that was comprehensible to their partner.
+Table \ref{tab:table1} and Figure \ref{fig:plot4} show that that the gestures produced by the PC were generally understood by the CC in both age groups. To compare comprehension across age groups over trials and in blocks, we fit the following model: `comp ~ age + block + trial + (trial + block | dyad_id) + (block | stimulus)`. Because six-year-olds received more trials in spontaneous and uptake (see 1.1.1), we removed all trials that this age group got  beyond the number that four-year-olds got for this comparison. We also removed trials with the empty picture, which we analysed separately. Comprehension improved with trial ($\beta$ = `r round(summary(m4)$coefficients[4,1], 2)`, se = `r round(summary(m4)$coefficients[4,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m4,test="Chi")[4,4], 3))`) and was also slightly better in uptake compared to spontaneous ($\beta$ = `r round(summary(m4)$coefficients[3,1], 2)`, se = `r round(summary(m4)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m4,test="Chi")[3,4], 3))`). There was no difference between age groups ($\beta$ = `r round(summary(m4)$coefficients[2,1], 2)`, se = `r round(summary(m4)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m4,test="Chi")[2,4], 3))`). This shows that children generally depicted the content of the pictures in a way that was comprehensible to their partner.
 ```{r table1, results = "asis"}
 # Comparing comprehension against chance (25% correct)
 t4 <- d4 %>%
@@ -362,14 +370,17 @@ ggplot() +
 
 # Part 1.4: Abstract concepts (empty picture)
 
-Ans mentioned above, we analysed production and comprehension separately for trials in which the empty picture was selected. In contrast to the other pictures, the eompty picture did not show an actio that could be turned into an iconic gesture. Children therefore had to find a different way to establish reference. On the comprehension side, children could select the empty picture either because PC's gesture successfully communicated the "emptiness" of the picture or because the gesture they saw did not match any of the other pictures. The latter was possible because we introduced the empty picture only after all other pictures had been selected at least once.
+As mentioned above, we analysed production and comprehension separately for trials in which the empty picture was selected. In contrast to the other pictures, the empty picture did not show an action that could be turned into an iconic gesture. Children therefore had to find a different way to establish reference. On the comprehension side, children could select the empty picture either because PC's gesture successfully communicated the "emptiness" of the picture or because the gesture they saw did not match any of the other pictures. The latter was possible because we introduced the empty picture only after all other pictures had been selected at least once.
 
 ## Participants, design and procedure
 
 see 1.1.1.
 
 ## Results and discussion
-```{r part 1-4}
+
+Describe the gestures being used for nothing. Depicting "nothing", doing nothing, pointing to white things. some of these gestures were resulted from little conversations in which the CC would produce gestures for some of the other pictures, "asking" the PC if it was this one.
+
+```{r part 1-4, include = FALSE}
 #### Production
 # prompts per age group and phase
 d5 <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
@@ -380,7 +391,7 @@ d5 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
 
 # descriptives for production (plot not informative) and tests
 # do 4yo need more prompts compared to 6yo?
-d5 %>%
+d5.t1 <- d5 %>%
   group_by(age, block, dyad_id) %>%
   summarise(prompts = sum(prompts)) %>%
   mutate(prompts = ifelse(prompts > 0,1,0)) %>%
@@ -391,72 +402,58 @@ d5 %>%
          sum6 = sum(unlist(M72)),
          stat = wilcox.exact(unlist(M48),unlist(M72))$statistic,
          p_value = wilcox.exact(unlist(M48),unlist(M72))$p.value)%>%
-  select(block,sum4,sum6,stat,p_value) %>%
-  knitr::kable(digits = 5)
+  select(block,sum4,sum6,stat,p_value)
 
 ### Comprehension 
 #comparing against chance per age group and phase
-d5 %>%
+d5.t2 <- d5 %>%
   group_by(Age, block, dyad_id)%>%
   summarise(comp = mean(comp))%>%
   summarise(comp = list(comp)) %>%
   group_by(Age,block) %>%
   mutate(mean = mean(unlist(comp)),
-         df= t.test(unlist(comp), mu = 0.25)$parameter,
-         t_value = t.test(unlist(comp), mu = 0.25)$statistic,
-         p_value = t.test(unlist(comp), mu = 0.25)$p.value) %>%
-  select(Age,block,mean,df,t_value,p_value) %>%
-  knitr::kable(digits = 3)
+         stat = wilcox.exact(unlist(comp), mu = 0.25)$statistic,
+         p_value = wilcox.exact(unlist(comp), mu = 0.25)$p.value) %>%
+  select(Age,block,mean,stat,p_value)
 
 # are 6yo better than 4yo at comprehension
-
 d5.m <- d5 %>%
   filter(ifelse(block=="Uptake",blocktrial<6,blocktrial<15))
 
-m5 <- glmer(comp ~ block+age + (1|dyad_id), family = binomial, data = d5.m,
+table(d5.m$block, d5.m$blocktrial)
+
+#model does not converge with interaction
+m5 <- glmer(comp ~ age+block + (1|dyad_id), family = binomial, data = d5.m,
         control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 summary(m5)
 
 drop1(m5,test="Chi")
 
-# plot per age group and phase
-d5.p2 <- d5 %>%
-  group_by(Age, block, dyad_id)%>%
-  summarise(comp = mean(comp))
-
-d5.p3 <- d5.p2 %>%
-  multi_boot_standard(col = "comp")
-
-ggplot() +
-  geom_jitter(data = d5.p2, aes(x = block, y = comp, col = Age, alpha = .2), width = .1,height = .05)+
-  geom_pointrange(data = d5.p3,aes(x = block, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
-                  position = position_dodge(width = .5), size = 1) + 
-  geom_hline(yintercept = 0.25, lty=2)+
-  guides(alpha = F)+
-  #facet_grid(~block)+
-  scale_y_continuous(name = "Proportion Correct", limits = c(-0.05,1.05))+
-  theme_few() + 
-  scale_colour_solarized()
-
-
 ```
 
+Both age groups sponteneously produced gestures for the empty picture. Six-year-olds did not need prompts in any of the two parts. Four dyads of four-year-olds needed prompts in spontaneous and two did so in uptake. Statistically, there was no difference between age groups regarding the number of prompts (spontaneous: *p* = `r d5.t1[1,5]`, uptake: *p* = `r d5.t1[2,5]`; Wilcoxon test). 
+The second row in Figure \ref{fig:plot4} shows how well the gestures were understood by the CC. In general, children chose the correct picture above chance (all *p* < .01), except for four-year-olds in spontaneous (*p* = `r d5.t2[1,5]`, Wilcoxon test). To compare performance between age groups and blocks, we again dropped all trials that six-year-olds got more than four-year-olds and fit a model to the data (`comp ~ age + block + (1 | dyad_id)`). Rate of comprehension was higher for six-year-olds ($\beta$ = `r round(summary(m5)$coefficients[2,1], 2)`, se = `r round(summary(m5)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m5,test="Chi")[2,4], 3))`) and during the uptake part ($\beta$ = `r round(summary(m5)$coefficients[3,1], 2)`, se = `r round(summary(m5)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m5,test="Chi")[3,4], 3))`). Taken together, both age groups produced gestures for the empty picture. These gestures were immediately understood in the older age group and during the uptake part also in the younger one. 
 
+# Part 2: Convergence
 
-# Part 1.5: Convergence
+In part 1 we saw that children switched to a new modality when spoken language was no longer an option. They created iconic gestures which successfully communicated the content of the picture to their partner. In the second part, we inverstigate whether children would use the same kind of gesture for a given picture. To do this we compared the gestures produced in the spontaneous and the uptake part. We hypothesized that children within a dyad would use more similar gestures compared to children from different dyads. In general, there are many different ways to iconically depict a picture (see part 1.1.1 for some variants created by children). Children within a dyad should be more similar because the PC in the uptake part (the former CC) can simply imitate the gesture she saw during the spontaneous part. The degree to which we can detect similarity due to imitation is limited by the variability in how children initially depict the picture. For example, if many children independently decide to depict the comb by stroking a hand across the head, similarity will be high across dyads and similarity within dyads due to imitatio will be hard to detect. 
 
 ## Participants
 
+We used the videos of children producing gestures during part 1. Twelve adult raters, unfamiliar with the study design and procedure, judged the similarity of gestures within dyads.
+
 ## Design and Procedure
 
-## Results and discussion
+For each dyad we selected a video of the last gesture for a picture from the PC during spontaneous and the first gesture for the same picture from the PC during uptake. That is, we chose the two depictions of the same picture that were closest in time. We used E-Prime (version 2.0.10.356) to set-up the rating procedure. On each trial, the rater was shown a sample video on top of the screen (see Figure XX) and two comparison videos on the bottom, one on the left and one in the right. The sample showed a child during the sponteneous part. One of the comparison videos showed the child from the *same* dyad during uptake whereas the other video showed a child of the same age and sex from a *different* dyad, also during uptake, also producing a gesture for the same picture. On each trial, the comparison video was randomly selected from the pool of suitable videos. Furthermore, the position of the comparison videos on the screen (left or right) was randomly determined. Raters could watch and rewatch each video multiple times. Each video was numbered (sample video was always nr. 1) and raters were asked: "Which video is more similar to 1". They made a choice by pressing the respective number on the keyboard. Raters went through the videos in blocks. Each block consisted of all videos from a given age and sex for a particular picture. The order of blocks was randomized across raters. 
+
+## Results and discussion.
 ```{r part 1-5}
 d6 <- read.csv(file="data/pt1_convergence.csv") %>% 
   mutate(Age = ifelse(age == "M48","4yo","6yo"))
 
 # Do raters choose the gesture from the same dyad above chance in both age groups?
-d6 %>%
+d6.t <- d6 %>%
   group_by(Age, rater)%>%
   summarise(corr = mean(corr))%>%
   summarise(corr = list(corr)) %>%
@@ -465,33 +462,57 @@ d6 %>%
          df= t.test(unlist(corr), mu = 0.5)$parameter,
          t_value = t.test(unlist(corr), mu = 0.5)$statistic,
          p_value = t.test(unlist(corr), mu = 0.5)$p.value) %>%
-  select(Age,mean,df,t_value,p_value) %>%
-  knitr::kable(digits = 3)
+  select(Age,mean,df,t_value,p_value)
 
-# plot per age group
-d6.p <- d6 %>%
-  group_by(Age, rater)%>%
+d6.m <- d6  %>%
+  mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE))
+
+# model 
+m6 <- glmer(corr ~ age + (age | rater) + (1 | video), family = binomial, data = d6.m, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+# summary
+summary(m6)
+# p values
+drop1(m6, test = "Chi")
+
+
+  
+```
+
+```{r plot5, echo = FALSE, fig.cap="\\label{fig:plot2}Proportion with which raters judged the video from the same dyad to be more similar, overall and by item. Dotted line indicates performance expected by chance. Error bars are 95% confidence intervals based on non-parametric bootstraps."}
+# plot per age group and stimulus
+d6.p2 <- d6 %>%
+  group_by(Age, stimulus, rater)%>%
   summarise(corr = mean(corr))
 
-d6.p1 <- d6.p %>%
+d6.p3 <- d6.p2 %>%
   multi_boot_standard(col = "corr")
 
+
+d6.p4 <- d6 %>%
+  group_by(Age,rater) %>%
+  summarise(corr = mean(corr)) %>%
+  multi_boot_standard(col = "corr") %>%
+  mutate(stimulus = "Overall")
+
+
 ggplot() +
-  geom_jitter(data = d6.p, aes(x = 1, y = corr, col = Age, alpha = .2), width = .1,height = .05)+
-  geom_pointrange(data = d6.p1,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1) + 
+  geom_jitter(data = d6.p2, aes(x = stimulus, y = corr, col = Age, alpha = .2), width = .1,height = .05)+
+  geom_pointrange(data = d6.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = .5, alpha = .8) + 
+  geom_pointrange(data = d6.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1)+
   geom_hline(yintercept = 0.5, lty=2)+
-  #facet_grid(~block)+
+  xlab("Stimulus")+
   guides(alpha = F)+
+  scale_y_continuous(name = "Proportion Gesture from Same Dyad Chosen", limits = c(-0.05,1.05))+
   theme_few() + 
-  scale_y_continuous(name = "Proportion Gesture from Same Dyad Chosen", limits = c(0,1))+
-  scale_colour_solarized()+
-  theme(axis.text.x=element_blank(),axis.ticks.x=element_blank(),axis.title.x=element_blank())
-  
+  scale_colour_solarized()+ coord_flip()
 
 ```
 
 
-# Part 1.6: Drift to arbitrary
+Difference between 4 and 6yo probably becasue 4yo received more prompts and therefore started out with more similar gestures.
+
+
+# Part 3: Drift to arbitrary
 
 ## Production
 
@@ -523,7 +544,7 @@ d7 %>%
 
 ### better with more repititions? That is, 6yo better than 4yo and day 2 better than day 1 (not the best model since pictures on day 2 were different compared to day 1).
 
-m7 <- glmer(corr ~ Age+day+(Age|rater)+(1|stimulus), family = binomial, data = d7, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m7 <- glmer(corr ~ Age+day+(Age|rater)+(1|video), family = binomial, data = d7, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 summary(m7)
 
@@ -575,6 +596,36 @@ ggplot(data = d7.p2,aes(x = effort, y = corr, col = Age)) +
   scale_x_continuous(name = "Effort", limits = c(-0.05,1.05))+
   theme_few() + 
   scale_colour_solarized()
+
+
+# plot per age group, phase, day and stimulus
+d7.p2 <- d7 %>%
+  group_by(Age, day, stimulus, rater)%>%
+  summarise(corr = mean(corr))
+
+d7.p3 <- d7.p2 %>%
+  multi_boot_standard(col = "corr")
+
+
+d7.p4 <- d7 %>%
+  group_by(Age,day,rater) %>%
+  summarise(corr = mean(corr)) %>%
+  multi_boot_standard(col = "corr") %>%
+  mutate(stimulus = "Overall")
+
+ggplot() +
+  geom_jitter(data = d7.p2, aes(x = stimulus, y = corr, col = Age, alpha = .2), width = .1,height = .05)+
+  geom_pointrange(data = d7.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.5, alpha = .5) +
+  geom_pointrange(data = d7.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1) +
+  geom_hline(yintercept = 0.5, lty=2)+
+  geom_vline(xintercept = 8.5, lty=1)+
+  facet_grid(day~.,scales = "free_y", space = "free_y", drop = T)+
+  guides(alpha = F)+
+  scale_y_continuous(name = "Proportion Later Chosen", limits = c(-0.05,1.05))+
+  theme_few() + 
+  scale_colour_solarized()+ 
+  coord_flip()
+
 
 ```
 
@@ -636,106 +687,9 @@ ggplot() +
 
 ### Results and discussion
 
-# Part 1 Appendix: Plots by stimulus
+# Part 4: Grammatical constructions
 
-## Comprehension
-```{r plots by stimulus: comprehension}
-# plot by stimulus, age group and phase
-d4.p2 <- d4 %>%
-  group_by(Age, stimulus, block, dyad_id)%>%
-  summarise(comp = mean(comp))
-
-d4.p3 <- d4.p2 %>%
-  multi_boot_standard(col = "comp")
-
-
-d4.p4 <- d4 %>%
-  group_by(Age, block, dyad_id)%>%
-  summarise(comp = mean(comp)) %>%
-  multi_boot_standard(col = "comp")%>%
-  mutate(stimulus = "Overall")
-
-ggplot() +
-  geom_jitter(data = d4.p2, aes(x = stimulus, y = comp, col = Age, alpha = .2), width = .1,height = .05)+
-  geom_pointrange(data = d4.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
-                  position = position_dodge(width = .5), size = 0.5, alpha = .5) +
-  geom_pointrange(data = d4.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
-                  position = position_dodge(width = .5), size = 1) +
-  geom_hline(yintercept = 0.25, lty=2)+
-  guides(alpha = F)+
-  facet_grid(~block)+
-  scale_y_continuous(name = "Proportion Correct", limits = c(-0.05,1.05))+
-  theme_few() + 
-  scale_colour_solarized()+ coord_flip()
-
-
-
-
-```
-
-## Convergence
-```{r plots by stimulus: convergence}
-
-# plot per age group and stimulus
-d6.p2 <- d6 %>%
-  group_by(Age, stimulus, rater)%>%
-  summarise(corr = mean(corr))
-
-d6.p3 <- d6.p2 %>%
-  multi_boot_standard(col = "corr")
-
-
-d6.p4 <- d6 %>%
-  group_by(Age,rater) %>%
-  summarise(corr = mean(corr)) %>%
-  multi_boot_standard(col = "corr") %>%
-  mutate(stimulus = "Overall")
-
-
-ggplot() +
-  geom_jitter(data = d6.p2, aes(x = stimulus, y = corr, col = Age, alpha = .2), width = .1,height = .05)+
-  geom_pointrange(data = d6.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = .5, alpha = .5) + 
-  geom_pointrange(data = d6.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1)+
-  geom_hline(yintercept = 0.5, lty=2)+
-  #facet_grid(~block)+
-  guides(alpha = F)+
-  scale_y_continuous(name = "Proportion Gesture from Same Dyad Chosen", limits = c(-0.05,1.05))+
-  theme_few() + 
-  scale_colour_solarized()+ coord_flip()
-
-```
-
-## Drift to arbitrary
-```{r plots by stimulus: drift}
-# plot per age group, phase, day and stimulus
-d7.p2 <- d7 %>%
-  group_by(Age, day, stimulus, rater)%>%
-  summarise(corr = mean(corr))
-
-d7.p3 <- d7.p2 %>%
-  multi_boot_standard(col = "corr")
-
-
-d7.p4 <- d7 %>%
-  group_by(Age,day,rater) %>%
-  summarise(corr = mean(corr)) %>%
-  multi_boot_standard(col = "corr") %>%
-  mutate(stimulus = "Overall")
-
-ggplot() +
-  geom_jitter(data = d7.p2, aes(x = stimulus, y = corr, col = Age, alpha = .2), width = .1,height = .05)+
-  geom_pointrange(data = d7.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.5, alpha = .5) +
-  geom_pointrange(data = d7.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1) +
-  geom_hline(yintercept = 0.5, lty=2)+
-  geom_vline(xintercept = 8.5, lty=1)+
-  facet_grid(day~.,scales = "free_y", space = "free_y", drop = T)+
-  guides(alpha = F)+
-  scale_y_continuous(name = "Proportion Later Chosen", limits = c(-0.05,1.05))+
-  theme_few() + 
-  scale_colour_solarized()+ 
-  coord_flip()
-```
-# Part 2.1: Size
+# Part 4.1: Size
 
 ## Participants
 
@@ -744,7 +698,7 @@ ggplot() +
 ## Results and discussion
 
 
-# Part 2.2: Number
+# Part 4.2: Number
 
 ## Participants
 
@@ -753,7 +707,7 @@ ggplot() +
 ## Results and discussion
 
 
-# Part 2.3: Movement
+# Part 4.3: Movement
 
 ## Participants
 
@@ -762,7 +716,7 @@ ggplot() +
 ## Results and discussion
 
 
-# Part 2.4: Transitive actions with two agents 
+# Part 4.4: Transitive actions with two agents 
 
 ## Participants
 
@@ -771,7 +725,7 @@ ggplot() +
 ## Results and discussion
 
 
-# Part 2.5: Transitive actions with three agents 
+# Part 4.5: Transitive actions with three agents 
 
 ## Participants
 
@@ -780,7 +734,7 @@ ggplot() +
 ## Results and discussion
 
 
-# Part 2 overall analysis
+# Part 4 overall analysis
 
 ## Participants
 
