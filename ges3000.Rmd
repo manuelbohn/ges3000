@@ -50,6 +50,7 @@ library(lme4)
 library(exactRankTests)
 ```
 # Introduction
+Chidlren learn language at incredible speed. Adults scaffold learnign process. However, during language evolution, no such scaffolding was there. Communicative partners on "on equal terms" created and shaped emerging communication system. Here we approximate this siutation by studying how dyads of young children create a new communication system. We find that children spontaneously creat communication systems that share many of the core properties of language (referentiality, conventionality, arbitrariness/efficiency, grammar ...).  
 
 Two disparate literatures, one looking at how children without a language model create their own structured communication system and the the other looking at how communication changes and structure emerges over repeated interactions in adults. Here we show that children who have already mastered one communication system, quickly switch modalities to create a new one. Furthermore, we show that these newly created communication systems already possess some of the core properties of language.
 
@@ -411,10 +412,10 @@ d5.t2 <- d5 %>%
   summarise(comp = mean(comp))%>%
   summarise(comp = list(comp)) %>%
   group_by(Age,block) %>%
-  mutate(mean = mean(unlist(comp)),
-         stat = wilcox.exact(unlist(comp), mu = 0.25)$statistic,
-         p_value = wilcox.exact(unlist(comp), mu = 0.25)$p.value) %>%
-  select(Age,block,mean,stat,p_value)
+    mutate(mean = mean(unlist(comp)),
+           stat = wilcox.exact(unlist(comp), mu = 0.25)$statistic,
+           p_value = wilcox.exact(unlist(comp), mu = 0.25)$p.value) %>%
+    select(Age,block,mean,stat,p_value)
 
 # are 6yo better than 4yo at comprehension
 d5.m <- d5 %>%
@@ -445,7 +446,7 @@ We used the videos of children producing gestures during part 1. Twelve adult ra
 
 ## Design and Procedure
 
-For each dyad we selected a video of the last gesture for a picture from the PC during spontaneous and the first gesture for the same picture from the PC during uptake. That is, we chose the two depictions of the same picture that were closest in time. We used E-Prime (version 2.0.10.356) to set-up the rating procedure. On each trial, the rater was shown a sample video on top of the screen (see Figure XX) and two comparison videos on the bottom, one on the left and one in the right. The sample showed a child during the sponteneous part. One of the comparison videos showed the child from the *same* dyad during uptake whereas the other video showed a child of the same age and sex from a *different* dyad, also during uptake, also producing a gesture for the same picture. On each trial, the comparison video was randomly selected from the pool of suitable videos. Furthermore, the position of the comparison videos on the screen (left or right) was randomly determined. Raters could watch and rewatch each video multiple times. Each video was numbered (sample video was always nr. 1) and raters were asked: "Which video is more similar to 1". They made a choice by pressing the respective number on the keyboard. Raters went through the videos in blocks. Each block consisted of all videos from a given age and sex for a particular picture. The order of blocks was randomized across raters. 
+For each dyad we selected the video of the last gesture for a picture from the PC during spontaneous and the first gesture for the same picture from the PC (former CC) during uptake. That is, we chose the two depictions of the same picture that were closest in time. We used E-Prime (version 2.0.10.356) to set-up the rating procedure. On each trial, the rater was shown a sample video on top of the screen (see Figure XX) and two comparison videos on the bottom, one on the left and one in the right. The sample showed a child during the sponteneous part. One of the comparison videos showed the child from the *same* dyad during uptake whereas the other video showed a child of the same age and sex from a *different* dyad, also during uptake, also producing a gesture for the same picture. On each trial, the comparison video was randomly selected from the pool of suitable videos. Furthermore, the position of the comparison videos on the screen (left or right) was randomly determined. Raters could watch and rewatch each video multiple times. Each video was numbered (sample video was always nr. 1) and raters were asked: "Which video is more similar to 1". They made a choice by pressing the respective number on the keyboard. Raters went through the videos in blocks. Each block consisted of all videos from a given age and sex for a particular picture. The order of blocks was randomized across raters. We only used videos corresponding to trials in which the child produced a gesture without prompts. This resulted in a total number of 97 sample videos.
 
 ## Results and discussion.
 ```{r part 1-5}
@@ -508,8 +509,7 @@ ggplot() +
 
 ```
 
-
-Difference between 4 and 6yo probably becasue 4yo received more prompts and therefore started out with more similar gestures.
+Figure \ref{fig:plot5} shows how often the video from the same dyad was rated to be more similar to the sample video. For both age groups, raters chose the video from the same dyad above chance (both *p* < .001). In direct comparison, corresponding videos were chosen slightly more often for six- compared to four-year-olds ($\beta$ = `r round(summary(m6)$coefficients[2,1], 2)`, se = `r round(summary(m6)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m6,test="Chi")[2,4], 3))`, model: `corr ~ age + (age | rater) + (1 | video)`). Presumably this difference follows from the different rate of spontaneous production found in part 1. Six-year-olds mostly created gestures independently, probably resulting in more different gestures between dyads. Four-year-olds on the other hand, relied more often on prompts from the experimenter. Since most prompting resulted in the experimenter showing the child an iconic gesture  Difference between 4 and 6yo probably becasue 4yo received more prompts and therefore started out with more similar gestures.
 
 
 # Part 3: Drift to arbitrary
@@ -741,6 +741,18 @@ ggplot() +
 ## Design and Procedure
 
 ## Results and discussion
+
+
+stim = recode(Stimulus,
+                       Hammer = "HA",
+                       Fahrrad = "FA",
+                       Gabel = "GA",
+                       Kamm = "KA",
+                       Nichts = "NI")
+
+%>%
+  mutate(dyad_id = paste(age,session,substr(d$Counter,1,1),stim,sep="_"))
+
 
 
 
