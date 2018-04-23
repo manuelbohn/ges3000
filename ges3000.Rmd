@@ -1,5 +1,5 @@
 ---
-title             : "Children spontaneously re-create core properties of language in a new modality"
+title             : "Children spontaneously recreate core properties of language in a new modality"
 shorttitle        : "Language in a new modality"
 
 author: 
@@ -50,7 +50,9 @@ library(lme4)
 library(exactRankTests)
 ```
 # Introduction
-Chidlren learn language at incredible speed. Adults scaffold learnign process. However, during language evolution, no such scaffolding was there. Communicative partners on "on equal terms" created and shaped emerging communication system. Here we approximate this siutation by studying how dyads of young children create a new communication system. We find that children spontaneously creat communication systems that share many of the core properties of language (referentiality, conventionality, arbitrariness/efficiency, grammar ...).  
+Chidlren learn language at incredible speed. Adults scaffold learnign process. However, during language evolution, no such scaffolding was there. Communicative partners on "on equal terms" created and shaped emerging communication system. Here we approximate this siutation by studying how dyads of young children create a new communication system. We find that children spontaneously creat communication systems that share many of the core properties of language (referentiality, conventionality, arbitrariness/efficiency, grammar ...). 
+
+sign language emergence in home sign - even if signs are not learned from parents, parents structure interactions so that children can make themselves easily understood and are also willing and able to make additional inferences about children's intended meaning. 
 
 Two disparate literatures, one looking at how children without a language model create their own structured communication system and the the other looking at how communication changes and structure emerges over repeated interactions in adults. Here we show that children who have already mastered one communication system, quickly switch modalities to create a new one. Furthermore, we show that these newly created communication systems already possess some of the core properties of language.
 
@@ -58,6 +60,8 @@ Lit:
 Clark tangram studies: Clark, H. H., & Wilkes-Gibbs, D. (1986). Referring as a collaborative process. Cognition, 22(1), 1-39.
 
 word order: Gibson, E., Piantadosi, S. T., Brink, K., Bergen, L., Lim, E., & Saxe, R. (2013). A Noisy-Channel Account of Crosslinguistic Word-Order Variation. Psychological Science, 24(7), 1079–1088. http://doi.org/10.1177/0956797612463705
+
+Newport adults, some time in the 80s
 
 # General setup and procedure
 
@@ -359,7 +363,7 @@ ggplot() +
   geom_pointrange(data = d4.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
                   position = position_dodge(width = .5), size = 0.5, alpha = .5) +
   geom_pointrange(data = d4.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
-                  position = position_dodge(width = .5), size = 1) +
+                  position = position_dodge(width = .5), size = 0.75) +
   geom_hline(yintercept = 0.25, lty=2)+
   guides(alpha = F)+
   facet_grid(~block)+
@@ -421,8 +425,6 @@ d5.t2 <- d5 %>%
 d5.m <- d5 %>%
   filter(ifelse(block=="Uptake",blocktrial<6,blocktrial<15))
 
-table(d5.m$block, d5.m$blocktrial)
-
 #model does not converge with interaction
 m5 <- glmer(comp ~ age+block + (1|dyad_id), family = binomial, data = d5.m,
         control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
@@ -449,7 +451,7 @@ We used the videos of children producing gestures during part 1. Twelve adult ra
 For each dyad we selected the video of the last gesture for a picture from the PC during spontaneous and the first gesture for the same picture from the PC (former CC) during uptake. That is, we chose the two depictions of the same picture that were closest in time. We used E-Prime (version 2.0.10.356) to set-up the rating procedure. On each trial, the rater was shown a sample video on top of the screen (see Figure XX) and two comparison videos on the bottom, one on the left and one in the right. The sample showed a child during the sponteneous part. One of the comparison videos showed the child from the *same* dyad during uptake whereas the other video showed a child of the same age and sex from a *different* dyad, also during uptake, also producing a gesture for the same picture. On each trial, the comparison video was randomly selected from the pool of suitable videos. Furthermore, the position of the comparison videos on the screen (left or right) was randomly determined. Raters could watch and rewatch each video multiple times. Each video was numbered (sample video was always nr. 1) and raters were asked: "Which video is more similar to 1". They made a choice by pressing the respective number on the keyboard. Raters went through the videos in blocks. Each block consisted of all videos from a given age and sex for a particular picture. The order of blocks was randomized across raters. We only used videos corresponding to trials in which the child produced a gesture without prompts. This resulted in a total number of 97 sample videos.
 
 ## Results and discussion.
-```{r part 1-5}
+```{r part 1-5, include = FALSE}
 d6 <- read.csv(file="data/pt1_convergence.csv") %>% 
   mutate(Age = ifelse(age == "M48","4yo","6yo"))
 
@@ -475,6 +477,24 @@ summary(m6)
 # p values
 drop1(m6, test = "Chi")
 
+### select only videos with gestures for which children did not receive a prompt
+
+ex <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
+  filter(prompts > 2)%>%
+  select(video) %>%
+  mutate(video = as.character(video))
+
+d6.no.prompt <- filter(d6, !video %in% ex$video)
+
+d6.m2 <- d6.no.prompt  %>%
+  mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE))
+
+# model 
+m6.2 <- glmer(corr ~ age + (age| rater) + (1 | video), family = binomial, data = d6.m2, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+# summary
+summary(m6.2)
+# p values
+drop1(m6.2, test = "Chi")
 
   
 ```
@@ -509,7 +529,7 @@ ggplot() +
 
 ```
 
-Figure \ref{fig:plot5} shows how often the video from the same dyad was rated to be more similar to the sample video. For both age groups, raters chose the video from the same dyad above chance (both *p* < .001). In direct comparison, corresponding videos were chosen slightly more often for six- compared to four-year-olds ($\beta$ = `r round(summary(m6)$coefficients[2,1], 2)`, se = `r round(summary(m6)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m6,test="Chi")[2,4], 3))`, model: `corr ~ age + (age | rater) + (1 | video)`). Presumably this difference follows from the different rate of spontaneous production found in part 1. Six-year-olds mostly created gestures independently, probably resulting in more different gestures between dyads. Four-year-olds on the other hand, relied more often on prompts from the experimenter. Since most prompting resulted in the experimenter showing the child an iconic gesture  Difference between 4 and 6yo probably becasue 4yo received more prompts and therefore started out with more similar gestures.
+Figure \ref{fig:plot5} shows how often the video from the same dyad was rated to be more similar to the sample video. For both age groups, raters chose the video from the same dyad above chance (both *p* < .001). In direct comparison, corresponding videos were chosen slightly more often for six- compared to four-year-olds ($\beta$ = `r round(summary(m6)$coefficients[2,1], 2)`, se = `r round(summary(m6)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m6,test="Chi")[2,4], 3))`, model: `corr ~ age + (age | rater) + (1 | video)`). This difference might follow from the different rate of spontaneous production found in part 1. Six-year-olds mostly created gestures independently, probably resulting in more different gestures between dyads. Four-year-olds on the other hand, relied more often on prompts from the experimenter. Since most prompting resulted in the experimenter showing the child an iconic gesture, four-year-olds' gestures were more similar because many of them were imitations of the experimenter's gesture. To adress this empirically, we subsetted the data and excluded all videos showing gestures which were produced following a direct demonstration by the experimenter. In contrast to the hypothesis laid out above, excluding prompted gestures augmented rather than weakened the difference between age groups ($\beta$ = `r round(summary(m6.2)$coefficients[2,1], 2)`, se = `r round(summary(m6.2)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m6.2,test="Chi")[2,4], 3))`). Nevertheless, both age groups produced more similar gestures within than between dyads. 
 
 
 # Part 3: Drift to arbitrary
@@ -521,7 +541,7 @@ Figure \ref{fig:plot5} shows how often the video from the same dyad was rated to
 ### Design and Procedure
 
 ### Results and discussion
-```{r part 1-6 production}
+```{r part 1-6 production, include = FALSE}
 d7 <- read.csv(file="data/pt1_drift_production.csv") %>% 
   mutate(Age = ifelse(age == "M48","4yo","6yo"))%>%
   filter(phase != "Uptake")  #filtering out uptake because 4yo only got 1 trial per stimulus in uptake
@@ -541,61 +561,13 @@ d7 %>%
   select(Age,day,mean,df,t_value,p_value) %>%
   knitr::kable(digits = 3)
 
-
 ### better with more repititions? That is, 6yo better than 4yo and day 2 better than day 1 (not the best model since pictures on day 2 were different compared to day 1).
 
-m7 <- glmer(corr ~ Age+day+(Age|rater)+(1|video), family = binomial, data = d7, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m7 <- glmer(corr ~ age+day+(age+day|rater) + (1|video), family = binomial, data = d7, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 summary(m7)
 
 drop1(m7,test="Chi")
-
-
-# plot per age group  and day
-d7.p <- d7 %>%
-  group_by(Age, day, rater)%>%
-  summarise(corr = mean(corr))
-
-d7.p1 <- d7.p %>%
-  multi_boot_standard(col = "corr")
-
-ggplot() +
-  geom_jitter(data = d7.p, aes(x = day, y = corr, col = Age, alpha = .2), width = .1,height = .05)+
-  geom_pointrange(data = d7.p1,aes(x = day, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1) + 
-  geom_hline(yintercept = 0.5, lty=2)+
-  #facet_grid(~day,scales = "free_x", space = "free_x")+
-  guides(alpha = F)+
-  scale_y_continuous(name = "Proportion Later Gesture Chosen", limits = c(0,1))+
-  theme_few() + 
-  scale_colour_solarized()
-
-
-# abstract and effort
-# correlation
-d7.r <- d7 %>%
-  group_by(Age,group)%>%
-  summarise(corr = mean(corr),
-            effort = mean(effort))%>%
-  group_by(Age)%>%
-  summarise(r = cor.test(corr,effort)$estimate,
-            p = cor.test(corr,effort)$p.value)
-
-
-# plot
-d7.p2 <- d7%>%
-  group_by(Age,group)%>%
-  summarise(corr = mean(corr),
-            effort = mean(effort))
-
-ggplot(data = d7.p2,aes(x = effort, y = corr, col = Age)) +
-  geom_jitter(aes(alpha = .2), width = .02,height = .02)+
-  #facet_grid(~day,scales = "free_x", space = "free_x")+
-  geom_smooth(method = "lm", se = T , level = 0.95, aes(colour=Age))+
-  guides(alpha = F)+
-  scale_y_continuous(name = "Abstract", limits = c(-0.05,1.05))+
-  scale_x_continuous(name = "Effort", limits = c(-0.05,1.05))+
-  theme_few() + 
-  scale_colour_solarized()
 
 
 # plot per age group, phase, day and stimulus
@@ -641,7 +613,7 @@ d8.m <- d8  %>%
   mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE))
 
 # model 
-m8 <- glmer(corr ~ age+phase + (trial+phase|id) + (age+phase|stimulus), family = binomial, data = d8.m, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m8 <- glmer(corr ~ age+phase + (trial+phase|id) + (trial+age+phase|stimulus), family = binomial, data = d8.m, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 # summary
 summary(m8)
 # p values
