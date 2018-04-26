@@ -52,6 +52,10 @@ library(exactRankTests)
 # Introduction
 Chidlren learn language at incredible speed. Adults scaffold learnign process. However, during language evolution, no such scaffolding was there. Communicative partners on "on equal terms" created and shaped emerging communication system. Here we approximate this siutation by studying how dyads of young children create a new communication system. We find that children spontaneously creat communication systems that share many of the core properties of language (referentiality, conventionality, arbitrariness/efficiency, grammar ...). 
 
+Grammar: expressivity = need to express complex ideas - requires either very complex holistic signals or structured utterances
+
+children spontaneously create structured and holistic symbols that then have differetn survival rates when passed on to next generation? Focus in our task was on expressivity but structure nevertheless arises, even when it's not necessary.
+
 sign language emergence in home sign - even if signs are not learned from parents, parents structure interactions so that children can make themselves easily understood and are also willing and able to make additional inferences about children's intended meaning. 
 
 Two disparate literatures, one looking at how children without a language model create their own structured communication system and the the other looking at how communication changes and structure emerges over repeated interactions in adults. Here we show that children who have already mastered one communication system, quickly switch modalities to create a new one. Furthermore, we show that these newly created communication systems already possess some of the core properties of language.
@@ -62,6 +66,11 @@ Clark tangram studies: Clark, H. H., & Wilkes-Gibbs, D. (1986). Referring as a c
 word order: Gibson, E., Piantadosi, S. T., Brink, K., Bergen, L., Lim, E., & Saxe, R. (2013). A Noisy-Channel Account of Crosslinguistic Word-Order Variation. Psychological Science, 24(7), 1079–1088. http://doi.org/10.1177/0956797612463705
 
 Newport adults, some time in the 80s
+
+
+Garrod, S., Fay, N., Lee, J., Oberlander, J., & MacLeod, T. (2007). Foundations of representation: where might graphical symbol systems come from?. Cognitive science, 31(6), 961-987.
+
+Goldin-Meadow, S., & Mylander, C. (1998). Spontaneous sign systems created by deaf children in two cultures. Nature, 391(6664), 279.
 
 # General setup and procedure
 
@@ -367,7 +376,7 @@ ggplot() +
   geom_hline(yintercept = 0.25, lty=2)+
   guides(alpha = F)+
   facet_grid(~block)+
-  labs(x="Stimulus")+
+  labs(x="Picture")+
   scale_y_continuous(name = "Proportion Correct", limits = c(-0.05,1.05))+
   theme_few() + 
   scale_colour_solarized()+ coord_flip()
@@ -448,7 +457,7 @@ We used the videos of children producing gestures during part 1. Twelve adult ra
 
 ## Design and Procedure
 
-For each dyad we selected the video of the last gesture for a picture from the PC during spontaneous and the first gesture for the same picture from the PC (former CC) during uptake. That is, we chose the two depictions of the same picture that were closest in time. We used E-Prime (version 2.0.10.356) to set-up the rating procedure. On each trial, the rater was shown a sample video on top of the screen (see Figure XX) and two comparison videos on the bottom, one on the left and one in the right. The sample showed a child during the sponteneous part. One of the comparison videos showed the child from the *same* dyad during uptake whereas the other video showed a child of the same age and sex from a *different* dyad, also during uptake, also producing a gesture for the same picture. On each trial, the comparison video was randomly selected from the pool of suitable videos. Furthermore, the position of the comparison videos on the screen (left or right) was randomly determined. Raters could watch and rewatch each video multiple times. Each video was numbered (sample video was always nr. 1) and raters were asked: "Which video is more similar to 1". They made a choice by pressing the respective number on the keyboard. Raters went through the videos in blocks. Each block consisted of all videos from a given age and sex for a particular picture. The order of blocks was randomized across raters. We only used videos corresponding to trials in which the child produced a gesture without prompts. This resulted in a total number of 97 sample videos.
+For each dyad we selected the video of the last gesture for a picture from the PC during spontaneous and the first gesture for the same picture from the PC (former CC) during uptake. That is, we chose the two depictions of the same picture by the two children that were closest in time. We used E-Prime (version 2.0.10.356) to set-up the rating procedure. On each trial, the rater was shown a sample video on top of the screen (see Figure XX) and two comparison videos on the bottom, one on the left and one in the right. The sample showed a child during the sponteneous part. One of the comparison videos showed the child from the *same* dyad during uptake whereas the other video showed a child of the same age and sex from a *different* dyad, also during uptake, also producing a gesture for the same picture. On each trial, the comparison video was randomly selected from the pool of suitable videos. Furthermore, the position of the comparison videos on the screen (left or right) was randomly determined. Raters could watch and rewatch each video multiple times. Each video was numbered (sample video was always nr. 1) and raters were asked: "Which video is more similar to 1". They made a choice by pressing the respective number on the keyboard. Raters went through the videos in blocks. Each block consisted of all videos from a given age and sex for a particular picture. The order of blocks was randomized across raters. We only used videos corresponding to trials in which the child produced a gesture without prompts. This resulted in a total number of 97 sample videos.
 
 ## Results and discussion.
 ```{r part 1-5, include = FALSE}
@@ -521,7 +530,7 @@ ggplot() +
   geom_pointrange(data = d6.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = .5, alpha = .8) + 
   geom_pointrange(data = d6.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1)+
   geom_hline(yintercept = 0.5, lty=2)+
-  xlab("Stimulus")+
+  xlab("Picture")+
   guides(alpha = F)+
   scale_y_continuous(name = "Proportion Gesture from Same Dyad Chosen", limits = c(-0.05,1.05))+
   theme_few() + 
@@ -534,59 +543,100 @@ Figure \ref{fig:plot5} shows how often the video from the same dyad was rated to
 
 # Part 3: Drift to arbitrary
 
+Adult communicators streamline their communication over time by reducing the effort of each utterance. When using iconic lexical items, this usually results in a "drift to the arbitrary" with items gradually loosing their iconicty. In part 3 we investigated this drift to the arbitrary in children's production and comprehension of gestures.
+
+In terms of production, we compared the first instance of a gesture for a picture to the last to see if children streamline their utterances over time. In terms of comprehension, we paired children with an adult who produced more and more abstract gestures over time.
+
 ## Production
 
+We used the videos recorded during part 1. However, because children only got up to five repititions of the same gesture (four-year-olds only up to 3) we invited children back into the lab on a second day and repeated the procedure with fewer pictures and more repetitions per gesture. On this second day, we paired children with an adult comprehension partner.
+
 ### Participants
+```{r part 3 participants}
+d7.participants <- read.csv(file="data/pt1_drift_day2_production.csv")
+```
+
+For the additional study, we invited half of the children (one from each dyad) who participated in part 1 on day 1 back to the lab on a second day. Three four-year-olds could not participate on the second day and were therefore replaced with new children. In sum, twelve four-year-olds (mean age = `r round(mean(d7.participants$age[d7.participants$age_group=="M48"]),2)`, range = `r round(range(d7.participants$age[d7.participants$age_group=="M48"])[1],2)` to `r round(range(d7.participants$age[d7.participants$age_group=="M48"])[2],2)`) and 12 six-year-olds (mean age = `r round(mean(d7.participants$age[d7.participants$age_group=="M72"]),2)`, range = `r round(range(d7.participants$age[d7.participants$age_group=="M72"])[2],2)`) participated in the study.
+
+We presented the videos from day 1 and 2 to twelve adult raters, who were unfamiliar with the study design and procedure. They were asked to rate how abstract and effortful gestures were. 
 
 ### Design and Procedure
 
+For the new data collection, we made the following changes to the procedure compared to day 1. We used E2 as  comprehension partner. Instead of a warm-up phase with sound, children received four training trials with the pictures from day 1, already without sound. Then the experimenter introduced the new pictures (deer, duck and fish, see Figure XX) that were used for the remainder of the session. Children received a total of 30 test trials, 10 with each picture. Order of pictures was randomized in blocks of six, that is, each picture was selected twice before another picture could be selected a third time. Children who did not participate on day 1, received additional training trials with sound and were prompted to use gestures if they did not do so spontaneously.
+
+The rating procedure was simialr to the one used in part 2. For each child, we selected the first and the last gesture for a picture. That is, we used the two depictions for the same picture that were furthewst apart in time. From day 1, we only used gestures produced during spontaneous because four-year-olds only received one trial with each picture during uptake. Again, we used E-Prime (version 2.0.10.356) to set-up the rating procedure. On a trial, the rater was shown the two videos from a child with a given picture, one showing the first and the other showing the last gesture production (see Figure XX). The position of each video (left and right) was randomly determined. The two videos were numbered and raters could select them by pressing the corresponding number on the keyboard. On each trial, raters could watch and re-watch the videos as they liked. The first rating question was always "Which of the two gestures is more abstract?" and the second question was "Which of the two gestures is more effortful?". Before going throught the videos, raters read discriptions of what was meant by the two rating categories "abstract" and "effortful". We defined *abstract* as ... and *effortful* as .... 
+
+Raters went through the videos in blocks. Each block consisted of all videos from a given age and sex for a particular picture. Raters were shown the picture that was used as stimulus for children in the beginning of each block. Order of blocks was randomized across raters. Like in part 2, we only used videos from trials in which the child produced the gestrue spontaneously. In total, there were 168 video pairs.
+
 ### Results and discussion
-```{r part 1-6 production, include = FALSE}
+```{r part 3 production, include = FALSE}
 d7 <- read.csv(file="data/pt1_drift_production.csv") %>% 
   mutate(Age = ifelse(age == "M48","4yo","6yo"))%>%
   filter(phase != "Uptake")  #filtering out uptake because 4yo only got 1 trial per stimulus in uptake
 
+### influence of age and effort per day. 
+# day 1
+d7.m1 <- d7 %>%
+  filter(day == "Day1")
 
-# Do raters choose the later gesture as the more abstract one?
+m7.1 <- glmer(abs ~ age + effort + (age | rater) + (1 | video), family = binomial, data = d7.m1, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+
+summary(m7.1)
+
+drop1(m7.1,test="Chi")
+
+#day2
+d7.m2 <- d7 %>%
+  filter(day == "Day2")
+
+m7.2 <- glmer(abs ~ age + effort + (age | rater) + (1 | video), family = binomial, data = d7.m2, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+
+summary(m7.2)
+
+drop1(m7.2,test="Chi")
+
+```
+
+
+```{r table2, results = "asis"}
+
+ # Do raters choose the later gesture as the more abstract one?
 ### t-tests against chance per age group and day
-d7 %>%
+t7 <-d7 %>%
   group_by(Age, day, rater)%>%
-  summarise(corr = mean(corr))%>%
-  summarise(corr = list(corr)) %>%
+  summarise(abs = mean(abs))%>%
+  summarise(abs = list(abs)) %>%
   group_by(Age, day) %>%
-  mutate(mean = mean(unlist(corr)),
-         df= t.test(unlist(corr), mu = 0.5)$parameter,
-         t_value = t.test(unlist(corr), mu = 0.5)$statistic,
-         p_value = t.test(unlist(corr), mu = 0.5)$p.value) %>%
-  select(Age,day,mean,df,t_value,p_value) %>%
-  knitr::kable(digits = 3)
-
-### better with more repititions? That is, 6yo better than 4yo and day 2 better than day 1 (not the best model since pictures on day 2 were different compared to day 1).
-
-m7 <- glmer(corr ~ age+day+(age+day|rater) + (1|video), family = binomial, data = d7, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
-
-summary(m7)
-
-drop1(m7,test="Chi")
+  mutate(mean = mean(unlist(abs)),
+         df= t.test(unlist(abs), mu = 0.5)$parameter,
+         t_value = t.test(unlist(abs), mu = 0.5)$statistic,
+         p_value = t.test(unlist(abs), mu = 0.5)$p.value) %>%
+  select(Age,day,mean,df,t_value,p_value)
 
 
+apa_table(t7,
+            caption = "Abstractness ratings for gestures compared to chance.",
+          note = "Statistics are based on two-tailed one sample t-tests with data aggregated for each rater. Chance comparison level is .5.")
+```
+
+```{r plot6, echo = FALSE, fig.cap="\\label{fig:plot2}Proportion with which raters judged the later gesture to be more abstract, overall by day and by item. Dotted line indicates performance expected by chance. Error bars are 95% confidence intervals based on non-parametric bootstraps."}
 # plot per age group, phase, day and stimulus
 d7.p2 <- d7 %>%
   group_by(Age, day, stimulus, rater)%>%
-  summarise(corr = mean(corr))
+  summarise(abs = mean(abs))
 
 d7.p3 <- d7.p2 %>%
-  multi_boot_standard(col = "corr")
+  multi_boot_standard(col = "abs")
 
 
 d7.p4 <- d7 %>%
   group_by(Age,day,rater) %>%
-  summarise(corr = mean(corr)) %>%
-  multi_boot_standard(col = "corr") %>%
+  summarise(abs = mean(abs)) %>%
+  multi_boot_standard(col = "abs") %>%
   mutate(stimulus = "Overall")
 
 ggplot() +
-  geom_jitter(data = d7.p2, aes(x = stimulus, y = corr, col = Age, alpha = .2), width = .1,height = .05)+
+  geom_jitter(data = d7.p2, aes(x = stimulus, y = abs, col = Age, alpha = .2), width = .1,height = .05)+
   geom_pointrange(data = d7.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.5, alpha = .5) +
   geom_pointrange(data = d7.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1) +
   geom_hline(yintercept = 0.5, lty=2)+
@@ -594,12 +644,36 @@ ggplot() +
   facet_grid(day~.,scales = "free_y", space = "free_y", drop = T)+
   guides(alpha = F)+
   scale_y_continuous(name = "Proportion Later Chosen", limits = c(-0.05,1.05))+
+  xlab("Picture")+
   theme_few() + 
   scale_colour_solarized()+ 
   coord_flip()
 
-
 ```
+
+
+```{r plot7, echo = FALSE, fig.cap="\\label{fig:plot2}Realtion between ratings of abstractness and effort for each day. Each dot represents the mean rating across raters for a video pair across. Regression lines show smoothed conditional means per age group with 95% confidence intervals."}
+
+d7.p5 <- d7 %>%
+  group_by(Age,day,video,stimulus) %>%
+  summarise(abs = mean(abs),
+            eff = mean(effort))
+
+ggplot(data = d7.p5,aes(x = eff, y = abs, col = Age)) +
+  geom_jitter(width = .05,height = .05, alpha = 0.7)+
+  geom_smooth(method = "lm", se = T)+
+  theme_few() +
+  facet_wrap(~day)+
+  xlab("Effort")+
+  ylab("Abstractness")+
+  #stat_cor(aes(col = Age), method = "pearson", label.x = 0.25,label.y = c(0,0.1),show.legend = F)+
+  scale_colour_solarized()
+```
+
+We analysed the data for the two days separately because children were tested with different pictures. Table \ref{tab:table2} and Figure \ref{fig:plot6} show abstractness ratings compared to chance level. These results show that raters generally rated the later gestures to be more abstract. To analyse the influence of age and effort on abstractness rating, we fit the following model to the data from each day: `abs ~ age + effort + (age | rater) + (1 | video)`. On day 1,  
+
+
+Figure \ref{fig:plot7} shows the relation between ratings for effort and abstractness.
 
 
 ## Comprehension
