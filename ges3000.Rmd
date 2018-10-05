@@ -8,14 +8,14 @@ author:
     corresponding : yes    # Define only one corresponding author
     address       : "Postal address"
     email         : "my@email.com"
-  - name          : "Ernst-August Doelle"
+  - name          : ""
     affiliation   : "1,2"
 
 affiliation:
   - id            : "1"
-    institution   : "Wilhelm-Wundt-University"
+    institution   : ""
   - id            : "2"
-    institution   : "Konstanz Business School"
+    institution   : ""
 
 author_note: |
   Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
@@ -50,7 +50,10 @@ library(lme4)
 library(exactRankTests)
 ```
 # Introduction
-Chidlren learn language at incredible speed. Adults scaffold learnign process. However, during language evolution, no such scaffolding was there. Communicative partners on "on equal terms" created and shaped emerging communication system. Here we approximate this siutation by studying how dyads of young children create a new communication system. We find that children spontaneously creat communication systems that share many of the core properties of language (referentiality, conventionality, arbitrariness/efficiency, grammar ...). 
+
+Structured language is thought of as a lengthy process of cultural/geentic evolution. Here we show that children (largely without formal schooling) spontaneously re-create some if the core properties of langugage in a new modality: they invent referential signals, converge on a way of signalling, produce more arbitrary signals over time and create syntactical constructions to describe more complex scenarios. We take this to be evidence that structured communication is a natural/direct consequence of how humans communicate.
+
+Children learn language at incredible speed. Adults scaffold learning process. However, during language evolution, no such scaffolding was there. Communicative partners on "on equal terms" created and shaped emerging communication system. Here we approximate this siutation by studying how dyads of young children create a new communication system. We find that children spontaneously creat communication systems that share many of the core properties of language (referentiality, conventionality, arbitrariness/efficiency, grammar ...). 
 
 Grammar: expressivity = need to express complex ideas - requires either very complex holistic signals or structured utterances
 
@@ -67,10 +70,29 @@ word order: Gibson, E., Piantadosi, S. T., Brink, K., Bergen, L., Lim, E., & Sax
 
 Newport adults, some time in the 80s
 
+Kirby, S., Tamariz, M., Cornish, H., & Smith, K. (2015). Compression and communication in the cultural evolution of linguistic structure. Cognition, 141, 87-102.
 
 Garrod, S., Fay, N., Lee, J., Oberlander, J., & MacLeod, T. (2007). Foundations of representation: where might graphical symbol systems come from?. Cognitive science, 31(6), 961-987.
 
 Goldin-Meadow, S., & Mylander, C. (1998). Spontaneous sign systems created by deaf children in two cultures. Nature, 391(6664), 279.
+
+Language evolution in the laboratory
+Author links open overlay panelThomas C.Scott-PhillipsSimonKirby
+
+Word Meanings Evolve to Selectively PreserveDistinctions on Salient DimensionsCatriona Silvey, Simon Kirby, Kenny Smith
+
+
+https://languagecreationlab.uconn.edu/wp-content/uploads/sites/644/2014/03/brentari_coppola_wires_2012.pdf
+
+# Discussion
+
+Difference between leanring a language and creating one.
+Some aspects seem to come for free (convergence and drift) but others (establishing reference) are more challenging (developmental differences?). Same true for grammar.
+
+Limitations:
+
+Very "samll world", reference was established, porbably, by excluding alternatives. GEsture fit more with one rather than the other picture. Cannot estimate the role of common ground in establishing communication here. Howeve,r common ground is alwqys a part of communication (in adults and development). Convention formation is, to some extend, grounding a certain way of referring and expecting all memebers of a group to adhere to it. Done locally here within a dyad, therefore the general processes that follow are probably be the same.
+
 
 # General setup and procedure
 
@@ -92,7 +114,7 @@ As soon as the child also used the gesture, E1 left the room and the trial conti
 
 ## General note on analysis
 
-Data and analysis scripts can be found online at ``htps://github.com/manuelbohn/ges3000``. To improve readability, we only report a small set of statistics in the text itself (estimates, standard errors and p-values for models and p-values for non-parametric tests). For additional information we ask the reader to directly run the code and look at the model outputs. For all analysis, we used R [@R-base] and for models we used the function glmer of the lme4 package [@R-lme4]. Random effect structures were maximal whenever possible. Model p-values were based on likelihood ratio tests [@dobson2008introduction] and were computed via the function ``drop1``. We removed non-significant interaction terms from models unless they were the target of the inference.
+Data and analysis scripts can be found online at ``htps://github.com/manuelbohn/ges3000``. To improve readability, we only report a small set of statistics in the text itself (estimates, standard errors and p-values for models and p-values for other tests). For additional information we ask the reader to directly run the code and look at the model outputs. For all analysis, we used R [@R-base] and for models we used the function glmer of the lme4 package [@R-lme4] with maximal random effect structures. Non-significant interaction terms were removed from models and p-values were based on likelihood ratio tests [@dobson2008introduction] which were computed via the function ``drop1``.
 
 # Part 1: Production and comprehension
 
@@ -168,6 +190,9 @@ ggplot(d1.p,
   theme_few() +
   scale_colour_solarized()
 ```
+
+Except for a single, unsuccesful attempt to use lip-reading, all children produced gestures.
+
 Describe some gesture variants produced by children
 
 First we looked at the production of iconic gestures in the beginning of the test phase. Figure \ref{fig:plot1} shows that the majority of six-year-olds spontaneously produced gestures already in trial 1, more so compared to four-year-olds (trial 1: *p* = `r sub('^(-)?0[.]', '\\1.', round(d1.t$p_value, 3))`, Wilcoxon test; trial 1-4: $\beta$ = `r round(summary(m1)$coefficients[3,1], 2)`, se = `r round(summary(m1)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m1,test="Chi")[3,4], 3))`, model: `` prompts ~ age + trial + (trial|dyad_id)``). Even though four-year-olds initially only produced gestures after receiving prompts, they needed fewer prompts in later trials, showing that they transferred the idea of iconically depicting an referent to new pictures (main effect of trial: $\beta$ = `r round(summary(m1)$coefficients[2,1], 2)`, se = `r round(summary(m1)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m1,test="Chi")[2,4], 3))`). Thus, while both age groups successfully adopted a novel means of communication (iconic gestures) to coordinate, six-year-olds did so spontaneously while four-year-olds needed an initial hint.  
@@ -222,7 +247,8 @@ ggplot(d2.p,
   theme_few() + 
   scale_y_continuous(name = "Dyads Spontaneously Producing Gestures", limits = c(0,12), breaks = c(0,2,4,6,8,10,12))+
   scale_x_continuous(name = "Trial", breaks = c(1:6))+
-  scale_colour_solarized()
+  scale_colour_manual(name="Age",
+                      labels=c("3yo", "4yo"), values=c("#859900", "#dc322f"))
 
 ```
 
@@ -444,8 +470,8 @@ drop1(m5,test="Chi")
 
 ```
 
-Both age groups sponteneously produced gestures for the empty picture. Six-year-olds did not need prompts in any of the two parts. Four dyads of four-year-olds needed prompts in spontaneous and two did so in uptake. Statistically, there was no difference between age groups regarding the number of prompts (spontaneous: *p* = `r d5.t1[1,5]`, uptake: *p* = `r d5.t1[2,5]`; Wilcoxon test). 
-The second row in Figure \ref{fig:plot4} shows how well the gestures were understood by the CC. In general, children chose the correct picture above chance (all *p* < .01), except for four-year-olds in spontaneous (*p* = `r d5.t2[1,5]`, Wilcoxon test). To compare performance between age groups and blocks, we again dropped all trials that six-year-olds got more than four-year-olds and fit a model to the data (`comp ~ age + block + (1 | dyad_id)`). Rate of comprehension was higher for six-year-olds ($\beta$ = `r round(summary(m5)$coefficients[2,1], 2)`, se = `r round(summary(m5)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m5,test="Chi")[2,4], 3))`) and during the uptake part ($\beta$ = `r round(summary(m5)$coefficients[3,1], 2)`, se = `r round(summary(m5)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m5,test="Chi")[3,4], 3))`). Taken together, both age groups produced gestures for the empty picture. These gestures were immediately understood in the older age group and during the uptake part also in the younger one. 
+Both age groups sponteneously produced gestures for the empty picture. Six-year-olds did not need prompts in any of the two parts. Four dyads of four-year-olds needed prompts in spontaneous and two did so in uptake. Statistically, there was no difference between age groups regarding the number of prompts (spontaneous: *p* = `r sub('^(-)?0[.]', '\\1.', round(d5.t1$p_value[1], 3))`, uptake: *p* = `r sub('^(-)?0[.]', '\\1.', round(d5.t1$p_value[2], 3))`; Wilcoxon test). 
+The second row in Figure \ref{fig:plot4} shows how well the gestures were understood by the CC. In general, children chose the correct picture above chance (all *p* < .01), except for four-year-olds in spontaneous (*p* = `r sub('^(-)?0[.]', '\\1.', round(d5.t2$p_value[1], 3))`, Wilcoxon test). To compare performance between age groups and blocks, we again dropped all trials that six-year-olds got more than four-year-olds and fit a model to the data (`comp ~ age + block + (1 | dyad_id)`). Rate of comprehension was higher for six-year-olds ($\beta$ = `r round(summary(m5)$coefficients[2,1], 2)`, se = `r round(summary(m5)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m5,test="Chi")[2,4], 3))`) and during the uptake part ($\beta$ = `r round(summary(m5)$coefficients[3,1], 2)`, se = `r round(summary(m5)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m5,test="Chi")[3,4], 3))`). Taken together, both age groups produced gestures for the empty picture. These gestures were immediately understood in the older age group and during the uptake part also in the younger one. 
 
 # Part 2: Convergence
 
@@ -547,11 +573,11 @@ Adult communicators streamline their communication over time by reducing the eff
 
 In terms of production, we compared the first instance of a gesture for a picture to the last to see if children streamline their utterances over time. In terms of comprehension, we paired children with an adult who produced more and more abstract gestures over time.
 
-## Production
+# Part 3.1: Drift to arbitrary production
 
 We used the videos recorded during part 1. However, because children only got up to five repititions of the same gesture (four-year-olds only up to 3) we invited children back into the lab on a second day and repeated the procedure with fewer pictures and more repetitions per gesture. On this second day, we paired children with an adult comprehension partner.
 
-### Participants
+## Participants
 ```{r part 3 participants}
 d7.participants <- read.csv(file="data/pt1_drift_day2_production.csv")
 ```
@@ -560,15 +586,15 @@ For the additional study, we invited half of the children (one from each dyad) w
 
 We presented the videos from day 1 and 2 to twelve adult raters, who were unfamiliar with the study design and procedure. They were asked to rate how abstract and effortful gestures were. 
 
-### Design and Procedure
+## Design and Procedure
 
-For the new data collection, we made the following changes to the procedure compared to day 1. We used E2 as  comprehension partner. Instead of a warm-up phase with sound, children received four training trials with the pictures from day 1, already without sound. Then the experimenter introduced the new pictures (deer, duck and fish, see Figure XX) that were used for the remainder of the session. Children received a total of 30 test trials, 10 with each picture. Order of pictures was randomized in blocks of six, that is, each picture was selected twice before another picture could be selected a third time. Children who did not participate on day 1, received additional training trials with sound and were prompted to use gestures if they did not do so spontaneously.
+For the data collection on day 2, we made the following changes to the procedure compared to day 1. We used E2 as  comprehension partner. Instead of a warm-up phase with sound, children received four training trials with the pictures from day 1, already without sound. Then the experimenter introduced the new pictures (deer, duck and fish, see Figure XX) that were used for the remainder of the session. Children received a total of 30 test trials, 10 with each picture. Order of pictures was randomized in blocks of six, that is, each picture was selected twice before another picture could be selected a third time. Children who did not participate on day 1, received additional training trials with sound and were prompted to use gestures if they did not do so spontaneously.
 
 The rating procedure was simialr to the one used in part 2. For each child, we selected the first and the last gesture for a picture. That is, we used the two depictions for the same picture that were furthewst apart in time. From day 1, we only used gestures produced during spontaneous because four-year-olds only received one trial with each picture during uptake. Again, we used E-Prime (version 2.0.10.356) to set-up the rating procedure. On a trial, the rater was shown the two videos from a child with a given picture, one showing the first and the other showing the last gesture production (see Figure XX). The position of each video (left and right) was randomly determined. The two videos were numbered and raters could select them by pressing the corresponding number on the keyboard. On each trial, raters could watch and re-watch the videos as they liked. The first rating question was always "Which of the two gestures is more abstract?" and the second question was "Which of the two gestures is more effortful?". Before going throught the videos, raters read discriptions of what was meant by the two rating categories "abstract" and "effortful". We defined *abstract* as ... and *effortful* as .... 
 
 Raters went through the videos in blocks. Each block consisted of all videos from a given age and sex for a particular picture. Raters were shown the picture that was used as stimulus for children in the beginning of each block. Order of blocks was randomized across raters. Like in part 2, we only used videos from trials in which the child produced the gestrue spontaneously. In total, there were 168 video pairs.
 
-### Results and discussion
+## Results and discussion
 ```{r part 3 production, include = FALSE}
 d7 <- read.csv(file="data/pt1_drift_production.csv") %>% 
   mutate(Age = ifelse(age == "M48","4yo","6yo"))%>%
@@ -660,7 +686,7 @@ d7.p5 <- d7 %>%
             eff = mean(effort))
 
 ggplot(data = d7.p5,aes(x = eff, y = abs, col = Age)) +
-  geom_jitter(width = .05,height = .05, alpha = 0.7)+
+  geom_jitter(width = .02,height = .02, alpha = 0.7)+
   geom_smooth(method = "lm", se = T)+
   theme_few() +
   facet_wrap(~day)+
@@ -670,32 +696,65 @@ ggplot(data = d7.p5,aes(x = eff, y = abs, col = Age)) +
   scale_colour_solarized()
 ```
 
-We analysed the data for the two days separately because children were tested with different pictures. Table \ref{tab:table2} and Figure \ref{fig:plot6} show abstractness ratings compared to chance level. These results show that raters generally rated the later gestures to be more abstract. To analyse the influence of age and effort on abstractness rating, we fit the following model to the data from each day: `abs ~ age + effort + (age | rater) + (1 | video)`. On day 1,  
+We analysed the data for the two days separately because children were tested with different pictures. Table \ref{tab:table2} and Figure \ref{fig:plot6} show abstractness ratings compared to chance level. These results indicate that raters generally rated the later gestures to be more abstract. Figure \ref{fig:plot7} shows the relation between ratings for effort and abstractness.
 
+To analyse the influence of age and effort on abstractness ratings, we fit the following model to the data from each day: `abs ~ age + effort + (age | rater) + (1 | video)`. For day 1, six-year-olds' later gestures were rated as more abstract more often compared to four-year-olds' ($\beta$ = `r round(summary(m7.1)$coefficients[2,1], 2)`, se = `r round(summary(m7.1)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m7.1,test="Chi")[2,4], 3))` ). Ratings of abstractness were strongly influenced by ratings of effort  ($\beta$ = `r round(summary(m7.1)$coefficients[3,1], 2)`, se = `r round(summary(m7.1)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m7.1,test="Chi")[3,4], 3))`). The age difference on day 1 might be due to the fact that six-year-olds received more trials with each picture on day 1. If this would be the case, the age difference should disappear on day 2 when both age groups received the same number of trials. Model results show that this was the case. On day 2, abstractness ratings were again strongly influenced by effort ($\beta$ = `r round(summary(m7.2)$coefficients[3,1], 2)`, se = `r round(summary(m7.2)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m7.2,test="Chi")[3,4], 3))`) but, in contrast to day 1, not by age ($\beta$ = `r round(summary(m7.2)$coefficients[2,1], 2)`, se = `r round(summary(m7.2)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m7.2,test="Chi")[2,4], 3))`). This pattern of results suggests that gestures became more abstract over time because children reduced the effort put into each depiction. The differential age effect further suggests that this is a function of the number of repetitions of each gesture.
 
-Figure \ref{fig:plot7} shows the relation between ratings for effort and abstractness.
-
-
-## Comprehension
-```{r part 1-6 comprehension}
+# Part 3.2: Drift to arbitrary comprehension
+```{r part 3 comprehension, include = FALSE}
 d8 <- read.csv(file="data/pt1_drift_comprehension.csv") %>% 
-  mutate(Age = ifelse(age == "M48","4yo","6yo"))
+  mutate(condition = ifelse(condition == "Abstract", "Abstract", "Iconic"))%>%
+  mutate(condition = as.factor(condition))%>%
+  mutate(Age = ifelse(age == "M48","4yo","6yo"))%>%
+  mutate(phase = ifelse(phase == "test", "Test", "Control"))%>%
+  mutate(phase= as.factor(phase))
 
 # are children better in test compared to pretest when seeing abstract gestures?
-d8.m <- d8  %>%
+
+# comparing test and pretest in iconic
+d8.m1 <- d8  %>%
+  filter(condition == "Iconic") %>%
+  mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE))
+
+m8.1 <- glmer(corr ~ age + phase + (1| id) + (1 | stimulus), family = binomial, data = d8.m1, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+
+# comparing test and pretest in abstract
+d8.m2 <- d8  %>%
   filter(condition == "Abstract") %>%
   mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE))
 
-# model 
-m8 <- glmer(corr ~ age+phase + (trial+phase|id) + (trial+age+phase|stimulus), family = binomial, data = d8.m, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
-# summary
-summary(m8)
-# p values
-drop1(m8, test = "Chi")
+m8.2 <- glmer(corr ~ age + phase + (trial | id) + (1 | stimulus), family = binomial, data = d8.m2, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
+```
 
+The previous section showed that children's gestures become more abstract over time, presumably because features of the initial depictions are dropped in order to reduce production effort. However, the gestures produced by children towards the end of the study were still highly iconic. We therefore investigated whether children would comprehend gestures that become more and more arbitrary over time, up to a point where they bear no direct iconic correspondence to the original picture. In order to comprehend them at the final stage, children had to keep track of each gesture as it was drifting towards the arbitrary. We contrasted performance in this condition with that of naive children who only saw the initial iconic depictions and the final abstract depictions but not the intermediate stages.
+
+## Participants
+We invited the other half of children per age group from day 1 back to the lab to participate in the drift to the arbitrary comprehension game. For the control condition, we recruited the same number of children per age group from local kindergartens. In total 24 four-year olds (mean age = `r round(mean(d8$i_age[d8$age=="M48"]),2)`, range = `r round(range(d8$i_age[d8$age=="M48"])[1],2)` to `r round(range(d8$i_age[d8$age=="M48"])[2],2)`) and 24 six-year-olds (mean age = `r round(mean(d8$i_age[d8$age=="M72"]),2)`, range = `r round(range(d8$i_age[d8$age=="M72"])[1],2)` to `r round(range(d8$i_age[d8$age=="M72"])[2],2)`) participated in the study. Three four-year-olds from day 1 could not come back on the second day and were therefore replaced with children who were naive to the procedure. Drop outs ...
+
+## Design and Procedure
+Data in the control condition was collected prior to the test condition. The logic behind this order was that we wanted to find abstract depictions for the pictures that children would not spontaneously understand. After showing that this was the case for one set of depictions, we tested whether children would understand these abstract forms if they had been tested on intermediate (more iconic) versions as well.
+
+### Control
+Children in the control condition were tested in a separate room in their kindergarten. Videos were played on a 15 inch laptop located on a table. The pictures to which the gestures corresponded were put on the table between child and laptop. They were the same as the ones that would be later used in the test condition (deer, duck and fish, same as in part 3.1). Children responded by pointing to or naming a picture. The videos showing the iconic and abstract depiction of each stimulus were pre-recorded in the same setup and involving the same experimenters as in the test condition. Children were instructed that they would see videos in which someone would depict one of the pictures in front of them and their task would be to guess which picture it was. As a warm-up, children received XX training trials with videos of iconic depictions of different pictures (XX, Tiger and Elephant). Criteria?????. Subsequently, children received six test trials: first three with abstract gestures and then three with iconic gestures (each time, one trial per picture). The order of stimuli was counterbalanced within trials of abstract and iconic depictions. Children received feedback???. Reliability . Abstract gestures corresponded to stage 5 and iconic to stage 1 depictions described below.
+
+### Test
+The general setup and procedure for the test condition (drift to the arbitrary) were similar to day 1. Children played the role of the CC but instead of a peer, they were paired with an adult production partner. As a warm-up, children received one trial with each of the pictures from day 1. Children who did not participate in day 1, received additional training trials with sound. After the warm-up, the pictures were changed to test pictures (deer, duck and fish, same as in the previous section). Each child received 30 trials. There were 5 stages of abstraction with six trials (two per picture) per stage. The order of pictures within each stage was randomized. Gestures became more abstract in that elements of the iconic depictions were removed and aspects of the original gestures were depicted in a different way. Sample videos can be found in the online repository. Below are detailed descriptions of the gestures from each stage for each picture:  
+
+#### Deer 
+Stage 1: The experimenter stretched out both arms over her had and spread her fingers as if depicting the deer's antlers. In addition she moved her upper body up and down and left and right. Stage 2: Both arms as well as fingers were stretched out next to the head but upper body was not moved. Stage 3: Instead of stretching out the arms, the experimenter depicted the distance that the arm/antler previously covered vertically next to her head. That is she put one arm, palm facing outwards close to her neck and her second arm, palm facing inwards, away from her head at the point where her outstretched arm previously ended. She did yo both on the left and the right side of her head. Stage 4: distance was only depicted on one side of the head. Stage 5: Instead of depicting the distance next to her head, the experimenter depicted the distance horizontally in front of her body (same hand position as in previous depiction). 
+ 
+#### Duck
+Stage 1: The experimenter bent her elbows, bringing her hands to her chest to depict the duck's wings. In addition she squatted, waddled around while moving her head and bent arms up and down to depict flapping the wings. Stage 2: Elbows were again bent and arms in front of chest. Arms and head were moved up and down to depict flapping of wings. Squatting and moving around were omitted. Stage 3: Experimenter bent her elbows but put put them down straight on the side (no flapping) while shrugging her shoulders. In addition eyebrows were moved up and down. Stage 4: No bending of arms, only shrugging shoulders and moving eye-brows up and down. Stage 5: Only the eyebrows were moved up and down. 
+
+#### Fish
+Stage 1: The experimenter put her palms together in front of her body, with arms stretched out and moved her arms in a curling motion left and right, while slowly moving forwards. In addition, she opened and closed her mouth. Stage 2: Only right arm was used to to make curling motion in front of body, mouth was still opened and closed. Moving forward was omitted. Stage 3: Opening and closing of mouth was omitted. Left arm was held horizontally in front of body (depicting a surface). Right arm made again the curling motion but ended with a little twist so that the right hand vertically hit the left hand (as if the fish (right hand) was jumping into the water (left hand)).Stage 4: Same as before but the curling motion of the right hand was omitted. The right hand was moved in a semi-circular motion to hit the left hand vertically. Stage 5: Only the left hand was held in front of the body. 
+
+## Results and discussion
+```{r table3, results = "asis"}
+# Comparing comprehension against chance (25% correct)
 ### t-tests against chance per age group, day and phase
-d8 %>%
+t8 <- d8 %>%
   group_by(Age,condition, phase, id)%>%
   summarise(corr = mean(corr))%>%
   summarise(corr = list(corr)) %>%
@@ -704,13 +763,18 @@ d8 %>%
          df= t.test(unlist(corr), mu = 1/3)$parameter,
          t_value = t.test(unlist(corr), mu = 1/3)$statistic,
          p_value = t.test(unlist(corr), mu = 1/3)$p.value) %>%
-  select(Age,phase,condition,mean,df,t_value,p_value) %>%
-  knitr::kable(digits = 3)
+  select(Age,phase,condition,mean,df,t_value,p_value) 
 
 
+apa_table(t8,
+            caption = "Gesture comprehension compared to chance for iconic and abstract gestures in test and control condition.",
+          note = "Statistics are based on two-tailed one sample t-tests with data aggregated for each participant. Chance level = .33.")
+```
+
+```{r plot8, echo = FALSE, fig.cap="\\label{fig:plot2}Proportion correct picture chosen by age group and condition. Dotted line indicates performance expected by chance. Error bars are 95% confidence intervals based on non-parametric bootstraps."}
 # plot per age group, condition and phase
 d8.p <- d8 %>%
-  mutate(condition = relevel(condition, ref = "Concrete")) %>%
+  mutate(condition = relevel(condition, ref = "Iconic")) %>%
   group_by(Age, condition, phase,id)%>%
   summarise(corr = mean(corr))
 
@@ -723,17 +787,171 @@ ggplot() +
   geom_hline(yintercept = 1/3, lty=2)+
   facet_grid(~condition)+
   guides(alpha = F)+
-  scale_y_continuous(name = "Proportion Later Chosen", limits = c(-0.05,1.05))+
+  xlab("Phase")+
+  scale_y_continuous(name = "Proportion Correct", limits = c(-0.05,1.05))+
   theme_few() + 
-  scale_colour_solarized()+ coord_flip()
+  scale_colour_solarized()+
+  coord_flip()
 ```
-### Participants
 
-### Design and Procedure
+To have the same number of trials in test and control, we selected only children's first encounter with the abstract and iconic depictions of each picture in the test condition. Figure \ref{fig:plot8} summarizes performance in each condition, per age group and gesture type.  Both age groups performed above chance when seeing iconic gestures in the two conditions (see Table \ref{tab:table3}). Furthermore, when looking at iconic gestures, performance did not differ between control and test condition ($\beta$ = `r round(summary(m8.1)$coefficients[3,1], 2)`, se = `r round(summary(m8.1)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m8.1,test="Chi")[3,4], 3))`, model: `comp ~ age + block + ( block | id) + (block | stimulus)`). Six-year-olds performed better compared to four-year-olds ($\beta$ = `r round(summary(m8.1)$coefficients[2,1], 2)`, se = `r round(summary(m8.1)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m8.1,test="Chi")[2,4], 3))`).
 
-### Results and discussion
+Performance was at chance level for children in the control condition. As noted above, this served as a validation for abstract gestures. Importantly, the same gestures were comprehended  above chance in the test condition (Table \ref{tab:table3}). Furthermore children in the test outperformed children in the control condition on abstract gestures ($\beta$ = `r round(summary(m8.2)$coefficients[3,1], 2)`, se = `r round(summary(m8.2)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(drop1(m8.2,test="Chi")[3,4], 3))`, model: `comp ~ age + block + ( block | id) + (block | stimulus)`). In sum, we found that children of both age groups successfully retained the meaning of a gesture when its form drifted from iconic to arbitrary. 
+
+# Interim discussion
 
 # Part 4: Grammatical constructions
+
+```{r gram data}
+#loading data
+
+gram_data <- read.csv(file="data/pt2_data.csv") 
+
+```
+
+
+
+```{r}
+gram_data %>% 
+  group_by(condition, age)%>%
+  summarise(n = length(unique(id)))
+
+
+gram_data %>% 
+  group_by(condition,age)%>%
+  summarise(compr = mean(compr))
+
+gram_data %>% 
+  filter(predicate != "small",
+         predicate != "static",
+         predicate != "one")%>%
+  group_by(predicate)%>%
+  summarise(n = length(trial))
+
+```
+
+```{r}
+# Gesture comprehension across conditions
+gram_plot_compr_1 <- gram_data %>%
+  group_by(age,condition,id)%>%
+  summarise(compr = mean(compr))
+
+gram_plot_compr_2 <- gram_plot_compr_1 %>%
+  group_by(age,condition)%>%
+  multi_boot_standard(col = "compr")
+
+
+
+ggplot() +
+  geom_jitter(data = gram_plot_compr_1, aes(x = condition, y = compr, col = age, alpha = .2), width = .1,height = .05)+
+  geom_pointrange(data = gram_plot_compr_2,aes(x = condition, y = mean, col = age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  guides(alpha = F)+
+  scale_y_continuous(name = "Proportion correct", limits = c(-0.05,1.05))+
+  xlab("Condition")+
+  ggtitle("Gesture comprehension by condition")+
+  theme_few() +
+  scale_colour_solarized() 
+
+
+# Does diff help?
+
+gram_plot_compr_3 <- gram_data %>%
+  group_by(diff)%>%
+  multi_boot_standard(col = "compr")
+
+ggplot() +
+  geom_pointrange(data = gram_plot_compr_3,aes(x = diff, y = mean,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  guides(alpha = F)+
+  scale_y_continuous(name = "Proportion correct", limits = c(-0.05,1.05))+
+  xlab("Differentiate between ambiguous stimuli")+
+  ggtitle("Gesture comprehension by differentiation")+
+  theme_few() +
+  scale_colour_solarized() 
+
+
+
+# number of elements (for the elaborated)only for elaborated versions) and when differentiated
+
+gram_plot_compr_4 <- gram_data %>%
+  filter(diff == "yes",
+         predicate != "small",
+         predicate != "static",
+         predicate != "one")%>%
+  group_by(age,condition,id)%>%
+  summarise(nr_elements = mean(nr_elements))
+
+gram_plot_compr_5 <- gram_plot_compr_4 %>%
+  group_by(age,condition)%>%
+  multi_boot_standard(col = "nr_elements")
+
+ggplot() +
+  geom_jitter(data = gram_plot_compr_4, aes(x = condition, y = nr_elements, col = age, alpha = .2), width = .1,height = .05)+
+  geom_pointrange(data = gram_plot_compr_5,aes(x = condition, y = mean, col = age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  guides(alpha = F)+
+  scale_y_continuous(name = "Number of meaningful elements", limits = c(0,3))+
+  xlab("Condition")+
+  ggtitle("Nr. of elements by condition")+
+  theme_few() +
+  scale_colour_solarized() 
+
+
+# proportion atomistic gestures
+
+gram_plot_compr_6 <- gram_data %>%
+   filter(diff == "yes",
+        predicate != "small",
+         predicate != "static",
+         predicate != "one")%>%
+  group_by(age,condition,id)%>%
+  summarise(atom = mean(hol_or_atom))
+
+gram_plot_compr_7 <- gram_plot_compr_6 %>%
+  group_by(age,condition)%>%
+  multi_boot_standard(col = "atom")
+
+ggplot() +
+  geom_jitter(data = gram_plot_compr_6, aes(x = condition, y = atom, col = age, alpha = .2), width = .1,height = .05)+
+  geom_pointrange(data = gram_plot_compr_7,aes(x = condition, y = mean, col = age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  guides(alpha = F)+
+  scale_y_continuous(name = "Proportion atomistic solutions", limits = c(-0.05,1.05))+
+  xlab("Condition")+
+  ggtitle("Atomistic solutions by condition")+
+  theme_few() +
+  scale_colour_solarized() 
+
+
+
+```
+
+
+```{r}
+
+# word order
+
+gram_plot_compr_8 <- gram_data %>%
+  filter(hol_or_atom == 1)%>%
+  mutate(lang_con_order = ifelse(order == "ps" | order == "so" | order == "spo", 1,0))%>%
+  group_by(condition,id)%>%
+  summarise(mean = mean(lang_con_order))
+
+gram_plot_compr_9 <- gram_plot_compr_8 %>%
+  group_by(condition)%>%
+  multi_boot_standard(col = "mean")
+
+ggplot() +
+  geom_jitter(data = gram_plot_compr_8, aes(x = condition, y = mean, col = condition,  alpha = .2), width = .1,height = .05)+
+  geom_pointrange(data = gram_plot_compr_9,aes(x = condition, y = mean,col = condition, ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  guides(alpha = F, col = F)+
+  scale_y_continuous(name = "Proportion German word order", limits = c(-0.05,1.05))+
+  xlab("Condition")+
+  ggtitle("Word order in comparison to first language by condition")+
+  theme_few() +
+  scale_colour_solarized() 
+
+```
+
+
+
 
 # Part 4.1: Size
 
@@ -789,15 +1007,6 @@ ggplot() +
 ## Results and discussion
 
 
-stim = recode(Stimulus,
-                       Hammer = "HA",
-                       Fahrrad = "FA",
-                       Gabel = "GA",
-                       Kamm = "KA",
-                       Nichts = "NI")
-
-%>%
-  mutate(dyad_id = paste(age,session,substr(d$Counter,1,1),stim,sep="_"))
 
 
 

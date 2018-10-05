@@ -6,3 +6,8 @@ ges3000.pdf
 *.tex
 *.fff
 /ges3000_files/*
+.Rproj.user
+
+*.Rhistory
+*.Rproj
+
