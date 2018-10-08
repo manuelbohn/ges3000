@@ -923,7 +923,6 @@ ggplot() +
 
 ```
 
-
 ```{r}
 
 # word order
@@ -939,19 +938,113 @@ gram_plot_compr_9 <- gram_plot_compr_8 %>%
   multi_boot_standard(col = "mean")
 
 ggplot() +
-  geom_jitter(data = gram_plot_compr_8, aes(x = condition, y = mean, col = condition,  alpha = .2), width = .1,height = .05)+
+  geom_jitter(data = gram_plot_compr_8, aes(x = condition, y = mean, col = condition,  alpha = .2), width = .2,height = .0)+
   geom_pointrange(data = gram_plot_compr_9,aes(x = condition, y = mean,col = condition, ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
   guides(alpha = F, col = F)+
   scale_y_continuous(name = "Proportion German word order", limits = c(-0.05,1.05))+
   xlab("Condition")+
-  ggtitle("Word order in comparison to first language by condition")+
+  ggtitle("Word order in comparison to first language")+
   theme_few() +
   scale_colour_solarized() 
+
+
+
+
+
+
+#### number of differetn types of gestures used?
+```
+
+
+```{r}
+
+gram_plot_10 <- gram_data %>%
+  filter(compr == 1, 
+         diff == "yes",
+         predicate != "small",
+         predicate != "static",
+         predicate != "one") %>%
+  group_by(condition,id)%>%
+  summarise(diff_var = length(unique(typediff_1)))
+
+gram_plot_11 <- gram_plot_10 %>%
+  group_by(condition)%>%
+  multi_boot_standard(col = "diff_var")
+
+ggplot() +
+  geom_jitter(data = gram_plot_10, aes(x = condition, y = diff_var, col = condition,  alpha = .2), width = .2,height = .0)+
+  geom_pointrange(data = gram_plot_11,aes(x = condition, y = mean,col = condition, ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  guides(alpha = F, col = F)+
+  scale_y_continuous(name = "Number of gesture types")+
+  xlab("Condition")+
+  ggtitle("Variability of gesture types within subject")+
+  theme_few() +
+  scale_colour_solarized() 
+
+
+
+```
+
+```{r}
+
+gram_plot_12 <- gram_data%>%
+  filter(compr == 1, 
+         diff == "yes",
+         predicate != "small",
+         predicate != "static",
+         predicate != "one")%>%
+  mutate(typediff_1 = gsub("hol","enact",typediff_1),
+         typediff_1 = gsub("sizeact","enact",typediff_1),
+         typediff_1 = gsub("partseq","atom_part",typediff_1),
+         typediff_1 = plyr::mapvalues(typediff_1,c("numges","sizeges","moveges","seq"),rep("atom",4)))%>%
+  group_by(condition, typediff_1)%>%
+  summarise(count = n())%>% 
+  mutate(perc=count/sum(count))%>%
+  na.omit()
+
+
+ggplot() +
+  geom_bar(data = na.omit(gram_plot_12), stat = "identity" ,aes(x = condition, y = perc, fill = factor(typediff_1)))+
+  guides(alpha = F, col = F)+
+  scale_y_continuous(name = "Proportion gesture type")+
+  xlab("Condition")+
+  ggtitle("Gesture types within each condition")+
+  scale_fill_pander(name = "Gesture Type")+
+  theme_few()
+
+
 
 ```
 
 
+```{r}
 
+gram_plot_13 <- gram_data %>%
+   filter(compr == 1,
+          diff == "yes",
+        predicate != "small",
+         predicate != "static",
+         predicate != "one")%>%
+  select(condition,mod_or_add,sim_or_seq, hol_or_atom)%>%
+  gather(feature,presence, -condition)%>%
+  group_by(condition, feature,presence)%>%
+  summarise(count = n())%>% 
+  mutate(perc=count/sum(count))
+
+
+
+ggplot() +
+  geom_bar(data = gram_plot_13, stat = "identity" ,aes(x = feature, y = perc, fill = factor(presence)))+
+  facet_grid(condition~.)+
+  scale_y_continuous(name = "Proportion feature present")+
+  xlab("Feature")+
+  ggtitle("Gesture features")+
+  scale_fill_pander(name = "Feature present", breaks=c("0","1"), labels = c("no","yes"))+
+  theme_few()+
+  coord_flip()
+
+
+```
 
 # Part 4.1: Size
 
