@@ -8,6 +8,8 @@ ges3000.pdf
 /ges3000_files/*
 .Rproj.user
 
+/ges3000_cache/
+
 *.Rhistory
 *.Rproj
 
