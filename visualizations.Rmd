@@ -398,7 +398,8 @@ ggplot() +
 # number of elements (for the elaborated)only for elaborated versions) and when differentiated
 
 gram_plot_compr_4 <- gram_data %>%
-  filter(diff == "yes",
+  filter(Age == "8yo",
+         diff == "yes",
          predicate != "small",
          predicate != "static",
          predicate != "one")%>%
@@ -593,7 +594,7 @@ d.hol_comb <- gram_data  %>%
          predicate != "small",
          predicate != "static",
          predicate != "one")%>%
-  mutate(block = relevel(block, ref = "variations"),
+  mutate(block = relevel(factor(block), ref = "variations"),
          typediff_1 = plyr::mapvalues(typediff_1,c("numges","sizeges","moveges"),rep("combinatorial",3)),
          typediff_1 = factor(ifelse(typediff_1 == "combinatorial", "combinatorial", "holistic")),
          typediff_1 = relevel(typediff_1, ref = "holistic"))%>%
