@@ -509,7 +509,7 @@ ggplot() +
 
 ```
 
-```{r}
+```{r, fig.width=4}
 
 gram_plot_12 <- gram_data%>%
   filter(compr == 1, 
@@ -575,34 +575,19 @@ ggplot() +
 
 ```
 
-```{r}
 
-gram_data%>% 
-  filter (condition == "size") %>%
-  group_by(agent)%>%
-  summarize(n())
-
-```
 
 ```{r}
-# do difftypes differ in the rate that they are understood?
-
-d.hol_comb <- gram_data  %>%
-  filter(condition != "transitive_2",
+hcp1 <- gram_data  %>%
+  filter(typediff_1 != "NA",
          condition != "transitive_3",
-         typediff_1 != "NA",
          predicate != "small",
          predicate != "static",
          predicate != "one")%>%
   mutate(block = relevel(factor(block), ref = "variations"),
-         typediff_1 = plyr::mapvalues(typediff_1,c("numges","sizeges","moveges"),rep("combinatorial",3)),
+         typediff_1 = plyr::mapvalues(typediff_1,c("numges","sizeges","moveges","partseq", "seq"),rep("combinatorial",5)),
          typediff_1 = factor(ifelse(typediff_1 == "combinatorial", "combinatorial", "holistic")),
          typediff_1 = relevel(typediff_1, ref = "holistic"))%>%
-group_by(condition,block)%>%
-  mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE))
-
-
-hcp1 <- d.hol_comb %>%
   group_by(Age,typediff_1,id)%>%
   summarise(compr = mean(compr))
   
@@ -610,8 +595,9 @@ hcp2 <- hcp1 %>%
   multi_boot_standard(col = "compr")
 
 ggplot() +
-  geom_jitter(data = hcp1, aes(x = typediff_1, y = compr, col = Age, alpha = .2), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.01,dodge.width = 0.5))+
+  geom_jitter(data = hcp1, aes(x = typediff_1, y = compr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.01,dodge.width = 0.5), alpha = .5)+
   geom_pointrange(data = hcp2,aes(x = typediff_1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  #facet_wrap(~condition, nrow = 1)+
   guides(alpha = F, col = F)+
   scale_y_continuous(name = "Comprehension", limits = c(-0.05,1.05))+
   xlab("")+
@@ -622,4 +608,33 @@ ggplot() +
 
 
 ```
+
+
+```{r}
+
+# word order
+
+gram_plot_compr_8 <- worder_data%>%
+  group_by(Age,id)%>%
+  summarise(mean = mean(lang_con_order))
+
+gram_plot_compr_9 <- gram_plot_compr_8 %>%
+  group_by(Age)%>%
+  multi_boot_standard(col = "mean")
+
+ggplot() +
+  geom_jitter(data = gram_plot_compr_8, aes(x = Age, y = mean, col = Age,  alpha = .2), width = .2,height = .0)+
+  geom_pointrange(data = gram_plot_compr_9,aes(x = Age, y = mean,col = Age, ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  guides(alpha = F, col = F)+
+  scale_y_continuous(name = "Proportion German word order", limits = c(-0.05,1.05))+
+  xlab("")+
+  #ggtitle("Word order in comparison to first language")+
+  theme_few(base_size = 20) +
+  scale_colour_manual(name="Age",
+                      labels=c("6yo","8yo"), values=c("#268bd2","#b58900"))+
+  theme(axis.title.x= element_blank(),axis.text.x= element_blank(), axis.ticks.x = element_blank())
+
+
+```
+
 
