@@ -615,11 +615,11 @@ ggplot() +
 # word order
 
 gram_plot_compr_8 <- worder_data%>%
-  group_by(Age,id)%>%
+  group_by(condition, Age,id)%>%
   summarise(mean = mean(lang_con_order))
 
 gram_plot_compr_9 <- gram_plot_compr_8 %>%
-  group_by(Age)%>%
+  group_by(condition,Age)%>%
   multi_boot_standard(col = "mean")
 
 ggplot() +
@@ -628,6 +628,7 @@ ggplot() +
   guides(alpha = F, col = F)+
   scale_y_continuous(name = "Proportion German word order", limits = c(-0.05,1.05))+
   xlab("")+
+  facet_grid(~condition)+
   #ggtitle("Word order in comparison to first language")+
   theme_few(base_size = 20) +
   scale_colour_manual(name="Age",
