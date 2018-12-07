@@ -639,3 +639,97 @@ ggplot() +
 ```
 
 
+### Exploratory: Efficiency of gesture use
+
+purely exploratory, maybe interesting
+
+How efficiently do children use their gestures?
+
+For movement, number and size, whenever they are using a combinatorial gesture sequence, in order to be 100% correct, one needs to modify only one type of referent. This corresponds to a marking rate of 50%.
+
+In the case of transitive actions, all pictures have to identified individually. However, in the case of transitive 2, the patient might be omitted. Therefore, if children were efficient, they should use fewer elements in transitive 2 compared to transitive 3. 
+
+#### Marked gestures for movement, number and size
+
+```{r}
+d.eff_comb <- gram_data  %>%
+  filter(condition != "transitive_2",
+         condition != "transitive_3")%>%
+  mutate(typediff_1 = plyr::mapvalues(typediff_1,c("numges","sizeges","moveges"),rep("combinatorial",3)),
+         typediff_1 = factor(ifelse(typediff_1 == "combinatorial", "combinatorial", "holistic")))%>%
+  group_by(Age,condition,agent,id)%>%
+  mutate(sel = "combinatorial" %in% typediff_1)%>%
+  filter(sel == TRUE)%>%
+  group_by(block)%>%
+  mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE),
+         use_typediff = 1- as.numeric(is.na(typediff_1)),
+         age_c = scale(age))%>%
+  filter( is.na(typediff_1) | typediff_1 != "holistic")
+
+# test if children mark gestures in more than 50% of trials? Test if intercept is 0
+m.eff_comb.1 <- glmer(use_typediff ~ 1 + (1 | id) + (age_c | stimulus), family = binomial, data = d.eff_comb, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+
+summary(m.eff_comb.1)
+
+# test if efficiency is further influence by age and condition 
+m.eff_comb.2 <- glmer(use_typediff ~ Age + condition + (1 | id) + (age_c | stimulus), family = binomial, data = d.eff_comb, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+
+summary(m.eff_comb.2)
+
+drop1(m.eff_comb.2, test = "Chisq")
+#plot_model(m.eff_comb, type = "re", sort.est = "(Intercept)")
+
+
+```
+
+Children mark gesture in more than 50% of the time, suggesting they are not terribly efficient 
+
+This is not influenced by other variables
+
+#### Number of elements used to depict transitive actions 
+
+```{r}
+
+elements_by_condition_md <- gram_data %>%
+  filter(condition == "transitive_2" | condition == "transitive_3",
+         hol_or_atom == "1")%>%
+  group_by(block)%>%
+  mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE))
+
+
+m.el_by_con <- glmer(nr_elements ~ condition + (1 | id) + (1 | stimulus), family = poisson, data = elements_by_condition_md, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+
+summary(m.el_by_con)
+
+```
+
+They do not. 
+
+```{r}
+
+# number of elements (for elaborated versions) and when differentiated
+
+elements_by_condition <- gram_data %>%
+  filter(condition == "transitive_2" | condition == "transitive_3",
+         hol_or_atom == "1")%>%
+  group_by(Age, condition,id)%>%
+  summarise(nr_elements = mean(nr_elements))
+
+elements_by_condition_2 <- elements_by_condition %>%
+  group_by(Age,condition)%>%
+  multi_boot_standard(col = "nr_elements")
+
+ggplot() +
+  geom_jitter(data = elements_by_condition, aes(x = condition, y = nr_elements, col = Age), alpha = .5, width = .1,height = .05)+
+  geom_pointrange(data = elements_by_condition_2,aes(x = condition, y = mean,ymin = ci_lower, ymax = ci_upper, col = Age),position = position_dodge(width = .5), size = 0.7) +
+  guides(alpha = F)+
+  scale_y_continuous(name = "Number of meaningful elements", limits = c(0.95,3.05))+
+  xlab("Condition")+
+  ggtitle("Nr. of elements by condition")+
+   theme_few() +
+  scale_colour_manual(name="Age",
+                      labels=c("8yo"), values=c("#b58900"))
+```
+
+This type of efficiency might be a concern at later stages 
+
