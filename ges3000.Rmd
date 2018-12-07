@@ -508,7 +508,7 @@ ggplot() +
   geom_hline(yintercept = 0.5, lty=2)+
   xlab("Picture")+
   guides(alpha = F)+
-  scale_y_continuous(name = "Proportion Gesture from Same Dyad", limits = c(-0.05,1.05))+
+  scale_y_continuous(name = "Proportion same Dyad", limits = c(-0.05,1.05))+
   theme_few() + 
   scale_colour_solarized()
 
@@ -624,7 +624,7 @@ plot6 <-ggplot() +
   geom_hline(yintercept = 0.5, lty=2)+
   facet_grid(~day,scales = "free_x", space = "free_x", drop = T)+
   guides(alpha = F)+
-  scale_y_continuous(name = "Proportion Later Chosen", limits = c(-0.05,1.05))+
+  scale_y_continuous(name = "Proportion later gesture", limits = c(-0.05,1.05))+
   xlab("Picture")+
   theme_few() + 
   scale_colour_solarized()
@@ -692,7 +692,7 @@ Stage 1: The experimenter bent her elbows, bringing her hands to her chest to de
 
 *Fish*:
 
-Stage 1: The experimenter put her palms together in front of her body, with arms stretched out and moved her arms in a curling motion left and right, while slowly moving forwards. In addition, she opened and closed her mouth. Stage 2: Only right arm was used to to make curling motion in front of body, mouth was still opened and closed. Moving forward was omitted. Stage 3: Opening and closing of mouth was omitted. Left arm was held horizontally in front of body (depicting a surface). The right arm made again the curling motion but ended with a little twist so that the right hand vertically hit the left hand (as if the fish (right hand) was jumping into the water (left hand)).Stage 4: Same as before but the curling motion of the right hand was omitted. The right hand was moved in a semi-circular motion to hit the left hand vertically. Stage 5: Only the left hand was held in front of the body. 
+Stage 1: The experimenter put her palms together in front of her body, with arms stretched out and moved her arms in a curling motion left and right, while slowly moving forwards. In addition, she opened and closed her mouth. Stage 2: Only right arm was used to to make curling motion in front of body, mouth was still opened and closed. Moving forward was omitted. Stage 3: Opening and closing of mouth was omitted. Left arm was held horizontally in front of body (depicting a surface). The right arm made again the curling motion but ended with a little twist so that the right hand vertically hit the left hand (as if the fish (right hand) was jumping into the water (left hand)). Stage 4: Same as before but the curling motion of the right hand was omitted. The right hand was moved in a semi-circular motion to hit the left hand vertically. Stage 5: Only the left hand was held in front of the body. 
 
 #### Results and discussion
 
@@ -761,7 +761,7 @@ ggplot() +
   facet_grid(~condition)+
   guides(alpha = F)+
   xlab("Phase")+
-  scale_y_continuous(name = "Proportion Correct", limits = c(-0.05,1.05))+
+  scale_y_continuous(name = "Proportion correct", limits = c(-0.05,1.05))+
   theme_few() + 
   scale_colour_solarized()
 ```
@@ -1713,8 +1713,6 @@ The data remaining after subsetting included more eight-year-olds (80%). We ther
 
 ```{r wordorder, echo = F, fig.cap="Proportion of German word order in childrens combinatorial gestures by condition. This excludes 'combinatorial_part' for reasons outlined in the main text.", fig.width = 10, fig.height = 3, fig.scale = 1}
 
-# word order
-
 gram_plot_compr_8 <- worder_data%>%
   group_by(condition,id)%>%
   summarise(mean = mean(lang_con_order))
@@ -1731,8 +1729,6 @@ ggplot() +
   scale_y_continuous(name = "Proportion German word order", limits = c(-0.05,1.05))+
   xlab("Condition")+
   theme_few()
-
-
 ```
 
 ## Summary Part 2
@@ -1741,7 +1737,7 @@ In part 2, we saw that children successfully invented gestures to differentiate 
 
 # Concluding remarks
 
-The set of studies described here demonstrates the resilience of young children's communicative abilities. When their default mode of communication is blocked, children spontaneously re-created core properties of language in a new modality. Although the age of participants varied across experiments, we found positive evidence for all components in six-year-olds. We may therefore say that children without any formal schooling are able to re-create core properties of a conventional, abstract and grammatical communication system. And all of this happened in less than 20 minutes. 
+The set of studies described here demonstrates the resilience of young children's communicative abilities. When their default mode of communication is blocked, children spontaneously re-created core properties of language in a new modality. Although the age of participants varied across experiments, we found positive evidence for all components in six-year-olds. We may therefore say that children without any formal schooling are able to re-create core properties of a conventional, abstract and grammatical communication system. In each case, all of this happened in less than 30 minutes. 
 
 # References
 
