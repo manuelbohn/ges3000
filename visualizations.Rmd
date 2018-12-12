@@ -441,7 +441,7 @@ gram_plot_compr_7 <- gram_plot_compr_6 %>%
   multi_boot_standard(col = "atom")
 
 ggplot() +
-  geom_jitter(data = gram_plot_compr_6, aes(x = condition, y = atom, col = Age, alpha = .2), width = .1,height = .05)+
+  geom_jitter(data = gram_plot_compr_6, aes(x = condition, y = atom, col = Age, alpha = .2), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
   geom_pointrange(data = gram_plot_compr_7,aes(x = condition, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
   guides(alpha = F, col = F)+
   scale_y_continuous(name = "Proportion Combinatorial", limits = c(-0.05,1.05))+
