@@ -29,7 +29,7 @@ d7 <- read.csv(file="data/pt1_drift_production.csv") %>%
   mutate(Age = ifelse(age == "M48","4yo","6yo"))
 
 
-d8 <- read.csv(file="data/pt1_drift_comprehension.csv") %>% 
+d8 <- read.csv(file="data/pt1_drift_comprehension.csv", sep = ";") %>% 
   mutate(condition = ifelse(condition == "Abstract", "Abstract", "Iconic"))%>%
   mutate(condition = as.factor(condition))%>%
   mutate(Age = ifelse(age == "M48","4yo","6yo"))%>%
@@ -141,12 +141,12 @@ ggsave("plots/01_spon_prod.png", width = 6, height = 1.5, scale = 2)
 plot1_p <- ggplot(d1.p%>%filter(Age != "3yo"), 
        aes(x = blocktrial, y = prompts, col = Age)) +
   geom_line(aes(group= Age), size = 2)+
-  geom_point(aes(group= Age), size = 4)+
+  geom_point(aes(group= Age), size = 2)+
   theme_few() +
   guides(col = F)+
   scale_y_continuous(name = "Spontaneous Gestures", limits = c(0,12), breaks = c(0,2,4,6,8,10,12))+
   scale_x_continuous(name = "Trial", breaks = c(1:4))+
-  theme_few(base_size = 20) +
+  theme_few() +
   scale_colour_manual(name="Age",
                       labels=c("4yo","6yo"), values=solarized_palette(2))
 
@@ -638,6 +638,146 @@ ggplot() +
 
 ```
 
+
+
+# Fig3
+
+
+```{r}
+
+# Gesture differentiation across conditions
+gram_plot_dif <- gram_data %>%
+  filter(predicate != "small",
+         predicate != "static",
+         predicate != "one")%>%
+  group_by(Age,id)%>%
+  summarise(diff = mean(diff=="yes"))
+
+gram_plot_dif2 <- gram_plot_dif %>%
+  group_by(Age)%>%
+  multi_boot_standard(col = "diff")
+
+
+
+diff <- ggplot() +
+  geom_jitter(data = gram_plot_dif, aes(x = Age, y = diff, col = Age), alpha = .4, position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
+  geom_pointrange(data = gram_plot_dif2,aes(x = Age, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  guides(alpha = F)+
+  scale_y_continuous(name = "Prop. Differentiated", limits = c(-0.05,1.05))+
+  xlab("")+
+  #ggtitle("Gesture differentiation by condition")+
+  theme_few() +
+  scale_colour_manual(name="Age",
+                      labels=c("6yo","8yo"), values=c("#268bd2","#b58900"))+
+  theme(axis.title.x= element_blank(),axis.text.x= element_blank(), axis.ticks.x = element_blank())
+
+
+
+
+
+gram_plot_compr_3 <- gram_data %>%
+  filter(
+         predicate != "small",
+         predicate != "static",
+         predicate != "one")%>%
+  group_by(Age,diff,id)%>%
+  summarise(compr = mean(compr))
+  
+gram_plot_compr_3_2 <- gram_plot_compr_3 %>%  
+  multi_boot_standard(col = "compr")
+
+cbydiff <- ggplot() +
+  geom_jitter(data = gram_plot_compr_3, aes(x = diff, y = compr, col = Age), alpha = .4, position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
+  geom_pointrange(data = gram_plot_compr_3_2,aes(x = diff, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  guides(alpha = F)+
+  #facet_grid(~condition)+
+  scale_y_continuous(name = "Proportion Correct", limits = c(-0.05,1.05))+
+  xlab("Differentiate")+
+  #ggtitle("Gesture comprehension by differentiation")+
+  theme_few() +
+  scale_colour_manual(name="Age",
+                      labels=c("6yo","8yo"), values=c("#268bd2","#b58900"))
+
+
+
+gram_plot_compr_6 <- gram_data %>%
+   filter(diff == "yes",
+        predicate != "small",
+         predicate != "static",
+         predicate != "one")%>%
+  group_by(Age,condition,id)%>%
+  summarise(atom = mean(hol_or_atom))
+
+
+gram_plot_compr_7 <- gram_plot_compr_6 %>%
+  group_by(Age,condition)%>%
+  multi_boot_standard(col = "atom")
+
+propcomb <- ggplot() +
+  geom_jitter(data = gram_plot_compr_6, aes(x = condition, y = atom, col = Age), alpha = .4, position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
+  geom_pointrange(data = gram_plot_compr_7,aes(x = condition, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  guides(alpha = F)+
+  scale_y_continuous(name = "Prop. Combinatorial", limits = c(-0.05,1.05))+
+  xlab("Condition")+
+  #ggtitle("Combinatorial solutions by condition")+
+  theme_few() +
+  scale_colour_manual(name="Age",
+                      labels=c("6yo","8yo"), values=c("#268bd2","#b58900"))
+
+
+
+
+hcp1 <- gram_data  %>%
+  filter(typediff_1 != "NA",
+         condition != "transitive_3",
+         predicate != "small",
+         predicate != "static",
+         predicate != "one")%>%
+  mutate(block = relevel(factor(block), ref = "variations"),
+         typediff_1 = plyr::mapvalues(typediff_1,c("numges","sizeges","moveges","partseq", "seq"),rep("combinatorial",5)),
+         typediff_1 = factor(ifelse(typediff_1 == "combinatorial", "combinatorial", "holistic")),
+         typediff_1 = relevel(typediff_1, ref = "holistic"))%>%
+  group_by(Age,typediff_1,id)%>%
+  summarise(compr = mean(compr))
+  
+hcp2 <- hcp1 %>%  
+  multi_boot_standard(col = "compr")
+
+combcomp <- ggplot() +
+  geom_jitter(data = hcp1, aes(x = typediff_1, y = compr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.01,dodge.width = 0.5), alpha = .4)+
+  geom_pointrange(data = hcp2,aes(x = typediff_1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  #facet_wrap(~condition, nrow = 1)+
+  guides(alpha = F)+
+  scale_y_continuous(name = "Proportion Correct", limits = c(-0.05,1.05))+
+  xlab("Gesture Type")+
+  #ggtitle("Comprehension")+
+  theme_few() +
+  scale_colour_manual(name="Age",
+                      labels=c("6yo","8yo"), values=c("#268bd2","#b58900"))
+
+
+
+y <-ggarrange(diff,propcomb, widths = c(1,2),  labels = c("A","B"), align = "hv",common.legend = T, legend = "right")
+
+
+x <- ggarrange(cbydiff,combcomp,  labels = c("C","D"), align = "h",common.legend = T, legend = "right")
+
+```
+
+
+```{r}
+ggarrange(y,x, nrow = 2)
+```
+
+
+
+
+
+
+
+```{r}
+ggsave("./plots/part2.png", width = 6, height = 3.5, scale = 1.5)
+```
 
 ### Exploratory: Efficiency of gesture use
 
