@@ -15,7 +15,6 @@ header-includes:
   \usepackage{caption}
   \renewcommand{\thetable}{S\arabic{table}} 
   \renewcommand{\thefigure}{S\arabic{figure}}
-
 ---
 
 ```{r global_options, include=FALSE}
@@ -95,26 +94,36 @@ The test phase following the training was divided into two parts, "spontaneous" 
 ### Results and discussion
 
 ```{r part 1-1-1, cache = TRUE}
-# Do 4yo need more prompts in trial 1 than 6yo?
+# do 4yo need more prompts in trial 1 than 6yo?
+## filter out only trial 1
+## recode prompts to ignore intermediate levels
 d11.m <- d1 %>%
   filter(blocktrial == 1)%>%
   mutate(prompts = ifelse(prompts > 0,1,0))
 
+## model for difference in trial 1
 m11 <- glm(prompts ~ age , family = binomial, data = d11.m)
 
-
+## p-values for model above
 pm11 <- drop1(m11, test = "Chisq")
-# Do children get better with trials? 
+
+# do children get better with trials? 
+## filter out only the first trials with new pictures on each trial
+## center trial
+## recode prompts to ignore intermediate levels
+
 d1.m <- d1 %>%
   filter(blocktrial < 5) %>%
   mutate(blocktrial = scale(as.numeric(blocktrial), center = TRUE, scale=TRUE))%>%
   group_by(blocktrial,dyad_id,age) %>%
   summarise(prompts = sum(prompts))%>%
   mutate(prompts = ifelse(prompts > 0,1,0))
-  
-# non-significant interaction has been removed  
+
+## model for difference across first 4 trials  
+### non-significant interaction has been removed  
 m1 <- glmer(prompts ~ blocktrial + age + (blocktrial|dyad_id), family = binomial, data = d1.m, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
+## p-values for model above
 pm1 <- drop1(m1, test = "Chisq")
 ```
 
@@ -139,13 +148,18 @@ The procedure was the same as for [part 1.1](#spontaneous-production-of-gestures
 
 ### Results and discussion
 ```{r part 1-1-2,  cache = TRUE}
+# do 3- and 4-yo differ in the rate they improve in the two phases
+## center trial 
+## center age
 d2.m <- d2 %>%
   mutate(trial = scale(as.numeric(blocktrial), center = TRUE, scale=TRUE),
          age_c = scale(as.numeric(age)))
 
+## model for differences in the slopes between age groups for the two phases
 m2 <- glmer(prompts ~ block*age*blocktrial + (blocktrial|id) + (age_c|stimulus) , family = binomial, data = d2.m,
         control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
+## p-values for the model above
 pm2 <- drop1(m2, test = "Chisq")
 
 ```
@@ -164,12 +178,13 @@ See [part 1.1](#spontaneous-production-of-gestures-by 4--and-6-year-olds).
 
 ### Results and discussion
 ```{r part 1-2}
-# prompts needed during uptake phase
+# do 4- and 6yo differ in the number of prompts they need in the two conditions?
+## filter out only data from uptake phase
 d3 <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
   filter(block == "Uptake") %>%
   na.omit(prompts)
 
-# we use a Wilcoxon test to compare age groups because non of the 6yo dyads needed a prompt. This resulted in a very large (unidentifiable) estimate in a GLM.
+## we use a Wilcoxon test to compare age groups because non of the 6yo dyads needed a prompt. This resulted in a very large (unidentifiable) estimate for this group in a GLM.
 d3.t <- d3 %>%  
   filter(blocktrial == 1) %>%
   group_by(age, dyad_id) %>%
@@ -183,14 +198,18 @@ d3.t <- d3 %>%
          p_value = wilcox.exact(unlist(M48),unlist(M72))$p.value)%>%
   select(sum4,sum6,stat,p_value)
 
-#comparing prompts in spontaneous to prompts in uptake
-
+# Do 4yo need fewer prompts in trial 1 during uptake compared to spontaneous?
+## filter out only trial 1 for 4yo
+## recode prompts
 d3.m <- read.csv(file="data/pt1_prod_up_comp.csv") %>%  
   filter(blocktrial == 1 & age =="M48") %>%
   mutate(prompts = ifelse(prompts > 0,1,0))
 
+## model for difference between uptake and spontaneous
+### random intercepts for individual dyads cannot be estimated. We therefore remove this random effect
 m3 <- glm(prompts ~ block , family = binomial, data = d3.m)
 
+## p-value for model above
 pm3 <- drop1(m3, test = "Chisq")
 
 ```
@@ -291,24 +310,26 @@ d4 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
   mutate(block = ifelse(block=="Uptake","Uptake","Spontaneous"))%>%
   mutate(Age = ifelse(age == "M48","4yo","6yo"))
 
-
-d4%>%
-  group_by(age,stimulus,dyad_id)%>%
-  summarise(n = n())
 ```
 
 ```{r model comprehension, cache = TRUE}
+# do age groups differ in comprehension?
+## empty picture has been removed for this analysis
+## remove all trials that 6yo got more compared to 4yo
+## center age, trial and block
 d4.m <- d4 %>%
   filter(ifelse(block=="Uptake",blocktrial<6,blocktrial<15)) %>%
   mutate(trial = scale(as.numeric(blocktrial), center = TRUE, scale=TRUE),
          age_c = scale(as.numeric(age)),
          block_c = scale(as.numeric(factor(block))))
 
-# non-sognificant higher order interactions removed
-# maximal converging model (model with trial as random slope within stimulus yields problems when doing case wise deletions)
+## model for difference between age groups
+### non-sognificant higher order interactions removed
+### maximal converging model (model with trial as random slope within stimulus yields problems when doing case wise deletions)
 m4 <- glmer(comp ~ age+block+trial+ (trial + block_c |dyad_id) + (age_c|stimulus), family = binomial, data = d4.m,
         control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
+## p-value for model above
 pm4 <- drop1(m4, test = "Chisq")
 
 ```
@@ -379,15 +400,16 @@ see 1.1.
 Children were very creative in the way they depicted the empty picture. Examples were: Pointing to something white in the room or on their clothes; ostensively standing still and doing "nothing"; holding out their hand, palm forward; shaking their head; repeatedly crossing their hands horizontally in front of their body; crossing their hands or fingers to show a cross.  
 
 ```{r part 1-4, cache = TRUE}
-#### Production
-# prompts per age group and phase
+# production
+## filter out only trials for empty picture
 d5 <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
   filter(stimulus == "Nothing") %>%
   mutate(block = ifelse(block=="Uptake","Uptake","Spontaneous"))%>%
   mutate(Age = ifelse(age == "M48","4yo","6yo")) %>%
   na.omit(prompts)
 
-# None of the 6yo needed a prompt in any phase. As noted earlier this makes GLM estimation impossible. We therefore used Wilcoxon tests.
+## do 4yo need more prompts compared to 6yo?
+### None of the 6yo needed a prompt in any phase. As noted earlier this makes GLM estimation impossible. We therefore used Wilcoxon tests.
 
 d5.t1 <- d5 %>%
   group_by(age, block, dyad_id) %>%
@@ -402,8 +424,11 @@ d5.t1 <- d5 %>%
          p_value = wilcox.exact(unlist(M48),unlist(M72))$p.value)%>%
   select(block,sum4,sum6,stat,p_value)
 
-### Comprehension 
-#comparing against chance per age group and phase. Given the low number of trials per subject, we use Wilcoxon tests here as well. 
+# comprehension 
+
+## do children select the correct picture above chance?
+### we compare against chance per age group and phase.
+### Given the low number of trials per subject, we use Wilcoxon tests instead of t-tests. 
 
 d5.t2 <- d5 %>%
   group_by(Age, block, dyad_id)%>%
@@ -415,17 +440,18 @@ d5.t2 <- d5 %>%
            p_value = wilcox.exact(unlist(comp), mu = 0.25)$p.value) %>%
     select(Age,block,mean,stat,p_value)
 
-# are 6yo better than 4yo at comprehension
+# are 6yo better than 4yo at comprehension?
+## remove trials that 6yo got in addition to 4yo
 d5.m <- d5 %>%
   filter(ifelse(block=="Uptake",blocktrial<6,blocktrial<15))%>%
   mutate(block_c = scale(as.numeric(as.factor(block))))
 
-
-#model does not converge with interaction
-#model does not converge with random intercept for block
+## model for age difference
+### model does not converge with interaction
 m5 <- glmer(comp ~ age+block + (1|dyad_id), family = binomial, data = d5.m,
         control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
+## p-value for model above
 pm5 <- drop1(m5, test = "Chisq")
 
 ```
@@ -448,10 +474,12 @@ For each dyad we selected the video of the last gesture for a picture from the P
 ### Results and discussion.
 
 ```{r part 1-5, cache = TRUE}
-# Do raters choose the gesture from the same dyad above chance in both age groups?
+# do raters choose the gesture from the same dyad above chance in both age groups?
 d6 <- read.csv(file="data/pt1_convergence.csv") %>% 
   mutate(Age = ifelse(age == "M48","4yo","6yo"))
 
+## do raters select the gesture from the same dyad above chance?
+### we compare against chance by age group
 d6.t <- d6 %>%
   group_by(Age, rater)%>%
   summarise(corr = mean(corr))%>%
@@ -464,14 +492,19 @@ d6.t <- d6 %>%
   select(Age,mean,df,t_value,p_value)%>%
   mutate(p_value = ifelse(p_value < 0.001, "<0.001",as.character(round(p_value,3))))
 
+## do age groups differ in the rate that the gesture from the same dyad is selected?
+### scale trial
 d6.m <- d6  %>%
   mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE))
 
-# maximal converging random effect structure within rater
+## model for age difference
+### maximal converging random effect structure within rater
 m6 <- glmer(corr ~ age + (trial  | rater) + (1 | video), family = binomial, data = d6.m, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
-# summary
+
+## p-value for model above
 pm6 <- drop1(m6, test = "Chisq")
 
+## do age groups differ when only trials with non-prompted pictures are considered?
 ### select only videos with gestures for which children did not receive a prompt
 ex <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
   filter(prompts > 2)%>%
@@ -480,12 +513,15 @@ ex <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
 
 d6.no.prompt <- filter(d6, !video %in% ex$video)
 
+### scale trial
 d6.m2 <- d6.no.prompt  %>%
   mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE))
 
-# maximal converging random effect structure within rater
+### model for age difference
+#### maximal converging random effect structure within rater
 m6.2 <- glmer(corr ~ age + (trial| rater) + (1 | video), family = binomial, data = d6.m2, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
+### p-value for model above
 pm6.2 <- drop1(m6.2, test = "Chisq")
 
 ```
@@ -561,33 +597,37 @@ Raters went through the videos in blocks. Each block consisted of all videos fro
 
 #### Results and discussion
 ```{r part 3 production, cache = TRUE}
-### influence of age and effort per day. 
-# day 1
+
+# influence of age and effort per day. 
+## day 1
+### center variables 
 d7.m1 <- d7 %>%
   filter(day == "Day1")%>%
   mutate(trial = scale(trial),
          age_c = scale(as.numeric(age)),
-         stimulus = scale (as.numeric(stimulus)),
-         sex = scale (as.numeric(sex)))
+         stimulus = scale (as.numeric(stimulus)))
 
-# maximal converging random effect structure within rater
+### model for einfleunce of effort and age differences on day 1
+#### maximal converging random effect structure within rater
 m7.1 <- glmer(abs ~ age + effort + (trial + age_c + stimulus | rater) + (1 | video), family = binomial, data = d7.m1, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
+#### p-value for model above
 pm7.1 <- drop1(m7.1, test = "Chisq")
 
-#day2
+##day2
+### center variables 
 d7.m2 <- d7 %>%
   filter(day == "Day2")%>%
   mutate(trial = scale(trial),
          age_c = scale(as.numeric(age)),
-         stimulus = scale (as.numeric(stimulus)),
-         sex = scale (as.numeric(sex)))
+         stimulus = scale (as.numeric(stimulus)))
 
-# maximal converging random effect structure within rater
+### model for einfleunce of effort and age differences on day 2
+#### maximal converging random effect structure within rater
 m7.2 <- glmer(abs ~ age + effort + (trial + age_c + stimulus + sex | rater) + (1 | video), family = binomial, data = d7.m2, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
+#### p-value for model above
 pm7.2 <- drop1(m7.2, test = "Chisq")
-
 ```
 
 We analysed the data for the two days separately because children were tested with different pictures. Table \@ref(tab:table2) and Figure \@ref(fig:plot4) show abstractness ratings compared to chance level. These results indicate that raters generally rated the later gestures to be more abstract. Figure \@ref(fig:plot4) shows the relation between ratings for effort and abstractness.
@@ -667,7 +707,7 @@ ggarrange(plot6, plot7, ncol = 1, nrow = 2, legend = "right", common.legend = T,
 ```
 
 ### 1.7.2: Drift to arbitrary comprehension
-The previous section showed that children's gestures became more abstract over time, presumably because features of the initial depictions were dropped in order to reduce production effort. However, the gestures produced by children towards the end of the study were still highly iconic. We therefore investigated whether children would comprehend gestures that become more and more arbitrary over time, up to a point where they bear no direct iconic correspondence to the original picture. In order to comprehend them at the final stage, children had to keep track of each gesture as it was drifting towards the arbitrary. We contrasted performance in this condition with that of naive children who only saw the initial iconic depictions and the final abstract depictions but not the intermediate stages.
+The previous section showed that children's gestures became more abstract over time, presumably because features of the initial depictions were dropped in order to reduce production effort. However, the gestures produced by children towards the end of the study were still highly iconic. We therefore investigated whether children would comprehend gestures that become more and more arbitrary over time, up to a point where they bear no direct iconic correspondence to the original picture. In order to comprehend them at the final stage, children had to keep track of each gesture as it was drifting towards the arbitrary. We contrasted performance in this condition with that of naive children who only saw the initial iconic depictions and the final abstract   depictions but not the intermediate stages.
 
 #### Participants
 ```{r drift comprehension participants, echo = F}
@@ -706,29 +746,34 @@ Stage 1: The experimenter put her palms together in front of her body, with arms
 #### Results and discussion
 
 ```{r drift comprehension model, cache = T}
-# are children better in test compared to pretest when seeing abstract gestures?
-
-# comparing test and pretest in iconic
+# do test and control group differ with iconic gestures
+## filter out only iconic condition
+## scale trial and age
 d8.m1 <- d8  %>%
   filter(condition == "Iconic") %>%
   mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE),
          age_c = scale(as.numeric(age)))
 
-# model does not converge with random slope for trial within id
+## model for difference between group and ages
+### model does not converge with random slope for trial within id
 m8.1 <- glmer(corr ~ age + phase + (1| id) + (age_c | stimulus), family = binomial, data = d8.m1, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
+## p-value for model above
 pm8.1 <- drop1(m8.1, test = "Chisq")
 
-# comparing test and pretest in abstract
+# do test and control group differ with iconic gestures
+## filter out only abstract condition
+## scale trial and age
 d8.m2 <- d8  %>%
   filter(condition == "Abstract") %>%
   mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE),
          age_c = scale(as.numeric(age)))
 
+## model for difference between group and ages
 m8.2 <- glmer(corr ~ age + phase + (trial | id) + (age_c | stimulus), family = binomial, data = d8.m2, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
+## p-value for model above
 pm8.2 <- drop1(m8.2, test = "Chisq")
-
 ```
 To have the same number of trials in test and control, we selected only children's first encounter with the abstract and iconic depictions of each picture in the test condition. Figure \@ref(fig:plot5) summarizes performance in each condition, per age group and gesture type. Both age groups performed above chance when seeing iconic gestures in the two conditions (see Table \@ref(tab:table3)). Furthermore, when looking at iconic gestures, performance did not differ between control and test condition ($\beta$ = `r round(summary(m8.1)$coefficients[3,1], 2)`, se = `r round(summary(m8.1)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pm8.1[3,4], 3))`). Six-year-olds showed a trend towards better performance compared to four-year-olds ($\beta$ = `r round(summary(m8.1)$coefficients[2,1], 2)`, se = `r round(summary(m8.1)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pm8.1[2,4], 3))`).
 
@@ -844,16 +889,19 @@ knitr::include_graphics("./stimuli/stimuli_movement.png")
 ### Results and discussion
 
 ```{r move model, cache = T}
+# influence of age and differentiation on comprehension
+## scale variables
 dmove.m1 <- move_data  %>%
   mutate(block = relevel(block, ref = "variations"),
-         block_c = scale(as.numeric(block)),
-         predicate = relevel(predicate, ref = "static")) %>%
+         block_c = scale(as.numeric(block))) %>%
   group_by(block)%>%
   mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE),
          age_c = scale(age))
 
+## model for differentiation and age
 mmove.1 <- glmer(compr ~ Age + diff + trial + block + (trial + block_c | id) + (age_c | stimulus), family = binomial, data = dmove.m1, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
+## p-value for model above
 pmmove.1 <- drop1(mmove.1, test = "Chisq")
 
 ```
@@ -980,7 +1028,7 @@ varwithin <- ggplot() +
 
 ```
 
-```{r vardifftype, fig.width = 10, fig.height = 3, fig.scale = 1.5, fig.cap="A: Number of different gesture types used by individual children in each condition. Error bars are 95% confidence intervals based on non-parametric bootstraps. B: Frequency of gesture types in each condition. For size, number and movement, the proportion collapsesa cross ages. The gesture types *combinatorial* and *combinatorial_part* indicate combinatorial gesture sequences, all other types denote holistic gestures."}
+```{r vardifftype, echo = F, fig.width = 10, fig.height = 3, fig.scale = 1.5, fig.cap="A: Number of different gesture types used by individual children in each condition. Error bars are 95% confidence intervals based on non-parametric bootstraps. B: Frequency of gesture types in each condition. For size, number and movement, the proportion collapsesa cross ages. The gesture types *combinatorial* and *combinatorial_part* indicate combinatorial gesture sequences, all other types denote holistic gestures."}
 ggarrange(varwithin,difftypes, ncol = 2, nrow = 1, legend = "right", common.legend = F, labels = c("A","B"), align = "hv", widths = c(1.3,2)) 
 ```
 
@@ -1020,19 +1068,20 @@ knitr::include_graphics("./stimuli/stimuli_number_size.png")
 ### Results and discussion
 
 ```{r model num, cache = T}
-# does differentiation help comprehension
-
+# influence of age and differentiation on comprehension
+## scale variables
 dnum.m1 <- num_data  %>%
   mutate(block = relevel(block, ref = "variations"),
-         block_c = scale(as.numeric(block)),
-         predicate = relevel(predicate, ref = "one")) %>%
+         block_c = scale(as.numeric(block))) %>%
   group_by(block)%>%
   mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE),
          age_c = scale(age))
 
-#model does not converge with random slope for block within id 
-mnum.1 <- glmer(compr ~ Age + diff  + trial + block + (trial  | id) + (age_c | stimulus), family = binomial, data = dnum.m1, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+## model for differentiation and age
+### model does not converge with random slope for block within id 
+mnum.1 <- glmer(compr ~ Age + diff+ trial + block + (trial | id) + (age_c | stimulus), family = binomial, data = dnum.m1, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
+## p-value for model above
 pmnum.1 <- drop1(mnum.1, test = "Chisq")
 
 ```
@@ -1140,17 +1189,19 @@ Design and procedure were the same as in [movement](#movement) and [size](#size)
 ### Results and discussion
 
 ```{r size model, cache = T}
+# influence of age and differentiation on comprehension
+## scale variables
 dsize.m1 <- size_data  %>%
   mutate(block = relevel(block, ref = "variations"),
-         block_c = scale(as.numeric(block)),
-         predicate = relevel(predicate, ref = "small")) %>%
+         block_c = scale(as.numeric(block))) %>%
   group_by(block)%>%
   mutate(trial = scale(as.numeric(trial), center = TRUE, scale=TRUE),
          age_c = scale(age))
 
-
+## model for differentiation and age
 msize.1 <- glmer(compr ~ Age + diff + trial + block + (trial + block_c | id) + (age_c | stimulus), family = binomial, data = dsize.m1, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
+## p-value for model above
 pmsize.1 <- drop1(msize.1, test = "Chisq")
 
 ```
@@ -1437,6 +1488,7 @@ trans3_comb <- ggplot() +
 
 ggarrange(trans3_diff, trans3_comp,trans3_comb, ncol = 3, nrow = 1, legend = "right", common.legend = T, labels = c("A","B","C"), align = "hv", widths = c(1,1.5,1))
 ```
+
 ## Part 2 overall analysis
 
 In the following, we present analyses on the combined data from part 2. We want to address the following questions:
@@ -1448,7 +1500,7 @@ In the following, we present analyses on the combined data from part 2. We want 
 
 For each question, we rely on a different part of the data. Given that we did not collect data for transitive 2 and 3 for 6-year-olds, in each section, we we will first use data from movement, number and size to look at age differences. We will then repeat the same analysis with data from 8-year-olds for all conditions. Further details on data subsetting can be found in the beginning of each section. 
 
-The rate of differentiation and use of combinatorial gesture sequences were highly auto-correlated within children. Most individuals who differentiated in one trial, differentiated in all trials and most children who used one combinatorial gesture sequence, used them in all trials. From a modeling perspective, this lead to extreme estimates for child specific random intercepts (`(1 | id)`) and with that, to a very large variance on the intercept term, which overshadowed any other structure in the data. To avoid this variance inflation, we classified children based on their mean proportion in the response. That is, children who differentiated/used combinatorial gestures in more than 50% of trials were coded as 1 and those who did so in less than 50% as 0. We then used GLMs to model the data. 
+The rate of differentiation and use of combinatorial gesture sequences were highly auto-correlated within children. Most individuals who differentiated in one trial, differentiated in all trials and most children who used one combinatorial gesture sequence, used them in all trials. From a modeling perspective, this lead to extreme estimates for child specific random intercepts `(1 | id)` and with that, to a very large variance on the intercept term, which overshadowed any other structure in the data. To avoid this variance inflation, we classified children based on their mean proportion in the response. That is, children who differentiated/used combinatorial gestures in more than 50% of trials were coded as 1 and those who did so in less than 50% as 0. We then used GLMs to model the data. 
 
 ### 2.6: Differentiation
 
@@ -1457,20 +1509,25 @@ Here we look at the factors influencing the likelihood that children differentia
 #### Differentiation by age
 
 ```{r diff by age, cache = T}
-
+# do age groups differ in the rate with which they differentiate across conditions?
+## remove transitive conditions
 diff_age_data <- gram_data%>%
-  mutate(block = relevel(factor(block), ref = "variations"))%>%
   filter(condition != "transitive_2",
          condition != "transitive_3")
 
+## recode differentation
+### model with random intercept for id is not able to reasonably estimate individual intercepts due to lack of varaition in individual's responses
+### therefore, children who differentiate in more than 50% of trials are coded as 1, those who do so in less trials, are coded as 0
 mdiff_age_data <- diff_age_data%>%
   group_by(id, Age, condition)%>%
   mutate(diff = ifelse(diff == "yes",1,0))%>%
   summarise(mean_diff = mean(diff))%>%
   mutate(diff = ifelse(mean_diff>0.5, 1,0))
 
+## model for difference between age groups and condition
 mdiff_age <- glm(diff ~ Age + condition, family = binomial, data = mdiff_age_data)
 
+## p-value for model above
 pdiff_age <- drop1(mdiff_age, test = "Chisq")
 
 ```
@@ -1480,7 +1537,11 @@ Figure \@ref(fig:diff) shows that children differentiated in the majority of tri
 #### Differentiation in 8yo
 
 ```{r diff 8yo, cache = T}
-
+# do 8yo differentiate differently across conditions?
+## remove 6yo
+## recode differentation
+### model with random intercept for id is not able to reasonably estimate individual intercepts due to lack of varaition in individual's responses
+### therefore, children who differentiate in more than 50% of trials are coded as 1, those who do so in less trials, are coded as 0
 diff_8_data <- gram_data%>%
   filter(Age != "6yo")%>%
   group_by(id, condition)%>%
@@ -1488,10 +1549,10 @@ diff_8_data <- gram_data%>%
   summarise(mean_diff = mean(diff))%>%
   mutate(diff = ifelse(mean_diff>0.5, 1,0))
 
-mdiff_8_data <- diff_8_data
+## model for difference between conditions
+mdiff_8 <- glm(diff ~ condition , family = binomial, data = diff_8_data)
 
-mdiff_8 <- glm(diff ~ condition , family = binomial, data = mdiff_8_data)
-
+## p-value for model above
 pdiff_8 <- drop1(mdiff_8, test = "Chisq")
 
 ```
@@ -1531,6 +1592,10 @@ We did not expect a difference between the conditions movement, number and size 
 #### Combinatorial gesture use by age
 
 ```{r comb age, cache = T}
+# do age groups differ in the rate of combinatorial gestures across conditions?
+## only select trials in which children differentiated
+## remove transitive conditions
+## remove trials with pictures for which we did not code differentiation type
 comb_age_data <- gram_data %>%
    filter(diff == "yes",
           condition != "transitive_2",
@@ -1539,14 +1604,19 @@ comb_age_data <- gram_data %>%
           predicate != "static",
           predicate != "one")
 
+## recode rate of combinatorial gestures
+### model with random intercept for id is not able to reasonably estimate individual intercepts due to lack of varaition in individual's responses
+### therefore, children who use combinatorial gestures in more than 50% of trials are coded as 1, those who do so in less trials, are coded as 0
 mcomb_age_data <- comb_age_data%>%
   mutate(condition = relevel(condition, ref = "size"))%>%
   group_by(id, Age, condition)%>%
   summarise(m_comb = mean(hol_or_atom),
             comb = ifelse(m_comb>0.5, 1,0))
 
+## model for difference between age groups and condition
 mcomb_age <- glm(comb ~ Age + condition, family = binomial, data = mcomb_age_data)
 
+## p-value for model above
 pcomb_age <- drop1(mcomb_age, test = "Chisq")
 ```
 
@@ -1555,6 +1625,10 @@ Figure \@ref(fig:comb) shows that most children relied on holistic gestures in t
 #### Combinatorial gesture use in 8yo
 
 ```{r comb 8yo, cache = T}
+# do 8yo differentiate differently across conditions?
+## remove 6yo
+## only select trials in which children differentiated
+## remove transitive 3 condition because all children used combinatorial sequences in the trials in which they differentiated. Estimation for this condition fails due to lack of variation
 comb_8yo_data <- gram_data %>%
    filter(Age != "6yo",
           diff == "yes",
@@ -1562,15 +1636,20 @@ comb_8yo_data <- gram_data %>%
           predicate != "static",
           predicate != "one",
           condition != "transitive_3")
-  
+
+## recode rate of combinatorial gestures
+### model with random intercept for id is not able to reasonably estimate individual intercepts due to lack of varaition in individual's responses
+### therefore, children who use combinatorial gestures in more than 50% of trials are coded as 1, those who do so in less trials, are coded as 0  
 mcomb_8yo_data <- comb_8yo_data%>%
   mutate(condition = relevel(condition, ref = "transitive_2"))%>%
   group_by(id, condition)%>%
   summarise(m_comb = mean(hol_or_atom),
             comb = ifelse(m_comb>0.5, 1,0))
 
+## model for difference between condition
 mcomb_8yo <- glm(comb ~ condition, family = binomial, data = mcomb_8yo_data)
 
+## p-value for model above
 pmcomb_8yo <- drop1(mcomb_8yo,test = "Chisq")
 ```
 
@@ -1612,6 +1691,10 @@ We selected all trials in which children differentiated. Like in the [previous s
 #### Effect of combinatorial solutions on comprehension by age
 
 ```{r}
+# influence of gesture type on comprehension across age groups
+## only select trials in which children differentiated
+## remove transitive conditions
+## remove trials with pictures for which we did not code differentiation type
 d.hol_comb <- gram_data %>%
  filter(diff == "yes",
           condition != "transitive_2",
@@ -1620,12 +1703,15 @@ d.hol_comb <- gram_data %>%
           predicate != "static",
           predicate != "one")
 
+## scale age
 md_holcomb <- d.hol_comb%>%
   mutate(age_c = scale(age))
 
-# block as random slope within stimulus leads to convergence issues in drop1() and is therefore removed.
+## model for influence of gesture type
+### block as random slope within stimulus leads to convergence issues in drop1() and is therefore removed.
 mholcomb <- glmer(compr ~ hol_or_atom + condition + Age + ( 1 | id) + (1 | stimulus), family = binomial, data = md_holcomb, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
+## p-value for model above
 pmholcomb <- drop1(mholcomb, test = "Chisq")
 
 ```
@@ -1635,6 +1721,10 @@ Here we analyse the data for both age groups in the conditions movement, number 
 #### Effect of combinatorial solutions on comprehension in 8yo
 
 ```{r}
+# influence of gesture type on comprehension in 8yo
+## remove 6yo
+## only select trials in which children differentiated
+## remove trials with pictures for which we did not code differentiation type
 d.hol_comb_8 <- gram_data  %>%
   filter(Age != "6yo",
          diff == "yes",
@@ -1642,10 +1732,10 @@ d.hol_comb_8 <- gram_data  %>%
          predicate != "static",
          predicate != "one")
 
-md_holcomb_8 <- d.hol_comb_8
+## model for influence of gesture type in 8yo
+mholcomb_8 <- glmer(compr ~ hol_or_atom + condition + ( 1 | id) + (1 | stimulus), family = binomial, data = d.hol_comb_8, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
-mholcomb_8 <- glmer(compr ~ hol_or_atom + condition + ( 1 | id) + (1 | stimulus), family = binomial, data = md_holcomb_8, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
-
+## p-value for model above
 pmholcomb_8 <- drop1(mholcomb_8, test = "Chisq")
 
 ```
@@ -1692,7 +1782,15 @@ The strong version of this claim could already be refuted based on the results d
 
 Note that a strong bias in favor of a particular word order could have other origins and is not direct evidence for the influence of the native language For example, the stimuli in transitive 2 and 3 were semantically reversible actions between two agents. In previous work, these type of scenarios have prompted SPO word order in speakers of languages with different word orders [@gibson2013noisy]. However, finding that children do *not* have a particularly strong bias for the structure in their native language, would be good evidence against such an influence. Previous work with adults strongly suggests that word order in gesture production tasks is independent of spoken language [see e.g. @gibson2013noisy; @goldin2008natural; @ozccalicskan2016does; @langus2010cognitive].
 
+We excluded gestures coded as "combinatorial_part". While we do think that these gestures are combinatorial in that the meaning expressed by the sequence depends on its internal structure, the fact that the predicate was depicted together with the subject and/or the object makes an ordering of these components difficult. Consequently, we could only look at the order of S and O in these gestures. Here we would expect a strong bias in favor of an SO order independent of German word order [see e.g. @dryer2002case; @gildea2010grammars; @greenberg2010language]. In fact, looking at all trials in which chidlren depicted both the subject and the object, the subject came first in 96% of cases.
+
+We selected all trials for which we coded a combinatorial gesture sequence. As mentioned above, we excluded trials for which we coded "combinatorial_part". For each trial in the remaining data we coded whether the word order was the same as in German. Even though there are many ways in which the content of the picture could be expressed in German (active vs. passive, present vs. past tense (present perfect), etc.), we used active present tense as a reference because this was the way the experimenter labelled the pictures when she introduced them to the child. For movement, number and size, the corresponding German word order was P-S (movement: "hüpfender Elefant" [jumping elephant], number: "viele Hämmer" [many hammers], size: "kleine Gabel" [small fork]). In the case of transitive 2 and 3, it would be SPO ("Hase jagt Katze" [bunny chases cat]).
+
 ```{r}
+# do children structure their gesture sequences in line with their native language?
+## only select trial with combinatorial gesture sequences
+## remove trials with "combinatorial_part"(partseq) becasue they only comprise S and O
+## code word order in comparison to German word order by condition
 worder_data <- gram_data %>%
   filter(hol_or_atom == 1, 
          typediff_1 != "partseq")%>%
@@ -1701,23 +1799,22 @@ worder_data <- gram_data %>%
      ifelse(order == "sp" | order == "spo", 1,0),
      ifelse(order == "ps", 1,0)
      ))
-```
 
-
-We excluded gestures coded as "combinatorial_part". While we do think that these gestures are combinatorial in that the meaning expressed by the sequence depends on its internal structure, the fact that the predicate was depicted together with the subject and/or the object makes an ordering of these components difficult. Consequently, we could only look at the order of S and O in these gestures. Here we would expect a strong bias in favor of an SO order independent of German word order [see e.g. @dryer2002case; @gildea2010grammars; @greenberg2010language]. In fact, looking at all trials in which chidlren depicted both the subject and the object, the subject came first in 96% of cases.
-
-We selected all trials for which we coded a combinatorial gesture sequence. As mentioned above, we excluded trials for which we coded "combinatorial_part". For each trial in the remaining data we coded whether the word order was the same as in German. Even though there are many ways in which the content of the picture could be expressed in German (active vs. passive, present vs. past tense (present perfect), etc.), we used active present tense as a reference because this was the way the experimenter labelled the pictures when she introduced them to the child. For movement, number and size, the corresponding German word order was P-S (movement: "hüpfender Elefant" [jumping elephant], number: "viele Hämmer" [many hammers], size: "kleine Gabel" [small fork]). In the case of transitive 2 and 3, it would be SPO ("Hase jagt Katze" [bunny chases cat]).
-
-```{r}
+## recode word order
+### model with random intercept for id is not able to reasonably estimate individual intercepts due to lack of varaition in individual's responses
+### therefore, children who use German word order in more than 50% of trials are coded as 1, those who do so in less trials, are coded as 0
 mworder_data <- worder_data%>%
   group_by(id, Age, condition)%>%
   summarise(mean_lang_con_order = mean(lang_con_order))%>%
   mutate(lang_con_order = ifelse(mean(mean_lang_con_order)>0.5, 1,0))
 
+## model comparing word order to chance (50% = intercept different from 0)
 m_worder <- glm(lang_con_order ~ 1 , family = binomial, data = mworder_data)
 
+## model comparing use of German word order across conditions 
 m_worder2 <- glm(lang_con_order ~ condition , family = binomial, data = mworder_data)
 
+## p-value for model above
 pm_worder2 <- drop1(m_worder2, test = "Chisq")
 ```
 
