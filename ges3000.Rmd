@@ -64,7 +64,7 @@ Children came from an ethnically homogeneous, mid-sized German city (approx. 550
 
 ## General note on analysis
 
-Stimuli, data and analysis scripts are available online at [`https://github.com/manuelbohn/ges3000`](https://github.com/manuelbohn/ges3000). To improve readability, we only report a small set of statistics in the text itself (estimates, standard errors and p-values for models and p-values for other tests). For additional information we ask the reader to directly run the code and look at the model outputs. For all analysis, we used R [@R-base] and for models we used the functions `glm` and `glmer` of the lme4 package [@R-lme4]. For mixed models we used a maximal random effect structures. Non-significant interaction terms were removed from models. P-values for fixed effects are based on likelihood ratio tests [dobson2008introduction] which were computed via the function `drop1`.
+Stimuli, data and analysis scripts are available online at [`https://github.com/manuelbohn/ges3000`](https://github.com/manuelbohn/ges3000). To improve readability, we only report a small set of statistics in the text itself (estimates, standard errors and p-values for models and p-values for other tests). For additional information we ask the reader to directly run the code and look at the model outputs. For all analysis, we used R [@R-base] and for models we used the functions `glm` and `glmer` of the lme4 package [@R-lme4]. For mixed models we used a maximal random effect structures. Non-significant interaction terms were removed from models. P-values for fixed effects are based on likelihood ratio tests [@dobson2008introduction] which were computed via the function `drop1`.
 
 # Part 1: Lexical items
 
@@ -72,7 +72,7 @@ In the first part, we were interested in how children establish reference using 
 
 ## Reliability coding
 
-The hand coded dependent measures in part 1 were whether the child received a prompt and whether the gestures was understood. Across experiments, in addition to to a primary coder, a second, naive, person re-coded 25% of all test trials. Agreement between coders was 100% for prompts and 99.3% ($\kappa$ = 0.97) for comprehension. All other dependent measures were choices recorded via key presses on a computer.  
+The hand coded dependent measures in part 1 were whether the child received a prompt and whether the gestures was understood. Across experiments, in addition to to a primary coder, a second, naive, person re-coded 25% of all test trials. Agreement between coders was 100% for prompts and 99.3% ($\kappa$ = 0.97) for comprehension. All other dependent measures were recorded via key presses on a computer.  
 
 ## 1.1: Spontaneous production of gestures by 4- and 6-year-olds
 
@@ -93,7 +93,7 @@ The test phase following the training was divided into two parts, "spontaneous" 
 
 ### Results and discussion
 
-```{r part 1-1-1, cache = TRUE}
+```{r part 1-1-1, cache = F}
 # do 4yo need more prompts in trial 1 than 6yo?
 ## filter out only trial 1
 ## recode prompts to ignore intermediate levels
@@ -147,7 +147,7 @@ Twelve three-year-olds (mean = `r round(mean(d2$mage[d2$age=="m36"]),2)`, range 
 The procedure was the same as for [part 1.1](#spontaneous-production-of-gestures-by 4--and-6-year-olds) with the following changes: Instead of testing peer dyads, children were tested with E2 as the CC. We removed the empty picture and used two different ones instead, one depicting a duck and the second one depicting a deer (see Figure \@ref(fig:gesstimd2)). All children received 12 trials, two trials with each picture. In the first phase (transfer), children started with the four pictures from part 1.1 in a randomized order followed by the two new pictures, also in a randomized order. In the second phase (imitation), pictures were repeated in the same way. Since there was no CC, there was no uptake phase. Pilot testing showed that three-year-olds felt uncomfortable alone in the room. Therefore E1 remained in the room throughout a trial but pretended to be working on something else while the child was communicating with E2. We dropped the intermediate prompts and E1 directly presented an iconic gesture as the solution if the child remained passive for more than 1 minute.
 
 ### Results and discussion
-```{r part 1-1-2,  cache = TRUE}
+```{r part 1-1-2,  cache = F}
 # do 3- and 4-yo differ in the rate they improve in the two phases
 ## center trial 
 ## center age
@@ -312,7 +312,7 @@ d4 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
 
 ```
 
-```{r model comprehension, cache = TRUE}
+```{r model comprehension, cache = F}
 # do age groups differ in comprehension?
 ## empty picture has been removed for this analysis
 ## remove all trials that 6yo got more compared to 4yo
@@ -399,7 +399,7 @@ see 1.1.
 
 Children were very creative in the way they depicted the empty picture. Examples were: Pointing to something white in the room or on their clothes; ostensively standing still and doing "nothing"; holding out their hand, palm forward; shaking their head; repeatedly crossing their hands horizontally in front of their body; crossing their hands or fingers to show a cross.  
 
-```{r part 1-4, cache = TRUE}
+```{r part 1-4, cache = F}
 # production
 ## filter out only trials for empty picture
 d5 <- read.csv(file="data/pt1_prod_up_comp.csv") %>% 
@@ -473,7 +473,7 @@ For each dyad we selected the video of the last gesture for a picture from the P
 
 ### Results and discussion.
 
-```{r part 1-5, cache = TRUE}
+```{r part 1-5, cache = F}
 # do raters choose the gesture from the same dyad above chance in both age groups?
 d6 <- read.csv(file="data/pt1_convergence.csv") %>% 
   mutate(Age = ifelse(age == "M48","4yo","6yo"))
@@ -596,7 +596,7 @@ The rating procedure was similar to the one used in part 2. For each child, we s
 Raters went through the videos in blocks. Each block consisted of all videos from a given age and sex for a particular picture. Raters were shown the picture that was used as stimulus for children in the beginning of each block. Order of blocks was randomized across raters. Like in part 2, we only used videos from trials in which the child produced the gesture spontaneously. In total, there were 168 video pairs.
 
 #### Results and discussion
-```{r part 3 production, cache = TRUE}
+```{r part 3 production, cache = F}
 
 # influence of age and effort per day. 
 ## day 1
@@ -745,7 +745,7 @@ Stage 1: The experimenter put her palms together in front of her body, with arms
 
 #### Results and discussion
 
-```{r drift comprehension model, cache = T}
+```{r drift comprehension model, cache = F}
 # do test and control group differ with iconic gestures
 ## filter out only iconic condition
 ## scale trial and age
@@ -846,7 +846,7 @@ For each experiment, we report a short overview of the results. That is, we repo
 
 ### Reliability coding
 
-A second coder re-coded 25% of test trials. Agreement between raters was % ($\kappa$ = 0.97) for differentiation, % for gesture type and % for combinatorial nature of the gesture. 
+A second coder re-coded 25% of test trials. Agreement between raters was 94% for differentiation ($\kappa$ = 0.80), 92% for gesture type ($\kappa$ = 0.90), 98% for combinatorial nature of the gesture ($\kappa$ = 0.93) and 92% for word order ($\kappa$ = 0.88).
 
 ```{r data part 2, echo = F}
 #loading data for part 2
@@ -888,7 +888,7 @@ knitr::include_graphics("./stimuli/stimuli_movement.png")
 
 ### Results and discussion
 
-```{r move model, cache = T}
+```{r move model, cache = F}
 # influence of age and differentiation on comprehension
 ## scale variables
 dmove.m1 <- move_data  %>%
@@ -905,7 +905,7 @@ mmove.1 <- glmer(compr ~ Age + diff + trial + block + (trial + block_c | id) + (
 pmmove.1 <- drop1(mmove.1, test = "Chisq")
 
 ```
-Figure \@ref(fig:plot6) summarizes the results of this experiment. Children of both age groups successfully differentiated between different instantiations of the same referent in the majority of trials. We coded three different gesture types (see also panel B in Figure \@ref(fig:vardifftype). The code "enact" reflected trials in which children enacted the way the referent moved at the same time as they were depicting the referent. For example, to depict a turning monkey, the child scratched their head (for "monkey") while turning (for "turn"). One child used the number of repetitions of the gesture to indicate movement ("running"). For example, they would make one somersault for a static ball and multiple somersaults for the "running" ball. We used the code "repeat" to capture this. The code "combinatorial" denotes combinatorial gesture sequences. For example, children would first scratch their head (for "monkey") and then, in a seperate gesture, move their index finger in a circular motion in front of their body. Enact gestures were the most frequent type. Children were fairly consistent in their use of gesture types and the majority of children used only a single type (see Figure \@ref(fig:vardifftype). The right graph in Figure \@ref(fig:plot6) (C) shows the proportion of combinatorial gesture sequences. We found that differentiation greatly enhanced gesture comprehension ($\beta$ = `r round(summary(mmove.1)$coefficients[3,1], 2)`, se = `r round(summary(mmove.1)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmmove.1[3,4], 3))`, see also middle plot in Figure \@ref(fig:plot5). Eight-year-olds' gestures were comprehended slightly better($\beta$ = `r round(summary(mmove.1)$coefficients[2,1], 2)`, se = `r round(summary(mmove.1)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmmove.1[2,4], 3))`). There was no effect of trial ($\beta$ = `r round(summary(mmove.1)$coefficients[4,1], 2)`, se = `r round(summary(mmove.1)$coefficients[4,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmmove.1[4,4], 3))`) or block ($\beta$ = `r round(summary(mmove.1)$coefficients[5,1], 2)`, se = `r round(summary(mmove.1)$coefficients[5,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmmove.1[5,4], 3))`). The result for block suggests that children were able to transfer whatever solution they found in the first part of the experiment to new pictures.
+Figure \@ref(fig:plot6) summarizes the results of this experiment. Children of both age groups successfully differentiated between different instantiations of the same referent in the majority of trials. We coded three different gesture types (see also panel B in Figure \@ref(fig:vardifftype). The code "enact" reflected trials in which children enacted the way the referent moved at the same time as they were depicting the referent. For example, to depict a turning monkey, the child scratched their head (for "monkey") while turning (for "turn"). One child used the number of repetitions of the gesture to indicate movement ("running"). For example, they would make one somersault for a static ball and multiple somersaults for the "running" ball. We used the code "repeat" to capture this. The code "combinatorial" denotes combinatorial gesture sequences. For example, children would first scratch their head (for "monkey") and then, in a seperate gesture, move their index finger in a circular motion in front of their body. Enact gestures were the most frequent type. Children were fairly consistent in their use of gesture types and the majority of children used only a single type (see Figure \@ref(fig:vardifftype). The right graph in Figure \@ref(fig:plot6) (C) shows the proportion of combinatorial gesture sequences. We found that differentiation greatly enhanced gesture comprehension ($\beta$ = `r round(summary(mmove.1)$coefficients[3,1], 2)`, se = `r round(summary(mmove.1)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmmove.1[3,4], 3))`, see also middle plot in Figure \@ref(fig:plot5). There was no difference between age groups($\beta$ = `r round(summary(mmove.1)$coefficients[2,1], 2)`, se = `r round(summary(mmove.1)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmmove.1[2,4], 3))`). There was no effect of trial ($\beta$ = `r round(summary(mmove.1)$coefficients[4,1], 2)`, se = `r round(summary(mmove.1)$coefficients[4,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmmove.1[4,4], 3))`) or block ($\beta$ = `r round(summary(mmove.1)$coefficients[5,1], 2)`, se = `r round(summary(mmove.1)$coefficients[5,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmmove.1[5,4], 3))`). The result for block suggests that children were able to transfer whatever solution they found in the first part of the experiment to new pictures.
 
 ```{r plot6, echo = F, fig.cap="A: Proportion of gestures for which children differentiated between the two instantiations of the referent. B: Rate of gesture comprehension by differentiation. Dotted line indicates comprehension expected by chance. C: Proportion of combinatorial solutions for gestures in which children differentiated and which were understood. Error bars are 95% confidence intervals based on non-parametric bootstraps.", fig.width = 10, fig.height = 3, fig.scale = 1}
 # Proportion differentiate
@@ -1067,7 +1067,7 @@ knitr::include_graphics("./stimuli/stimuli_number_size.png")
 
 ### Results and discussion
 
-```{r model num, cache = T}
+```{r model num, cache = F}
 # influence of age and differentiation on comprehension
 ## scale variables
 dnum.m1 <- num_data  %>%
@@ -1086,7 +1086,7 @@ pmnum.1 <- drop1(mnum.1, test = "Chisq")
 
 ```
 
-Figure \@ref(fig:plot7) summarizes the results of this experiment. Children of both age groups successfully differentiated between different instantiations of the same referent in the majority of trials. We coded five different gesture differentiation types (see also Figure \@ref(fig:vardifftype). Like for movement, the code "combinatorial" denotes combinatorial gesture sequences. For example, children would first hold up their hand with the index finger close to the thumb (for "small") and then, in a seperate gesture, open and close their hand in front of their mouth (for "duck"). The code "tempo" reflected trials in which children used the speed in which they depicted the referent to indicate its numerosity. For example, for one hammer, the child would slowly hammer three times while for many hammers, the child would quickly hammer three times. The code "repeat" captured trials in which children would use the number of repetitions to depict numerosity. For example, the child would hammer once for one hammer and multiple times for many hammers. The code "bimanual" was used when children used the number of arms involved in the gesture to indicate numerosity. For example, the child would hammer with one arm for one hammer and with both arms for many hammers. Finally, the code "position" was used when children repeated the same gesture in multiple positions to refer to multiple referents. For example, for one hammer, the child did a hammering gesture while staying in one location and for many hammers, they did the same gesture multiple times but moved to a different location each time. The most frequent gesture type was "bimanual". The variability with respect to gesture type between children was also evident within children. Most children used more than one different gesture type in order to differentiate (see Figure \@ref(fig:vardifftype)). The right graph in Figure\@ref(fig:plot7) (C) shows the proportion of "combinatorial" gestures. Like for movement, we looked at the effect of differentiation and found that differentiation greatly enhanced gesture comprehension ($\beta$ = `r round(summary(mnum.1)$coefficients[3,1], 2)`, se = `r round(summary(mnum.1)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmnum.1[3,4], 3))`, see also middle plot in Figure \@ref(fig:plot7)). The model also suggested better comprehension of gestures in later trials ($\beta$ = `r round(summary(mnum.1)$coefficients[4,1], 2)`, se = `r round(summary(mnum.1)$coefficients[4,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmnum.1[4,4], 3))`) but no difference between blocks ($\beta$ = `r round(summary(mnum.1)$coefficients[5,1], 2)`, se = `r round(summary(mnum.1)$coefficients[5,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmnum.1[5,4], 3))`). The latter suggesting successful transfer across pictures. In contrast to movement, we found no effect of age ($\beta$ = `r round(summary(mnum.1)$coefficients[2,1], 2)`, se = `r round(summary(mnum.1)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmnum.1[2,4], 3))`). 
+Figure \@ref(fig:plot7) summarizes the results of this experiment. Children of both age groups successfully differentiated between different instantiations of the same referent in the majority of trials. We coded five different gesture differentiation types (see also Figure \@ref(fig:vardifftype). Like for movement, the code "combinatorial" denotes combinatorial gesture sequences. For example, children would first hold up their hand with the index finger close to the thumb (for "small") and then, in a seperate gesture, open and close their hand in front of their mouth (for "duck"). The code "tempo" reflected trials in which children used the speed in which they depicted the referent to indicate its numerosity. For example, for one hammer, the child would slowly hammer three times while for many hammers, the child would quickly hammer three times. The code "repeat" captured trials in which children would use the number of repetitions to depict numerosity. For example, the child would hammer once for one hammer and multiple times for many hammers. The code "bimanual" was used when children used the number of arms involved in the gesture to indicate numerosity. For example, the child would hammer with one arm for one hammer and with both arms for many hammers. Finally, the code "position" was used when children repeated the same gesture in multiple positions to refer to multiple referents. For example, for one hammer, the child did a hammering gesture while staying in one location and for many hammers, they did the same gesture multiple times but moved to a different location each time. The most frequent gesture type was "bimanual". The variability with respect to gesture type between children was also evident within children. Most children used more than one different gesture type in order to differentiate (see Figure \@ref(fig:vardifftype)). The right graph in Figure\@ref(fig:plot7) (C) shows the proportion of "combinatorial" gestures. Like for movement, we looked at the effect of differentiation and found that differentiation greatly enhanced gesture comprehension ($\beta$ = `r round(summary(mnum.1)$coefficients[3,1], 2)`, se = `r round(summary(mnum.1)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmnum.1[3,4], 3))`, see also middle plot in Figure \@ref(fig:plot7)). The model also suggested better comprehension of gestures in later trials ($\beta$ = `r round(summary(mnum.1)$coefficients[4,1], 2)`, se = `r round(summary(mnum.1)$coefficients[4,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmnum.1[4,4], 3))`) but no difference between blocks ($\beta$ = `r round(summary(mnum.1)$coefficients[5,1], 2)`, se = `r round(summary(mnum.1)$coefficients[5,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmnum.1[5,4], 3))`). The latter suggesting successful transfer across pictures. Again, we found no effect of age ($\beta$ = `r round(summary(mnum.1)$coefficients[2,1], 2)`, se = `r round(summary(mnum.1)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmnum.1[2,4], 3))`). 
 
 ```{r plot7, echo = FALSE, fig.cap="A: Proportion of gestures for which children differentiated between the two instantiations of the referent. B: Rate of gesture comprehension by differentiation. Dotted line indicates comprehension expected by chance. C: Proportion of combinatorial solutions for gestures in which children differentiated and which were understood. Error bars are 95% confidence intervals based on non-parametric bootstraps.", fig.width = 10, fig.height = 3, fig.scale = 1}
 # Proportion differentiate
@@ -1188,7 +1188,7 @@ Design and procedure were the same as in [movement](#movement) and [size](#size)
 
 ### Results and discussion
 
-```{r size model, cache = T}
+```{r size model, cache = F}
 # influence of age and differentiation on comprehension
 ## scale variables
 dsize.m1 <- size_data  %>%
@@ -1508,7 +1508,7 @@ Here we look at the factors influencing the likelihood that children differentia
 
 #### Differentiation by age
 
-```{r diff by age, cache = T}
+```{r diff by age, cache = F}
 # do age groups differ in the rate with which they differentiate across conditions?
 ## remove transitive conditions
 diff_age_data <- gram_data%>%
@@ -1532,11 +1532,11 @@ pdiff_age <- drop1(mdiff_age, test = "Chisq")
 
 ```
 
-Figure \@ref(fig:diff) shows that children differentiated in the majority of trials across conditions. We found no difference between age groups ($\beta$ = `r round(summary(mdiff_age)$coefficients[2,1], 2)`, se = `r round(summary(mdiff_age)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pdiff_age[2,4], 3))`). Overall, there was a trend for different rates of differentiation across conditions (LRT for condition: *p* = `r sub('^(-)?0[.]', '\\1.', round(pdiff_age[3,5], 3))`), with highest rates in movement (see also Figure \@ref(fig:diff)).
+Figure \@ref(fig:diff) shows that children differentiated in the majority of trials across conditions. We found no difference between age groups ($\beta$ = `r round(summary(mdiff_age)$coefficients[2,1], 2)`, se = `r round(summary(mdiff_age)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pdiff_age[2,4], 3))`) or conditions (LRT for condition: *p* = `r sub('^(-)?0[.]', '\\1.', round(pdiff_age[3,5], 3))`).
 
 #### Differentiation in 8yo
 
-```{r diff 8yo, cache = T}
+```{r diff 8yo, cache = F}
 # do 8yo differentiate differently across conditions?
 ## remove 6yo
 ## recode differentation
@@ -1591,7 +1591,7 @@ We did not expect a difference between the conditions movement, number and size 
 
 #### Combinatorial gesture use by age
 
-```{r comb age, cache = T}
+```{r comb age, cache = F}
 # do age groups differ in the rate of combinatorial gestures across conditions?
 ## only select trials in which children differentiated
 ## remove transitive conditions
@@ -1608,7 +1608,7 @@ comb_age_data <- gram_data %>%
 ### model with random intercept for id is not able to reasonably estimate individual intercepts due to lack of varaition in individual's responses
 ### therefore, children who use combinatorial gestures in more than 50% of trials are coded as 1, those who do so in less trials, are coded as 0
 mcomb_age_data <- comb_age_data%>%
-  mutate(condition = relevel(condition, ref = "size"))%>%
+  mutate(condition = relevel(factor(condition), ref = "size"))%>%
   group_by(id, Age, condition)%>%
   summarise(m_comb = mean(hol_or_atom),
             comb = ifelse(m_comb>0.5, 1,0))
@@ -1624,7 +1624,7 @@ Figure \@ref(fig:comb) shows that most children relied on holistic gestures in t
 
 #### Combinatorial gesture use in 8yo
 
-```{r comb 8yo, cache = T}
+```{r comb 8yo, cache = F}
 # do 8yo differentiate differently across conditions?
 ## remove 6yo
 ## only select trials in which children differentiated
@@ -1641,7 +1641,7 @@ comb_8yo_data <- gram_data %>%
 ### model with random intercept for id is not able to reasonably estimate individual intercepts due to lack of varaition in individual's responses
 ### therefore, children who use combinatorial gestures in more than 50% of trials are coded as 1, those who do so in less trials, are coded as 0  
 mcomb_8yo_data <- comb_8yo_data%>%
-  mutate(condition = relevel(condition, ref = "transitive_2"))%>%
+  mutate(condition = relevel(factor(condition), ref = "transitive_2"))%>%
   group_by(id, condition)%>%
   summarise(m_comb = mean(hol_or_atom),
             comb = ifelse(m_comb>0.5, 1,0))
@@ -1705,7 +1705,7 @@ d.hol_comb <- gram_data %>%
 
 ## scale age
 md_holcomb <- d.hol_comb%>%
-  mutate(age_c = scale(age))
+  mutate(age_c = scale(as.numeric(age)))
 
 ## model for influence of gesture type
 ### block as random slope within stimulus leads to convergence issues in drop1() and is therefore removed.
@@ -1786,7 +1786,7 @@ We excluded gestures coded as "combinatorial_part". While we do think that these
 
 We selected all trials for which we coded a combinatorial gesture sequence. As mentioned above, we excluded trials for which we coded "combinatorial_part". For each trial in the remaining data we coded whether the word order was the same as in German. Even though there are many ways in which the content of the picture could be expressed in German (active vs. passive, present vs. past tense (present perfect), etc.), we used active present tense as a reference because this was the way the experimenter labelled the pictures when she introduced them to the child. For movement, number and size, the corresponding German word order was P-S (movement: "hüpfender Elefant" [jumping elephant], number: "viele Hämmer" [many hammers], size: "kleine Gabel" [small fork]). In the case of transitive 2 and 3, it would be SPO ("Hase jagt Katze" [bunny chases cat]).
 
-```{r}
+```{r word_order, cache = F}
 # do children structure their gesture sequences in line with their native language?
 ## only select trial with combinatorial gesture sequences
 ## remove trials with "combinatorial_part"(partseq) becasue they only comprise S and O
