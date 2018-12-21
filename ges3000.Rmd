@@ -733,7 +733,7 @@ The general setup and procedure for the test condition (drift to the arbitrary) 
 
 *Deer*:
 
-Stage 1: The experimenter stretched out both arms over her head and spread her fingers as if depicting the deer's antlers. In addition she moved her upper body up and down and left and right. Stage 2: Both arms as well as fingers were stretched out next to the head but upper body was not moved. Stage 3: Instead of stretching out the arms, the experimenter depicted the distance that the arm/antler previously covered vertically next to her head. That is she depicted the length by puting one arm, palm facing outwards close to her neck and her second arm, palm facing inwards, away from her head at the point where her outstretched arm previously ended. She did so both on the left and the right side of her head. Stage 4: the length was only depicted on one side of the head. Stage 5: Instead of depicting the length next to her head, the experimenter depicted the length horizontally in front of her body (same hand position as in previous depiction). 
+Stage 1: The experimenter stretched out both arms over her head and spread her fingers as if depicting the deer's antlers. In addition she moved her upper body up and down and left and right. Stage 2: Both arms as well as fingers were stretched out next to the head but upper body was not moved. Stage 3: Instead of stretching out the arms, the experimenter depicted the distance that the arm/antler previously covered vertically next to her head. That is she depicted the length by putting one arm, palm facing outwards close to her neck and her second arm, palm facing inwards, away from her head at the point where her outstretched arm previously ended. She did so both on the left and the right side of her head. Stage 4: the length was only depicted on one side of the head. Stage 5: Instead of depicting the length next to her head, the experimenter depicted the length horizontally in front of her body (same hand position as in previous depiction). 
  
 *Duck*:
 
@@ -741,7 +741,7 @@ Stage 1: The experimenter bent her elbows, bringing her hands to her chest to de
 
 *Fish*:
 
-Stage 1: The experimenter put her palms together in front of her body, with arms stretched out and moved her arms in a curling motion left and right, while slowly moving forwards. In addition, she opened and closed her mouth. Stage 2: Only the right arm was used to make a curling motion in front of her body. She continued to open and close her mouth. Moving forward was omitted. Stage 3: Opening and closing of themouth was omitted. Her left arm was held horizontally in front of her body (depicting a surface). The right arm made again the curling motion but ended with a little twist so that the right hand vertically hit the left hand (as if the fish (right hand) was jumping into the water (left hand)). Stage 4: Same as before but the curling motion of the right hand was omitted. The right hand was moved in a semi-circular motion to hit the left hand vertically. Stage 5: Only the left hand was held in front of the body. 
+Stage 1: The experimenter put her palms together in front of her body, with arms stretched out and moved her arms in a curling motion left and right, while slowly moving forwards. In addition, she opened and closed her mouth. Stage 2: Only the right arm was used to make a curling motion in front of her body. She continued to open and close her mouth. Moving forward was omitted. Stage 3: Opening and closing of the mouth was omitted. Her left arm was held horizontally in front of her body (depicting a surface). The right arm made again the curling motion but ended with a little twist so that the right hand vertically hit the left hand (as if the fish (right hand) was jumping into the water (left hand)). Stage 4: Same as before but the curling motion of the right hand was omitted. The right hand was moved in a semi-circular motion to hit the left hand vertically. Stage 5: Only the left hand was held in front of the body. 
 
 #### Results and discussion
 
@@ -1652,9 +1652,37 @@ mcomb_8yo <- glm(comb ~ condition, family = binomial, data = mcomb_8yo_data)
 
 ## p-value for model above
 pmcomb_8yo <- drop1(mcomb_8yo,test = "Chisq")
+
+# comparing transitive conditions directly with conditions involving only a single realtion
+
+comb_8yo_data2 <- gram_data %>%
+   filter(Age != "6yo",
+          diff == "yes",
+          predicate != "small",
+          predicate != "static",
+          predicate != "one")
+
+## recode rate of combinatorial gestures
+### model with random intercept for id is not able to reasonably estimate individual intercepts due to lack of varaition in individual's responses
+### therefore, children who use combinatorial gestures in more than 50% of trials are coded as 1, those who do so in less trials, are coded as 0  
+### conditions are recoded as either involving transitive relations or a single modifying predicate
+mcomb_8yo_data2 <- comb_8yo_data2%>%
+  mutate(condition = ifelse(grepl("transitive",condition),"transitive","single_pred"))%>%
+  group_by(id, condition)%>%
+  summarise(m_comb = mean(hol_or_atom),
+            comb = ifelse(m_comb>0.5, 1,0))
+
+## model for difference between condition
+mcomb_8yo2 <- glm(comb ~ condition, family = binomial, data = mcomb_8yo_data2)
+
+## p-value for model above
+pmcomb_8yo2 <- drop1(mcomb_8yo2,test = "Chisq")
+
 ```
 
-Here we analysed the data for 8-year-olds in all conditions. Otherwise, the data was subsetted and structured in the same way as described in the last section. All children who differentiated, used combinatorial gesture sequences in transitive 3 (see Figure \@ref(fig:comb)). The lack of variation in this condition made it impossible to estimate the effect of this condition within a GLM. We therefore removed this condition from the analysis. Like in the last section, we found a significant effect of condition (LRT: *p* = `r sub('^(-)?0[.]', '\\1.', round(pmcomb_8yo[2,5], 3))`). Children were more likely to use gesture sequences in transitive 2 compared to movement ($\beta$ = `r round(summary(mcomb_8yo)$coefficients[2,1], 2)`, se = `r round(summary(mcomb_8yo)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(summary(mcomb_8yo)$coefficients[2,4], 3))`) or number ($\beta$ = `r round(summary(mcomb_8yo)$coefficients[3,1], 2)`, se = `r round(summary(mcomb_8yo)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(summary(mcomb_8yo)$coefficients[3,4], 3))`) but not to size ($\beta$ = `r round(summary(mcomb_8yo)$coefficients[4,1], 2)`, se = `r round(summary(mcomb_8yo)$coefficients[4,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(summary(mcomb_8yo)$coefficients[4,4], 3))`). Given that the rate of gesture sequences was even higher in transitive 3 than 2, this pattern confirms our initial hypothesis, that children use structure to compensate for increased complexity (i.e. larger number of agents and relations) in the scene to be depicted. As mentioned above, it is an open question why size differed from the other two conditions with a single agent and predicate.   
+Here we analysed the data for 8-year-olds in all conditions. Otherwise, the data was subsetted and structured in the same way as described in the last section. All children who differentiated, used combinatorial gesture sequences in transitive 3 (see Figure \@ref(fig:comb)). The lack of variation in this condition made it impossible to estimate the effect of this condition within a GLM. We therefore removed this condition from the analysis. Like in the last section, we found a significant effect of condition (LRT: *p* = `r sub('^(-)?0[.]', '\\1.', round(pmcomb_8yo[2,5], 3))`). Children were more likely to use gesture sequences in transitive 2 compared to movement ($\beta$ = `r round(summary(mcomb_8yo)$coefficients[2,1], 2)`, se = `r round(summary(mcomb_8yo)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(summary(mcomb_8yo)$coefficients[2,4], 3))`) or number ($\beta$ = `r round(summary(mcomb_8yo)$coefficients[3,1], 2)`, se = `r round(summary(mcomb_8yo)$coefficients[3,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(summary(mcomb_8yo)$coefficients[3,4], 3))`) but not to size ($\beta$ = `r round(summary(mcomb_8yo)$coefficients[4,1], 2)`, se = `r round(summary(mcomb_8yo)$coefficients[4,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(summary(mcomb_8yo)$coefficients[4,4], 3))`).
+
+To directly evaluate the effect of semantic complexity on structural complexity, we classified conditions as either transitive or  involving only a single modifying predicate. Gesture sequences were more frequent in trials with pictures showing transitive actions ($\beta$ = `r round(summary(mcomb_8yo2)$coefficients[2,1], 2)`, se = `r round(summary(mcomb_8yo2)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pmcomb_8yo2[2,5], 3))`). This pattern confirms our initial hypothesis, that children use structure to compensate for increased complexity (i.e. larger number of agents and relations) in the scene to be depicted. As mentioned above, it is an open question why size differed from the other two conditions with a single agent and predicate.   
 
 ```{r comb, echo = F, fig.cap="Proportion of trials in which children used a combinatorial gesture sequence by condition and age.", fig.width = 10, fig.height = 3, fig.scale = 1}
 
