@@ -25,10 +25,16 @@ knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE)
 ```{r load_packages, include = FALSE}
 library(tidyverse)
 library(ggthemes)
-library(langcog)
 library(lme4)
 library(exactRankTests)
 library(ggpubr)
+
+library(langcog)
+# langcog package is installed by running
+# install.packages("devtools")
+# devtools::install_github("langcog/langcog")
+
+
 ```
 # Introduction
 
@@ -561,7 +567,7 @@ ggplot() +
 
 ## 1.7: Drift to arbitrary
 
-Adult communicators streamline their communication over time by reducing the effort of each utterance [see e.g. @fay2018create; @garrod2007foundations; @10.2307/412894]. When using iconic lexical items, this might result in a "drift to the arbitrary" with items gradually loosing their iconicty. In part 3 we investigated this drift to the arbitrary in children's production and comprehension of gestures.
+Adult communicators streamline their communication over time by reducing the effort of each utterance [see e.g. @fay2018create; @garrod2007foundations; @10.2307/412894]. When using iconic lexical items, this might result in a "drift to the arbitrary" with items gradually losing their iconicty. In part 3 we investigated this drift to the arbitrary in children's production and comprehension of gestures.
 
 In terms of production, we compared the first instance of a gesture for a picture to the last to see if children streamline their utterances over time. In terms of comprehension, we paired children with an adult who produced more and more abstract gestures over time.
 
@@ -1653,7 +1659,7 @@ mcomb_8yo <- glm(comb ~ condition, family = binomial, data = mcomb_8yo_data)
 ## p-value for model above
 pmcomb_8yo <- drop1(mcomb_8yo,test = "Chisq")
 
-# comparing transitive conditions directly with conditions involving only a single realtion
+# comparing transitive conditions directly with conditions involving only a single relation
 
 comb_8yo_data2 <- gram_data %>%
    filter(Age != "6yo",
