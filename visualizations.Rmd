@@ -140,7 +140,7 @@ ggsave("plots/01_spon_prod.png", width = 6, height = 1.5, scale = 2)
 # spontanteous production
 plot1_p <- ggplot(d1.p%>%filter(Age != "3yo"), 
        aes(x = blocktrial, y = prompts, col = Age)) +
-  geom_line(aes(group= Age), size = 2)+
+  geom_line(aes(group= Age), size = 1)+
   geom_point(aes(group= Age), size = 2)+
   theme_few() +
   guides(col = F)+
@@ -155,7 +155,7 @@ plot1_p <- ggplot(d1.p%>%filter(Age != "3yo"),
 
 
 d4.p2 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
-  mutate(block = ifelse(block=="Uptake","Uptake","Spontaneous"))%>%
+  mutate(block = ifelse(block=="Uptake","Uptake","Initiation"))%>%
   mutate(Age = ifelse(age == "M48","4yo","6yo")) %>%
   group_by(Age, block, dyad_id)%>%
   summarise(comp = mean(comp))
@@ -717,7 +717,7 @@ propcomb <- ggplot() +
   geom_jitter(data = gram_plot_compr_6, aes(x = condition, y = atom, col = Age), alpha = .4, position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
   geom_pointrange(data = gram_plot_compr_7,aes(x = condition, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
   guides(alpha = F)+
-  scale_y_continuous(name = "Prop. Combinatorial", limits = c(-0.05,1.05))+
+  scale_y_continuous(name = "Prop. Compositional", limits = c(-0.05,1.05))+
   xlab("Condition")+
   #ggtitle("Combinatorial solutions by condition")+
   theme_few() +
@@ -735,8 +735,8 @@ hcp1 <- gram_data  %>%
          predicate != "one")%>%
   mutate(block = relevel(factor(block), ref = "variations"),
          typediff_1 = plyr::mapvalues(typediff_1,c("numges","sizeges","moveges","partseq", "seq"),rep("combinatorial",5)),
-         typediff_1 = factor(ifelse(typediff_1 == "combinatorial", "combinatorial", "holistic")),
-         typediff_1 = relevel(typediff_1, ref = "holistic"))%>%
+         typediff_1 = factor(ifelse(typediff_1 == "combinatorial", "Compositional", "Holistic")),
+         typediff_1 = relevel(typediff_1, ref = "Holistic"))%>%
   group_by(Age,typediff_1,id)%>%
   summarise(compr = mean(compr))
   
