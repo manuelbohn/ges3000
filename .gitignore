@@ -2,13 +2,17 @@
 
 .Rhistory
 ges3000.pdf
+visualizations.Rmd
+helpful git code.txt
 *.Rapp.history
 *.tex
 *.fff
 /ges3000_files/*
 .Rproj.user
 
+
 /ges3000_cache/
+/lit/
 
 *.Rhistory
 *.Rproj

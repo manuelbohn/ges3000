@@ -25,13 +25,15 @@ knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE)
 ```{r load_packages, include = FALSE}
 library(tidyverse)
 library(ggthemes)
-library(lme4)
+library(lme4) # version 1.1-17 
+# library("devtools")
+# install_version("lme4", version = "1.1-17", repos = "http://cran.us.r-project.org")
 library(exactRankTests)
 library(ggpubr)
 
 library(langcog)
 # langcog package is installed by running
-# install.packages("devtools")
+# library("devtools")
 # devtools::install_github("langcog/langcog")
 
 
@@ -70,7 +72,7 @@ Children came from an ethnically homogeneous, mid-sized German city (approx. 550
 
 ## General note on analysis
 
-Stimuli, data and analysis scripts are available online at [`https://github.com/manuelbohn/ges3000`](https://github.com/manuelbohn/ges3000). To improve readability, we only report a small set of statistics in the text itself (estimates, standard errors and p-values for models and p-values for other tests). For additional information we ask the reader to directly run the code and look at the model outputs. For all analysis, we used R [@R-base] and for models we used the functions `glm` and `glmer` of the lme4 package [@R-lme4]. For mixed models we used a maximal random effect structure. Non-significant interaction terms were removed from models. P-values for fixed effects are based on likelihood ratio tests [@dobson2008introduction] which were computed via the function `drop1`.
+Stimuli, data and analysis scripts are available online at [`https://github.com/manuelbohn/ges3000`](https://github.com/manuelbohn/ges3000). To improve readability, we only report a small set of statistics in the text itself (estimates, standard errors and p-values for models and p-values for other tests). For additional information we ask the reader to directly run the code and look at the model outputs. For all analysis, we used R [@R-base] and for models we used the functions `glm` and `glmer` of the lme4 package [@R-lme4, version 1.1-17]. For mixed models we used a maximal random effect structure. Non-significant interaction terms were removed from models. P-values for fixed effects are based on likelihood ratio tests [@dobson2008introduction] which were computed via the function `drop1`.
 
 # Part 1: Lexical items
 
@@ -630,7 +632,7 @@ d7.m2 <- d7 %>%
 
 ### model for einfleunce of effort and age differences on day 2
 #### maximal converging random effect structure within rater
-m7.2 <- glmer(abs ~ age + effort + (trial + age_c + stimulus + sex | rater) + (1 | video), family = binomial, data = d7.m2, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m7.2 <- glmer(abs ~ age + effort + (trial + age_c + stimulus | rater) + (1 | video), family = binomial, data = d7.m2, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 #### p-value for model above
 pm7.2 <- drop1(m7.2, test = "Chisq")
