@@ -1,7 +1,6 @@
 # files not to be uploaded to git
 
 .Rhistory
-ges3000.pdf
 visualizations.Rmd
 helpful git code.txt
 *.Rapp.history

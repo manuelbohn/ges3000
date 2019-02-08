@@ -15,12 +15,34 @@ header-includes:
   \usepackage{caption}
   \renewcommand{\thetable}{S\arabic{table}} 
   \renewcommand{\thefigure}{S\arabic{figure}}
+  
 ---
 
-```{r global_options, include=FALSE}
-knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE)
+```{r, include = FALSE}
+# notes for knitting:
+# to knit to pdf change the header to the followoing:
+
+  # bookdown::pdf_document2:
+  #   toc: yes
+  #   fig_caption: yes
+  #   number_sections: false
+
+# insert out.width="450px" in the chunk options for png based figures. 
+
 ```
 
+```{r global_options, include=FALSE}
+# Change font size in code chunks
+# relevant for knitting to pdf
+
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
+})
+
+knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE, size="small")
+```
 
 ```{r load_packages, include = FALSE}
 library(tidyverse)
@@ -129,7 +151,9 @@ d1.m <- d1 %>%
 
 ## model for difference across first 4 trials  
 ### non-significant interaction has been removed  
-m1 <- glmer(prompts ~ blocktrial + age + (blocktrial|dyad_id), family = binomial, data = d1.m, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m1 <- glmer(prompts ~ blocktrial + age +
+              (blocktrial|dyad_id), family = binomial, data = d1.m,
+            control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 ## p-values for model above
 pm1 <- drop1(m1, test = "Chisq")
@@ -164,8 +188,9 @@ d2.m <- d2 %>%
          age_c = scale(as.numeric(age)))
 
 ## model for differences in the slopes between age groups for the two phases
-m2 <- glmer(prompts ~ block*age*blocktrial + (blocktrial|id) + (age_c|stimulus) , family = binomial, data = d2.m,
-        control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m2 <- glmer(prompts ~ block*age*blocktrial + 
+              (blocktrial|id) + (age_c|stimulus) , family = binomial, data = d2.m,
+            control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 ## p-values for the model above
 pm2 <- drop1(m2, test = "Chisq")
@@ -192,7 +217,8 @@ d3 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
   filter(block == "Uptake") %>%
   na.omit(prompts)
 
-## we use a Wilcoxon test to compare age groups because non of the 6yo dyads needed a prompt. This resulted in a very large (unidentifiable) estimate for this group in a GLM.
+## we use a Wilcoxon test to compare age groups because non of the 6yo dyads needed a prompt. 
+## This resulted in a very large (unidentifiable) estimate for this group in a GLM.
 d3.t <- d3 %>%  
   filter(blocktrial == 1) %>%
   group_by(age, dyad_id) %>%
@@ -214,7 +240,8 @@ d3.m <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
   mutate(prompts = ifelse(prompts > 0,1,0))
 
 ## model for difference between uptake and initiation
-### random intercepts for individual dyads cannot be estimated. We therefore remove this random effect
+### random intercepts for individual dyads cannot be estimated.
+### We therefore used a GLM
 m3 <- glm(prompts ~ block , family = binomial, data = d3.m)
 
 ## p-value for model above
@@ -333,8 +360,10 @@ d4.m <- d4 %>%
 
 ## model for difference between age groups
 ### non-sognificant higher order interactions removed
-### maximal converging model (model with trial as random slope within stimulus yields problems when doing case wise deletions)
-m4 <- glmer(comp ~ age+block+trial+ (trial + block_c |dyad_id) + (age_c|stimulus), family = binomial, data = d4.m,
+### maximal converging model (model with trial as random slope within stimulus 
+### yields problems when doing case wise deletions)
+m4 <- glmer(comp ~ age+block+trial+ 
+              (trial + block_c |dyad_id) + (age_c|stimulus), family = binomial, data = d4.m,
         control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 ## p-value for model above
@@ -417,7 +446,8 @@ d5 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
   na.omit(prompts)
 
 ## do 4yo need more prompts compared to 6yo?
-### None of the 6yo needed a prompt in any phase. As noted earlier this makes GLM estimation impossible. We therefore used Wilcoxon tests.
+### None of the 6yo needed a prompt in any phase. 
+### As noted earlier this makes GLM estimation impossible. We therefore used Wilcoxon tests.
 
 d5.t1 <- d5 %>%
   group_by(age, block, dyad_id) %>%
@@ -507,7 +537,9 @@ d6.m <- d6  %>%
 
 ## model for age difference
 ### maximal converging random effect structure within rater
-m6 <- glmer(corr ~ age + (trial  | rater) + (1 | video), family = binomial, data = d6.m, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m6 <- glmer(corr ~ age + 
+              (trial  | rater) + (1 | video), family = binomial, data = d6.m,
+            control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 ## p-value for model above
 pm6 <- drop1(m6, test = "Chisq")
@@ -527,7 +559,9 @@ d6.m2 <- d6.no.prompt  %>%
 
 ### model for age difference
 #### maximal converging random effect structure within rater
-m6.2 <- glmer(corr ~ age + (trial| rater) + (1 | video), family = binomial, data = d6.m2, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m6.2 <- glmer(corr ~ age +
+                (trial| rater) + (1 | video), family = binomial, data = d6.m2,
+              control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 ### p-value for model above
 pm6.2 <- drop1(m6.2, test = "Chisq")
@@ -617,7 +651,9 @@ d7.m1 <- d7 %>%
 
 ### model for einfleunce of effort and age differences on day 1
 #### maximal converging random effect structure within rater
-m7.1 <- glmer(abs ~ age + effort + (trial + age_c + stimulus | rater) + (1 | video), family = binomial, data = d7.m1, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m7.1 <- glmer(abs ~ age + effort + 
+                (trial + age_c + stimulus | rater) + (1 | video), family = binomial, data = d7.m1,
+              control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 #### p-value for model above
 pm7.1 <- drop1(m7.1, test = "Chisq")
@@ -632,7 +668,9 @@ d7.m2 <- d7 %>%
 
 ### model for einfleunce of effort and age differences on day 2
 #### maximal converging random effect structure within rater
-m7.2 <- glmer(abs ~ age + effort + (trial + age_c + stimulus | rater) + (1 | video), family = binomial, data = d7.m2, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m7.2 <- glmer(abs ~ age + effort + 
+                (trial + age_c + stimulus | rater) + (1 | video), family = binomial, data = d7.m2,
+              control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 #### p-value for model above
 pm7.2 <- drop1(m7.2, test = "Chisq")
@@ -764,7 +802,9 @@ d8.m1 <- d8  %>%
 
 ## model for difference between group and ages
 ### model does not converge with random slope for trial within id
-m8.1 <- glmer(corr ~ age + phase + (1| id) + (age_c | stimulus), family = binomial, data = d8.m1, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m8.1 <- glmer(corr ~ age + phase +
+                (1| id) + (age_c | stimulus), family = binomial, data = d8.m1,
+              control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 ## p-value for model above
 pm8.1 <- drop1(m8.1, test = "Chisq")
@@ -778,7 +818,9 @@ d8.m2 <- d8  %>%
          age_c = scale(as.numeric(age)))
 
 ## model for difference between group and ages
-m8.2 <- glmer(corr ~ age + phase + (trial | id) + (age_c | stimulus), family = binomial, data = d8.m2, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+m8.2 <- glmer(corr ~ age + phase +
+                (trial | id) + (age_c | stimulus), family = binomial, data = d8.m2,
+              control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 ## p-value for model above
 pm8.2 <- drop1(m8.2, test = "Chisq")
@@ -907,7 +949,9 @@ dmove.m1 <- move_data  %>%
          age_c = scale(age))
 
 ## model for differentiation and age
-mmove.1 <- glmer(compr ~ Age + diff + trial + block + (trial + block_c | id) + (age_c | stimulus), family = binomial, data = dmove.m1, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+mmove.1 <- glmer(compr ~ Age + diff + trial + block + 
+                   (trial + block_c | id) + (age_c | stimulus), family = binomial, data = dmove.m1,
+                 control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 ## p-value for model above
 pmmove.1 <- drop1(mmove.1, test = "Chisq")
@@ -1087,7 +1131,9 @@ dnum.m1 <- num_data  %>%
 
 ## model for differentiation and age
 ### model does not converge with random slope for block within id 
-mnum.1 <- glmer(compr ~ Age + diff+ trial + block + (trial | id) + (age_c | stimulus), family = binomial, data = dnum.m1, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+mnum.1 <- glmer(compr ~ Age + diff+ trial + block + 
+                  (trial | id) + (age_c | stimulus), family = binomial, data = dnum.m1,
+                control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 ## p-value for model above
 pmnum.1 <- drop1(mnum.1, test = "Chisq")
@@ -1208,7 +1254,9 @@ dsize.m1 <- size_data  %>%
          age_c = scale(age))
 
 ## model for differentiation and age
-msize.1 <- glmer(compr ~ Age + diff + trial + block + (trial + block_c | id) + (age_c | stimulus), family = binomial, data = dsize.m1, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+msize.1 <- glmer(compr ~ Age + diff + trial + block + 
+                   (trial + block_c | id) + (age_c | stimulus), family = binomial, data = dsize.m1,
+                 control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 ## p-value for model above
 pmsize.1 <- drop1(msize.1, test = "Chisq")
@@ -1525,8 +1573,10 @@ diff_age_data <- gram_data%>%
          condition != "transitive_3")
 
 ## recode differentation
-### model with random intercept for id is not able to reasonably estimate individual intercepts due to lack of varaition in individual's responses
-### therefore, children who differentiate in more than 50% of trials are coded as 1, those who do so in less trials, are coded as 0
+### model with random intercept for id is not able to reasonably estimate individual 
+### intercepts due to lack of varaition in individual's responses
+### therefore, children who differentiate in more than 50% of trials are coded as 1, 
+### those who do so in less trials, are coded as 0
 mdiff_age_data <- diff_age_data%>%
   group_by(id, Age, condition)%>%
   mutate(diff = ifelse(diff == "yes",1,0))%>%
@@ -1549,8 +1599,10 @@ Figure \@ref(fig:diff) shows that children differentiated in the majority of tri
 # do 8yo differentiate differently across conditions?
 ## remove 6yo
 ## recode differentation
-### model with random intercept for id is not able to reasonably estimate individual intercepts due to lack of varaition in individual's responses
-### therefore, children who differentiate in more than 50% of trials are coded as 1, those who do so in less trials, are coded as 0
+### model with random intercept for id is not able to reasonably estimate individual 
+### intercepts due to lack of varaition in individual's responses
+### therefore, children who differentiate in more than 50% of trials are coded as 1,
+### those who do so in less trials, are coded as 0
 diff_8_data <- gram_data%>%
   filter(Age != "6yo")%>%
   group_by(id, condition)%>%
@@ -1614,8 +1666,10 @@ comb_age_data <- gram_data %>%
           predicate != "one")
 
 ## recode rate of compositional gestures
-### model with random intercept for id is not able to reasonably estimate individual intercepts due to lack of varaition in individual's responses
-### therefore, children who use compositional gestures in more than 50% of trials are coded as 1, those who do so in less trials, are coded as 0
+### model with random intercept for id is not able to reasonably 
+### estimate individual intercepts due to lack of varaition in individual's responses
+### therefore, children who use compositional gestures in more than 50% of trials are coded as 1, 
+### those who do so in less trials, are coded as 0
 mcomb_age_data <- comb_age_data%>%
   mutate(condition = relevel(factor(condition), ref = "size"))%>%
   group_by(id, Age, condition)%>%
@@ -1639,7 +1693,9 @@ As mentioned above, we did not expect an effect of condition here. The following
 # do 8yo differentiate differently across conditions?
 ## remove 6yo
 ## only select trials in which children differentiated
-## remove transitive 3 condition because all children used compositional sequences in the trials in which they differentiated. Estimation for this condition fails due to lack of variation
+## remove transitive 3 condition because all children used compositional sequences 
+## in the trials in which they differentiated. 
+## Estimation for this condition fails due to lack of variation
 comb_8yo_data <- gram_data %>%
    filter(Age != "6yo",
           diff == "yes",
@@ -1649,8 +1705,10 @@ comb_8yo_data <- gram_data %>%
           condition != "transitive_3")
 
 ## recode rate of compositional gestures
-### model with random intercept for id is not able to reasonably estimate individual intercepts due to lack of varaition in individual's responses
-### therefore, children who use compositional gestures in more than 50% of trials are coded as 1, those who do so in less trials, are coded as 0  
+### model with random intercept for id is not able to reasonably estimate individual 
+### intercepts due to lack of varaition in individual's responses
+### therefore, children who use compositional gestures in more than 50% of trials are coded as 1,
+### those who do so in less trials, are coded as 0  
 mcomb_8yo_data <- comb_8yo_data%>%
   mutate(condition = relevel(factor(condition), ref = "transitive_2"))%>%
   group_by(id, condition)%>%
@@ -1673,8 +1731,10 @@ comb_8yo_data2 <- gram_data %>%
           predicate != "one")
 
 ## recode rate of compositional gestures
-### model with random intercept for id is not able to reasonably estimate individual intercepts due to lack of varaition in individual's responses
-### therefore, children who use compositional gestures in more than 50% of trials are coded as 1, those who do so in less trials, are coded as 0  
+### model with random intercept for id is not able to reasonably estimate individual
+### intercepts due to lack of varaition in individual's responses
+### therefore, children who use compositional gestures in more than 50% of trials are coded as 1, 
+### those who do so in less trials, are coded as 0  
 ### conditions are recoded as either involving transitive relations or a single modifying predicate
 mcomb_8yo_data2 <- comb_8yo_data2%>%
   mutate(condition = ifelse(grepl("transitive",condition),"transitive","single_pred"))%>%
@@ -1747,8 +1807,11 @@ md_holcomb <- d.hol_comb%>%
   mutate(age_c = scale(as.numeric(age)))
 
 ## model for influence of gesture type
-### block as random slope within stimulus leads to convergence issues in drop1() and is therefore removed.
-mholcomb <- glmer(compr ~ hol_or_atom + condition + Age + ( 1 | id) + (1 | stimulus), family = binomial, data = md_holcomb, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+### block as random slope within stimulus leads to convergence issues 
+### in drop1() and is therefore removed.
+mholcomb <- glmer(compr ~ hol_or_atom + condition + Age + 
+                    ( 1 | id) + (1 | stimulus), family = binomial, data = md_holcomb,
+                  control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 ## p-value for model above
 pmholcomb <- drop1(mholcomb, test = "Chisq")
@@ -1772,7 +1835,9 @@ d.hol_comb_8 <- gram_data  %>%
          predicate != "one")
 
 ## model for influence of gesture type in 8yo
-mholcomb_8 <- glmer(compr ~ hol_or_atom + condition + ( 1 | id) + (1 | stimulus), family = binomial, data = d.hol_comb_8, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+mholcomb_8 <- glmer(compr ~ hol_or_atom + condition +
+                      ( 1 | id) + (1 | stimulus), family = binomial, data = d.hol_comb_8,
+                    control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 
 ## p-value for model above
 pmholcomb_8 <- drop1(mholcomb_8, test = "Chisq")
@@ -1840,8 +1905,10 @@ worder_data <- gram_data %>%
      ))
 
 ## recode word order
-### model with random intercept for id is not able to reasonably estimate individual intercepts due to lack of varaition in individual's responses
-### therefore, children who use German word order in more than 50% of trials are coded as 1, those who do so in less trials, are coded as 0
+### model with random intercept for id is not able to reasonably estimate individual 
+### intercepts due to lack of varaition in individual's responses
+### therefore, children who use German word order in more than 50% of trials are coded as 1, 
+### those who do so in less trials, are coded as 0
 mworder_data <- worder_data%>%
   group_by(id, Age, condition)%>%
   summarise(mean_lang_con_order = mean(lang_con_order))%>%
