@@ -902,6 +902,12 @@ A second coder re-coded 25% of test trials. Agreement between raters was 94% for
 #loading data for part 2
 gram_data <- read.csv(file="data/pt2_data.csv")
 
+
+gram_data%>%
+  group_by(age)%>%
+  summarise(mean = mean(nage),
+            range = range(nage)[1],
+            range2 = range(nage)[2])
 ```
 
 ## 2.1: Movement
@@ -1105,7 +1111,7 @@ p2.num.p <- gram_data %>%
             u_range = range(nage)[2])
 
 ```
-We tested 24 children, 12 six-year-olds (mean age = `r round(p2.move.p$mean_age[1],2)`, range = `r round(p2.move.p$l_range[1],2)` to `r round(p2.move.p$u_range[1],2)`) and 12 eight-year-olds (mean age = `r round(p2.move.p$mean_age[2],2)`, range = `r round(p2.move.p$l_range[2],2)` to `r round(p2.move.p$u_range[2],2)`) with six boys and six girls per age group. Children were sampled from the same population as in part 1. Data collection took place between June and September 2017. Three six-year-olds and one eight-year-old started but did not complete the experiment.
+We tested 24 children, 12 six-year-olds (mean age = `r round(p2.num.p$mean_age[1],2)`, range = `r round(p2.num.p$l_range[1],2)` to `r round(p2.num.p$u_range[1],2)`) and 12 eight-year-olds (mean age = `r round(p2.num.p$mean_age[2],2)`, range = `r round(p2.num.p$l_range[2],2)` to `r round(p2.num.p$u_range[2],2)`) with six boys and six girls per age group. Children were sampled from the same population as in part 1. Data collection took place between June and September 2017. Three six-year-olds and one eight-year-old started but did not complete the experiment.
 
 ### Design and procedure
 
@@ -1591,7 +1597,7 @@ pdiff_age <- drop1(mdiff_age, test = "Chisq")
 
 ```
 
-Figure \@ref(fig:diff) shows that children differentiated in the majority of trials across conditions. We found no difference between age groups ($\beta$ = `r round(summary(mdiff_age)$coefficients[2,1], 2)`, se = `r round(summary(mdiff_age)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pdiff_age[2,4], 3))`) or conditions (LRT for condition: *p* = `r sub('^(-)?0[.]', '\\1.', round(pdiff_age[3,5], 3))`).
+Figure \@ref(fig:diff) shows that children differentiated in the majority of trials across conditions. We found no difference between age groups ($\beta$ = `r round(summary(mdiff_age)$coefficients[2,1], 2)`, se = `r round(summary(mdiff_age)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pdiff_age[2,5], 3))`) or conditions (LRT for condition: *p* = `r sub('^(-)?0[.]', '\\1.', round(pdiff_age[3,5], 3))`).
 
 #### Differentiation in 8yo
 
@@ -1618,7 +1624,7 @@ pdiff_8 <- drop1(mdiff_8, test = "Chisq")
 
 ```
 
-This analysis includes all data for eight-year-olds. We found no effect of condition ($\beta$ = `r round(summary(mdiff_8)$coefficients[2,1], 2)`, se = `r round(summary(mdiff_8)$coefficients[2,2], 2)` *p* = `r sub('^(-)?0[.]', '\\1.', round(pdiff_8[2,5], 3))`).
+This analysis includes all data for eight-year-olds. We found no effect of condition (LRT: *p* = `r sub('^(-)?0[.]', '\\1.', round(pdiff_8[2,5], 3))`).
 
 ```{r diff, echo = F, fig.cap="Proportion of trials in which children differentiated between depictions of the same referent with different properties by condition and age.", fig.width = 10, fig.height = 3, fig.scale = 1}
 # Gesture differentiation across conditions
@@ -1783,7 +1789,7 @@ ggplot() +
 
 ### 2.8: Effect of compositional solutions on comprehension
 
-compositional gestures are arguably more complex compared to holistic gestures in that they not only involve multiple seperate elements but also the modifying relation between those elements has to be tracked and integrated over time. Here we ask about the benefits of compositional gestures, more specifically, whether they reduce ambiguity and thereby improve comprehension.
+Compositional gestures are arguably structurally more complex compared to holistic gestures in that they not only involve multiple seperate elements but also the modifying relation between those elements has to be tracked and integrated over time. Here we ask about the benefits of compositional gestures, more specifically, whether they reduce ambiguity and thereby improve comprehension.
 
 We selected all trials in which children differentiated. Like in the [previous section](#compositional-gesture-sequences), we classified each gesture as either "compositional" or "holistic". The dependent variable in this analysis was comprehension, which was more variable within children compared to differentiation or compositional gesture use. We therefore analysed the data on a trial by trial basis and returned to using GLMMs with random intercepts for id and stimulus. 
 
@@ -1888,7 +1894,7 @@ Note that a strong bias in favor of a particular word order could have other ori
 
 We excluded gestures coded as "compositional_part". While we do think that these gestures are compositional in that the meaning expressed by the sequence depends on its internal structure, the fact that the predicate was depicted together with the subject and/or the object makes an ordering of these components difficult. Consequently, we could only look at the order of S and O in these gestures. Here we would expect a strong bias in favor of an SO order independent of German word order [see e.g. @dryer2002case; @gildea2010grammars; @greenberg2010language]. In fact, looking at all trials in which children depicted both the subject and the object, the subject came first in 96% of cases.
 
-We selected all trials for which we coded a compositional gesture sequence. As mentioned above, we excluded trials for which we coded "compositional_part". For each trial in the remaining data we coded whether the word order was the same as in German. Even though there are many ways in which the content of the picture could be expressed in German (active vs. passive, present vs. past tense (present perfect), etc.), we used active present tense as a reference because this was the way the experimenter labeled the pictures when she introduced them to the child. For movement, number and size, the corresponding German word order was P-S (movement: "hüpfender Elefant" [jumping elephant], number: "viele Hämmer" [many hammers], size: "kleine Gabel" [small fork]). In the case of transitive 2 and 3, it would be SPO ("Hase jagt Katze" [bunny chases cat]).
+We selected all trials for which we coded a compositional gesture sequence. As mentioned above, we excluded trials for which we coded "compositional_part". For each trial in the remaining data we coded whether the word order was the same as in German. Even though there are many ways in which the content of the picture could be expressed in German (active vs. passive, present vs. past tense (present perfect), etc.), we used active present tense as a reference because this was the way the experimenter labeled the pictures when she introduced them to the child. For movement, number and size, the corresponding German word order was PS (movement: "hüpfender Elefant" [jumping elephant], number: "viele Hämmer" [many hammers], size: "kleine Gabel" [small fork]). In the case of transitive 2 and 3, it was SPO ("Hase jagt Katze" [bunny chases cat]).
 
 ```{r word_order, cache = F}
 # do children structure their gesture sequences in line with their native language?
