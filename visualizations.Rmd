@@ -144,7 +144,7 @@ plot1_p <- ggplot(d1.p%>%filter(Age != "3yo"),
   geom_point(aes(group= Age), size = 2)+
   theme_few() +
   guides(col = F)+
-  scale_y_continuous(name = "Spontaneous Gestures", limits = c(0,12), breaks = c(0,2,4,6,8,10,12))+
+  scale_y_continuous(name = "Spontaneous gestures", limits = c(0,12), breaks = c(0,2,4,6,8,10,12))+
   scale_x_continuous(name = "Trial", breaks = c(1:4))+
   theme_few() +
   scale_colour_manual(name="Age",
@@ -169,7 +169,7 @@ plot4_p <- ggplot() +
   geom_jitter(data = d4.p2, aes(x = block, y = comp, col = Age),alpha = .2, position = position_jitterdodge(jitter.width = .05, jitter.height = 0.05,
   dodge.width = 0.5))+
   geom_pointrange(data = d4,aes(x = block, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
-                  position = position_dodge(width = .5), size = .5) +
+                  position = position_dodge(width = .5), size = .7,pch = 5) +
   geom_hline(yintercept = 0.25, lty=2)+
   guides(alpha = F)+
   labs(x="Phase")+
@@ -190,11 +190,11 @@ d6.p3 <- d6.p2 %>%
 
 plot5_p <- ggplot() +
   geom_jitter(data = d6.p2, aes(x = 1, y = corr, col = Age),alpha = .2, position = position_jitterdodge(jitter.width = .15, jitter.height = 0.05, dodge.width = 0.5))+
-  geom_pointrange(data = d6.p3,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = .5, alpha = 1) + 
+  geom_pointrange(data = d6.p3,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = .7, alpha = 1,pch = 5) + 
   geom_hline(yintercept = 0.5, lty=2)+
   xlab("")+
   guides(alpha = F)+
-  scale_y_continuous(name = "Gesture Same Dyad", limits = c(-0.05,1.05))+
+  scale_y_continuous(name = "Gesture same dyad", limits = c(-0.05,1.05))+
   theme_few() + 
   scale_colour_solarized()+
   theme(axis.title.x= element_blank(),axis.text.x= element_blank(), axis.ticks.x = element_blank())
@@ -212,11 +212,11 @@ d7.p3 <- d7.p2 %>%
 plot6_p <-ggplot() +
   geom_jitter(data = d7.p2, aes(x = 1, y = abs, col = Age),alpha = .2, position = position_jitterdodge(jitter.width = .15, jitter.height = 0.05,
   dodge.width = 0.5))+
-  geom_pointrange(data = d7.p3,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = .5, alpha = 1) + 
+  geom_pointrange(data = d7.p3,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = .7, alpha = 1,pch = 5) + 
   geom_hline(yintercept = 0.5, lty=2)+
   xlab("")+
   guides(alpha = F)+
-  scale_y_continuous(name = "Later Gesture", limits = c(-0.05,1.05))+
+  scale_y_continuous(name = "Later gesture", limits = c(-0.05,1.05))+
   theme_few() + 
   scale_colour_solarized() +
   theme(axis.title.x= element_blank(),axis.text.x= element_blank(), axis.ticks.x = element_blank())
@@ -253,11 +253,11 @@ d8.p1 <- d8.p %>%
 plot8_p <- ggplot() +
   geom_jitter(data = d8.p, aes(x = phase, y = corr, col = Age), alpha = .2,position = position_jitterdodge(jitter.width = .1, jitter.height = 0.05,
   dodge.width = 0.5))+
-  geom_pointrange(data = d8.p1,aes(x = phase, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = .5) + 
+  geom_pointrange(data = d8.p1,aes(x = phase, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = .7,pch = 5) + 
   geom_hline(yintercept = 1/3, lty=2)+
   guides(alpha = F)+
   xlab("Phase")+
-  scale_y_continuous(name = "Proportion Correct", limits = c(-0.05,1.05))+
+  scale_y_continuous(name = "Proportion correct", limits = c(-0.05,1.05))+
   theme_few() + 
   scale_colour_solarized()
 
@@ -444,7 +444,7 @@ ggplot() +
   geom_jitter(data = gram_plot_compr_6, aes(x = condition, y = atom, col = Age, alpha = .2), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
   geom_pointrange(data = gram_plot_compr_7,aes(x = condition, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
   guides(alpha = F, col = F)+
-  scale_y_continuous(name = "Proportion Combinatorial", limits = c(-0.05,1.05))+
+  scale_y_continuous(name = "Proportion combinatorial", limits = c(-0.05,1.05))+
   xlab("")+
   #ggtitle("Combinatorial solutions by condition")+
   theme_few(base_size = 20) +
@@ -660,10 +660,10 @@ gram_plot_dif2 <- gram_plot_dif %>%
 
 
 diff <- ggplot() +
-  geom_jitter(data = gram_plot_dif, aes(x = Age, y = diff, col = Age), alpha = .4, position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
-  geom_pointrange(data = gram_plot_dif2,aes(x = Age, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = gram_plot_dif, aes(x = Age, y = diff, col = Age), alpha = .2, position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
+  geom_pointrange(data = gram_plot_dif2,aes(x = Age, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7,pch = 5) +
   guides(alpha = F)+
-  scale_y_continuous(name = "Prop. Differentiated", limits = c(-0.05,1.05))+
+  scale_y_continuous(name = "Prop. differentiated", limits = c(-0.05,1.05))+
   xlab("")+
   #ggtitle("Gesture differentiation by condition")+
   theme_few() +
@@ -687,11 +687,11 @@ gram_plot_compr_3_2 <- gram_plot_compr_3 %>%
   multi_boot_standard(col = "compr")
 
 cbydiff <- ggplot() +
-  geom_jitter(data = gram_plot_compr_3, aes(x = diff, y = compr, col = Age), alpha = .4, position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
-  geom_pointrange(data = gram_plot_compr_3_2,aes(x = diff, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = gram_plot_compr_3, aes(x = diff, y = compr, col = Age), alpha = .2, position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
+  geom_pointrange(data = gram_plot_compr_3_2,aes(x = diff, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7,pch = 5) +
   guides(alpha = F)+
   #facet_grid(~condition)+
-  scale_y_continuous(name = "Proportion Correct", limits = c(-0.05,1.05))+
+  scale_y_continuous(name = "Prop. Correct", limits = c(-0.05,1.05))+
   xlab("Differentiate")+
   #ggtitle("Gesture comprehension by differentiation")+
   theme_few() +
@@ -700,12 +700,15 @@ cbydiff <- ggplot() +
 
 
 
+
 gram_plot_compr_6 <- gram_data %>%
-   filter(diff == "yes",
-        predicate != "small",
-         predicate != "static",
-         predicate != "one")%>%
-  group_by(Age,condition,id)%>%
+   filter(Age != "6yo",
+          diff == "yes",
+          predicate != "small",
+          predicate != "static",
+          predicate != "one")%>%
+  mutate(condition = ifelse(grepl("transitive",condition),"transitive","single_pred"))%>%
+  group_by(Age, id, condition)%>%
   summarise(atom = mean(hol_or_atom))
 
 
@@ -714,15 +717,15 @@ gram_plot_compr_7 <- gram_plot_compr_6 %>%
   multi_boot_standard(col = "atom")
 
 propcomb <- ggplot() +
-  geom_jitter(data = gram_plot_compr_6, aes(x = condition, y = atom, col = Age), alpha = .4, position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
-  geom_pointrange(data = gram_plot_compr_7,aes(x = condition, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = gram_plot_compr_6, aes(x = condition, y = atom, col = Age), alpha = .2, position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
+  geom_pointrange(data = gram_plot_compr_7,aes(x = condition, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
-  scale_y_continuous(name = "Prop. Compositional", limits = c(-0.05,1.05))+
-  xlab("Condition")+
+  scale_y_continuous(name = "Prop. compositional", limits = c(-0.05,1.05))+
+  xlab("Relational complexity")+
   #ggtitle("Combinatorial solutions by condition")+
   theme_few() +
   scale_colour_manual(name="Age",
-                      labels=c("6yo","8yo"), values=c("#268bd2","#b58900"))
+                      labels=c("8yo"), values=c("#b58900"))+ scale_x_discrete(labels=c("single_pred" = "Lower", "transitive" = "Higher"))
 
 
 
@@ -744,12 +747,12 @@ hcp2 <- hcp1 %>%
   multi_boot_standard(col = "compr")
 
 combcomp <- ggplot() +
-  geom_jitter(data = hcp1, aes(x = typediff_1, y = compr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.01,dodge.width = 0.5), alpha = .4)+
-  geom_pointrange(data = hcp2,aes(x = typediff_1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = hcp1, aes(x = typediff_1, y = compr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.01,dodge.width = 0.5), alpha = .2)+
+  geom_pointrange(data = hcp2,aes(x = typediff_1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7,pch = 5) +
   #facet_wrap(~condition, nrow = 1)+
   guides(alpha = F)+
-  scale_y_continuous(name = "Proportion Correct", limits = c(-0.05,1.05))+
-  xlab("Gesture Type")+
+  scale_y_continuous(name = "Prop. correct", limits = c(-0.05,1.05))+
+  xlab("Gesture type")+
   #ggtitle("Comprehension")+
   theme_few() +
   scale_colour_manual(name="Age",
@@ -757,10 +760,10 @@ combcomp <- ggplot() +
 
 
 
-y <-ggarrange(diff,propcomb, widths = c(1,2),  labels = c("A","B"), align = "hv",common.legend = T, legend = "right")
+ggarrange(diff,combcomp,propcomb, ncol = 3, widths = c(1,1.2,1), labels = c("A","B","C"), align = "hv",common.legend = T, legend = "right")
 
 
-x <- ggarrange(cbydiff,combcomp,  labels = c("C","D"), align = "h",common.legend = T, legend = "right")
+#x <- ggarrange(cbydiff,combcomp,  labels = c("C","D"), align = "h",common.legend = T, legend = "right")
 
 ```
 
@@ -776,7 +779,7 @@ ggarrange(y,x, nrow = 2)
 
 
 ```{r}
-ggsave("./plots/part2.png", width = 6, height = 3.5, scale = 1.5)
+ggsave("./plots/part2.png", width = 6, height = 1.6, scale = 1.5)
 ```
 
 ### Exploratory: Efficiency of gesture use
