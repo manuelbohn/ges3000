@@ -119,7 +119,7 @@ d1 <- read.csv(file="data/pt1_prod_up_comp.csv") %>%
 We tested 24 same sex, same age dyads of four (mean age within dyad = `r round(mean(d1$mage[d1$age=="M48"]),2)`, range = `r round(range(d1$mage[d1$age=="M48"])[1],2)` to `r round(range(d1$mage[d1$age=="M48"])[2],2)`) and six year-old children (mean age within dyad = `r round(mean(d1$mage[d1$age=="M72"]),2)`, range = `r round(range(d1$mage[d1$age=="M72"])[1],2)` to `r round(range(d1$mage[d1$age=="M72"])[2],2)`), with 12 dyads per age group, six male and six female. Data collection took place between April and September 2016. Four additional dyads (three four-year-old and one six-year-old) started the experiment but did not complete it. 
 
 ### Design and procedure
-The test phase following the training was divided into two parts, "initiation" and "uptake". Children were first tested with all pictures except the empty picture. We reasoned that including the empty picture from the beginning might discourage children from establishing communication through gestures. The empty picture was introduced after each other picture had been selected at least once (twice for six-year-olds). The first trial of the initiation phase assessed whether children would discover the idea to use gestures to communicate independently. If the PC remained passive for one minute in the first test trial, instead of receiving prompts, children switched rooms and the former CR got a chance to spontaneously start gesturing. If the new PC remained passive for another minute, E1 started prompting. The three trials following the first trial, each with a new picture, assessed whether children would transfer the idea of using gestures. From the fifth trial onward, pictures were repeated, including the empty one.  For the second part, uptake, children switched rooms and roles. In this part, all pictures were used right away. The order in which pictures were selected was randomized with the constraint that each picture was selected once before another picture could be selected again.Six-year-olds received a total of 30 test trials, 20 in initiation and 10 in uptake. Pilot testing suggested that this was too long for the younger age group and so four-year-olds received a total of 19 test trials, 14 in initiation and 5 in uptake. 
+The test phase following the training was divided into two parts, "initiation" and "uptake". Children were first tested with all pictures except the empty picture. We reasoned that including the empty picture from the beginning might discourage children from establishing communication through gestures. The empty picture was introduced after each other picture had been selected at least once (twice for six-year-olds). The first trial of the initiation phase assessed whether children would discover the idea to use gestures to communicate independently. If the PC remained passive for one minute in the first test trial, instead of receiving prompts, children switched rooms and the former CC got a chance to spontaneously start gesturing. If the new PC remained passive for another minute, E1 started prompting. The three trials following the first trial, each with a new picture, assessed whether children would transfer the idea of using gestures. From the fifth trial onward, pictures were repeated, including the empty one.  For the second part, uptake, children switched rooms and roles. In this part, all pictures were used right away. The order in which pictures were selected was randomized with the constraint that each picture was selected once before another picture could be selected again.Six-year-olds received a total of 30 test trials, 20 in initiation and 10 in uptake. Pilot testing suggested that this was too long for the younger age group and so four-year-olds received a total of 19 test trials, 14 in initiation and 5 in uptake. 
 
 ### Results and discussion
 
@@ -409,11 +409,11 @@ d4.p4 <- d4.p2 %>%
   mutate(stimulus = "Overall")
 
 ggplot() +
-  geom_jitter(data = d4.p2, aes(x = stimulus, y = comp, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
+  geom_jitter(data = d4.p2, aes(x = stimulus, y = comp, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
   geom_pointrange(data = d4.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
-                  position = position_dodge(width = .5), size = 0.6) +
+                  position = position_dodge(width = .5), size = 0.6, pch = 5) +
   geom_pointrange(data = d4.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper), 
-                  position = position_dodge(width = .5), size = 1) +
+                  position = position_dodge(width = .5), size = .7, pch = 5) +
   geom_hline(yintercept = 0.25, lty=2)+
   geom_vline(xintercept = 5.5, lty=1, size = 0.7)+
   guides(alpha = F)+
@@ -588,9 +588,9 @@ d6.p4 <- d6 %>%
 
 
 ggplot() +
-  geom_jitter(data = d6.p2, aes(x = stimulus, y = corr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = d6.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = .6) + 
-  geom_pointrange(data = d6.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1)+
+  geom_jitter(data = d6.p2, aes(x = stimulus, y = corr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = d6.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = .6, pch = 5) + 
+  geom_pointrange(data = d6.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1, pch = 5)+
   geom_vline(xintercept = 5.5, lty=1, size = 0.7)+
   geom_hline(yintercept = 0.5, lty=2)+
   xlab("Picture")+
@@ -621,7 +621,7 @@ d7 <- read.csv(file="data/pt1_drift_production.csv") %>%
 
 ```
 
-For the additional study, we invited half of the children (one from each dyad) who participated in part 1.1 on day 1 back to the lab on a second day. Three four-year-olds could not participate on the second day and were therefore replaced with new children. In sum, twelve four-year-olds (mean age = `r round(mean(d7.participants$age[d7.participants$age_group=="M48"]),2)`, range = `r round(range(d7.participants$age[d7.participants$age_group=="M48"])[1],2)` to `r round(range(d7.participants$age[d7.participants$age_group=="M48"])[2],2)`) and 12 six-year-olds (mean age = `r round(mean(d7.participants$age[d7.participants$age_group=="M72"]),2)`, range = `r round(range(d7.participants$age[d7.participants$age_group=="M72"])[2],2)`) participated in the study.
+For the additional study, we invited half of the children (one from each dyad) who participated in part 1.1 on day 1 back to the lab on a second day. Three four-year-olds could not participate on the second day and were therefore replaced with new children. In sum, twelve four-year-olds (mean age = `r round(mean(d7.participants$age[d7.participants$age_group=="M48"]),2)`, range = `r round(range(d7.participants$age[d7.participants$age_group=="M48"])[1],2)` to `r round(range(d7.participants$age[d7.participants$age_group=="M48"])[2],2)`) and 12 six-year-olds (mean age = `r round(mean(d7.participants$age[d7.participants$age_group=="M72"]),2)`, range = `r round(range(d7.participants$age[d7.participants$age_group=="M72"])[1],2)` to `r round(range(d7.participants$age[d7.participants$age_group=="M72"])[2],2)`) participated in the study.
 
 We presented the videos from day 1 and 2 to twelve adult raters, who were unfamiliar with the study design and procedure. They were asked to rate how abstract and effortful gestures were. 
 
@@ -713,9 +713,9 @@ d7.p4 <- d7 %>%
   mutate(stimulus = "Overall")
 
 plot6 <-ggplot() +
-  geom_jitter(data = d7.p2, aes(x = stimulus, y = abs, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = d7.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.6) +
-  geom_pointrange(data = d7.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1) +
+  geom_jitter(data = d7.p2, aes(x = stimulus, y = abs, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = d7.p3,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.6, pch = 5) +
+  geom_pointrange(data = d7.p4,aes(x = stimulus, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1, pch = 5) +
   geom_hline(yintercept = 0.5, lty=2)+
   facet_grid(~day,scales = "free_x", space = "free_x", drop = T)+
   guides(alpha = F)+
@@ -735,7 +735,7 @@ d7.p5 <- d7 %>%
             eff = mean(effort))
 
 plot7 <- ggplot(data = d7.p5,aes(x = eff, y = abs, col = Age)) +
-  geom_jitter(width = .05,height = .05, alpha = 0.7)+
+  geom_jitter(width = .05,height = .05, alpha = .7)+
   geom_smooth(method = "lm", se = T)+
   geom_abline(intercept = 1, slope = -1, lty = 2, alpha = 0.5)+
   theme_few() +
@@ -859,8 +859,8 @@ d8.p1 <- d8.p %>%
   multi_boot_standard(col = "corr")
 
 ggplot() +
-  geom_jitter(data = d8.p, aes(x = phase, y = corr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = d8.p1,aes(x = phase, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1) + 
+  geom_jitter(data = d8.p, aes(x = phase, y = corr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = d8.p1,aes(x = phase, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 1, pch = 5) + 
   geom_hline(yintercept = 1/3, lty=2)+
   facet_grid(~condition)+
   guides(alpha = F)+
@@ -902,12 +902,6 @@ A second coder re-coded 25% of test trials. Agreement between raters was 94% for
 #loading data for part 2
 gram_data <- read.csv(file="data/pt2_data.csv")
 
-
-gram_data%>%
-  group_by(age)%>%
-  summarise(mean = mean(nage),
-            range = range(nage)[1],
-            range2 = range(nage)[2])
 ```
 
 ## 2.1: Movement
@@ -977,7 +971,7 @@ mp2 <- mp1 %>%
 
 move_diff <- ggplot() +
   geom_jitter(data = mp1, aes(x = 1, y = diff, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
-  geom_pointrange(data = mp2,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_pointrange(data = mp2,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "Differentiate = yes", limits = c(-0.05,1.05))+
   #xlab("Differentiate between ambiguous stimuli")+
@@ -997,8 +991,8 @@ mp4 <- mp3 %>%
   multi_boot_standard(col = "compr")
 
 move_comp <- ggplot() +
-  geom_jitter(data = mp3, aes(x = diff, y = compr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = mp4,aes(x = diff, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = mp3, aes(x = diff, y = compr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = mp4,aes(x = diff, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "Comprehension", limits = c(-0.05,1.05))+
   xlab("Differentiate")+
@@ -1020,10 +1014,10 @@ mp6 <- mp5 %>%
 
 
 move_comb <- ggplot() +
-  geom_jitter(data = mp5, aes(x = 1, y = compositional, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = mp6,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = mp5, aes(x = 1, y = compositional, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = mp6,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
-  scale_y_continuous(name = "compositional Solutions", limits = c(-0.05,1.05))+
+  scale_y_continuous(name = "Compositional Solutions", limits = c(-0.05,1.05))+
   #xlab("Differentiate between ambiguous stimuli")+
   #ggtitle("compositional gesture sequences")+
   theme_few() +
@@ -1075,8 +1069,8 @@ var_with_plot2 <- var_with_plot %>%
   multi_boot_standard(col = "diff_var")
 
 varwithin <- ggplot() +
-  geom_jitter(data = var_with_plot, aes(x = condition, y = diff_var), alpha = .2, width = .2,height = .0)+
-  geom_pointrange(data = var_with_plot2,aes(x = condition, y = mean, ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = var_with_plot, aes(x = condition, y = diff_var), alpha = .3, width = .2,height = .0)+
+  geom_pointrange(data = var_with_plot2,aes(x = condition, y = mean, ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F, col = F)+
   scale_y_continuous(name = "Number of gesture types")+
   xlab("Condition")+
@@ -1160,8 +1154,8 @@ np2 <- np1 %>%
 
 
 num_diff <- ggplot() +
-  geom_jitter(data = np1, aes(x = 1, y = diff, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = np2,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = np1, aes(x = 1, y = diff, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = np2,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "Differentiate = yes", limits = c(-0.05,1.05))+
   #xlab("Differentiate between ambiguous stimuli")+
@@ -1181,8 +1175,8 @@ np4 <- np3 %>%
   multi_boot_standard(col = "compr")
 
 num_comp <- ggplot() +
-  geom_jitter(data = np3, aes(x = diff, y = compr, col = Age, alpha = .2), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
-  geom_pointrange(data = np4,aes(x = diff, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = np3, aes(x = diff, y = compr, col = Age, alpha = .3), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
+  geom_pointrange(data = np4,aes(x = diff, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "Comprehension", limits = c(-0.05,1.05))+
   xlab("Differentiate")+
@@ -1204,8 +1198,8 @@ np6 <- np5 %>%
 
 
 num_comb <- ggplot() +
-  geom_jitter(data = np5, aes(x = 1, y = compositional, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = np6,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = np5, aes(x = 1, y = compositional, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = np6,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "compositional Solutions", limits = c(-0.05,1.05))+
   #xlab("Differentiate between ambiguous stimuli")+
@@ -1282,8 +1276,8 @@ sp2 <- np1 %>%
 
 
 size_diff <- ggplot() +
-  geom_jitter(data = sp1, aes(x = 1, y = diff, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = sp2,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = sp1, aes(x = 1, y = diff, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = sp2,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "Differentiate = yes", limits = c(-0.05,1.05))+
   #xlab("Differentiate between ambiguous stimuli")+
@@ -1303,8 +1297,8 @@ sp4 <- sp3 %>%
   multi_boot_standard(col = "compr")
 
 size_comp <- ggplot() +
-  geom_jitter(data = sp3, aes(x = diff, y = compr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = sp4,aes(x = diff, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = sp3, aes(x = diff, y = compr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = sp4,aes(x = diff, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "Comprehension", limits = c(-0.05,1.05))+
   xlab("Differentiate")+
@@ -1326,8 +1320,8 @@ sp6 <- sp5 %>%
 
 
 size_comb <- ggplot() +
-  geom_jitter(data = sp5, aes(x = 1, y = compositional, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = sp6,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = sp5, aes(x = 1, y = compositional, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = sp6,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "compositional Solutions", limits = c(-0.05,1.05))+
   #xlab("Differentiate between ambiguous stimuli")+
@@ -1392,8 +1386,8 @@ t2p2 <- t2p1 %>%
 
 
 trans2_diff <- ggplot() +
-  geom_jitter(data = t2p1, aes(x = 1, y = diff, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = t2p2,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = t2p1, aes(x = 1, y = diff, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = t2p2,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "Differentiate = yes", limits = c(-0.05,1.05))+
   #xlab("Differentiate between ambiguous stimuli")+
@@ -1413,8 +1407,8 @@ t2p4 <- t2p3 %>%
   multi_boot_standard(col = "compr")
 
 trans2_comp <- ggplot() +
-  geom_jitter(data = t2p3, aes(x = diff, y = compr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = t2p4,aes(x = diff, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = t2p3, aes(x = diff, y = compr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = t2p4,aes(x = diff, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "Comprehension", limits = c(-0.05,1.05))+
   xlab("Differentiate")+
@@ -1436,8 +1430,8 @@ t2p6 <- t2p5 %>%
 
 
 trans2_comb <- ggplot() +
-  geom_jitter(data = t2p5, aes(x = 1, y = compositional, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = t2p6,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = t2p5, aes(x = 1, y = compositional, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = t2p6,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "compositional Solutions", limits = c(-0.05,1.05))+
   #xlab("Differentiate between ambiguous stimuli")+
@@ -1493,8 +1487,8 @@ t3p2 <- t3p1 %>%
 
 
 trans3_diff <- ggplot() +
-  geom_jitter(data = t3p1, aes(x = 1, y = diff, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = t3p2,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = t3p1, aes(x = 1, y = diff, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = t3p2,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "Differentiate = yes", limits = c(-0.05,1.05))+
   #xlab("Differentiate between ambiguous stimuli")+
@@ -1514,8 +1508,8 @@ t3p4 <- t2p3 %>%
   multi_boot_standard(col = "compr")
 
 trans3_comp <- ggplot() +
-  geom_jitter(data = t3p3, aes(x = diff, y = compr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = t3p4,aes(x = diff, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = t3p3, aes(x = diff, y = compr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = t3p4,aes(x = diff, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "Comprehension", limits = c(-0.05,1.05))+
   xlab("Differentiate")+
@@ -1537,8 +1531,8 @@ t3p6 <- t3p5 %>%
 
 
 trans3_comb <- ggplot() +
-  geom_jitter(data = t3p5, aes(x = 1, y = compositional, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = t3p6,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = t3p5, aes(x = 1, y = compositional, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = t3p6,aes(x = 1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "compositional Solutions", limits = c(-0.05,1.05))+
   #xlab("Differentiate between ambiguous stimuli")+
@@ -1638,8 +1632,8 @@ gram_plot_compr_2 <- gram_plot_compr_1 %>%
   multi_boot_standard(col = "diff")
 
 ggplot() +
-  geom_jitter(data = gram_plot_compr_1, aes(x = condition, y = diff, col = Age, alpha = .2), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
-  geom_pointrange(data = gram_plot_compr_2,aes(x = condition, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = gram_plot_compr_1, aes(x = condition, y = diff, col = Age, alpha = .3), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.05,dodge.width = 0.5))+
+  geom_pointrange(data = gram_plot_compr_2,aes(x = condition, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F, color = F)+
   scale_y_continuous(name = "Proportion differentiated", limits = c(-0.05,1.05))+
   xlab("")+
@@ -1775,8 +1769,8 @@ gram_plot_compr_7 <- gram_plot_compr_6 %>%
   multi_boot_standard(col = "atom")
 
 ggplot() +
-  geom_jitter(data = gram_plot_compr_6, aes(x = condition, y = atom, col = Age, alpha = .2), width = .1,height = .05)+
-  geom_pointrange(data = gram_plot_compr_7,aes(x = condition, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = gram_plot_compr_6, aes(x = condition, y = atom, col = Age, alpha = .3), width = .1,height = .05)+
+  geom_pointrange(data = gram_plot_compr_7,aes(x = condition, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F, col = F)+
   scale_y_continuous(name = "Proportion compositional", limits = c(-0.05,1.05))+
   xlab("")+
@@ -1854,7 +1848,7 @@ Here we repeat the analysis with data from all conditions for 8-year-olds. We fo
 
 Please note that despite being significant, the absolute difference between holistic and compositional gestures is small. Future studies should increase the complexity in the pictures to induce more variation in the rate of comprehension. One way of doing this would be to increase the number of comparisons within a given referent, for example, introducing a small, a mid-sized and a big hammer.
 
-```{r compcomb, echo = F, fig.cap="Proportion of trials in which children used a holistic or compositional gesture sequence by condition and age.", fig.width = 10, fig.height = 3, fig.scale = 1}
+```{r compcomb, echo = F, fig.cap="Proportion of trials in which children used a holistic or compositional gesture sequence by condition and age.", fig.width = 5, fig.height = 3, fig.scale = 1, fig.align="center"}
 hcp1 <- gram_data  %>%
   filter(typediff_1 != "NA",
          predicate != "small",
@@ -1864,19 +1858,18 @@ hcp1 <- gram_data  %>%
          typediff_1 = plyr::mapvalues(typediff_1,c("numges","sizeges","moveges","partseq", "seq"),rep("compositional",5)),
          typediff_1 = factor(ifelse(typediff_1 == "compositional", "compositional", "holistic")),
          typediff_1 = relevel(typediff_1, ref = "holistic"))%>%
-  group_by(Age,condition,typediff_1,id)%>%
+  group_by(Age,typediff_1,id)%>%
   summarise(compr = mean(compr))
   
 hcp2 <- hcp1 %>%  
   multi_boot_standard(col = "compr")
 
 ggplot() +
-  geom_jitter(data = hcp1, aes(x = typediff_1, y = compr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.01,dodge.width = 0.5), alpha = .5)+
-  geom_pointrange(data = hcp2,aes(x = typediff_1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = hcp1, aes(x = typediff_1, y = compr, col = Age), position = position_jitterdodge(jitter.width = .2, jitter.height = 0.01,dodge.width = 0.5), alpha = .3)+
+  geom_pointrange(data = hcp2,aes(x = typediff_1, y = mean, col = Age,ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   guides(alpha = F)+
   scale_y_continuous(name = "Comprehension", limits = c(-0.05,1.05))+
   xlab("Differentiation type")+
-  facet_grid(~condition)+
   theme_few() +
   scale_colour_manual(name="Age",
                       labels=c("6yo","8yo"), values=c("#268bd2","#b58900"))
@@ -1943,8 +1936,8 @@ gram_plot_compr_9 <- gram_plot_compr_8 %>%
   multi_boot_standard(col = "mean")
 
 ggplot() +
-  geom_jitter(data = gram_plot_compr_8, aes(x = condition, y = mean,  alpha = .2), width = .2,height = .0)+
-  geom_pointrange(data = gram_plot_compr_9,aes(x = condition, y = mean, ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7) +
+  geom_jitter(data = gram_plot_compr_8, aes(x = condition, y = mean,  alpha = .3), width = .2,height = .0)+
+  geom_pointrange(data = gram_plot_compr_9,aes(x = condition, y = mean, ymin = ci_lower, ymax = ci_upper),position = position_dodge(width = .5), size = 0.7, pch = 5) +
   geom_hline(yintercept = 1/2, lty=2)+
   guides(alpha = F)+
   scale_y_continuous(name = "Proportion German word order", limits = c(-0.05,1.05))+
