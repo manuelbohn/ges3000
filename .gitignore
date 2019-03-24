@@ -10,6 +10,7 @@ helpful git code.txt
 *.fff
 /ges3000_files/*
 .Rproj.user
+apa.csl
 pnas.csl
 visualizations.Rmd
 
