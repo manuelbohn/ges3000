@@ -3,9 +3,11 @@ title: "Young children spontaneously recreate core properties of language in a n
 subtitle: "Supplementary Material"
 author: "Manuel Bohn, Gregor Kachel and Michael Tomasello"
 output: 
-  bookdown::pdf_document2:
+  bookdown::html_document2:
     toc: yes
+    toc_float: true
     fig_caption: yes
+    code_folding: hide
     number_sections: false
 bibliography: library.bib
 csl: pnas.csl
@@ -72,7 +74,7 @@ knitr::include_graphics("./stimuli/setup.jpg")
 
 The two rooms were located on the same hallway. When stepping outside, the experimenters (E1 and E2) could easily talk to one another and coordinate their actions. In each room, we installed a picture board. Picture boards were not visible on the TV in the respective other room. In part 1, the picture board was a wooden, turn-able wheel with five triangular pictures (see Figure \@ref(fig:gesstimd1) and Figure \@ref(fig:setup)). These were 1) a hammering hand, 2) a female person combing her hair, 3) a boy on a bicycle, 4) a woman eating with a fork and 5) nothing (a white piece of paper). On top of the wheel was a little red arrow that was used to indicate which picture children had to communicate to their partner. A picture was selected by turning the wheel until the picture was on top underneath the arrow. In [part 2](#part-2-grammatical-constructions), the board was a larger, rectangular board. The pictures differed from experiment to experiment and are therefore described later. In part 2, a sticky red paper arrow was used to select a picture.
 
-```{r gesstimd1, echo = F, fig.cap="Pictures used on day 1 of part 1", fig.align = "center", out.width="450px"}
+```{r gesstimd1, echo = F, fig.cap="Pictures used on day 1 of part 1", fig.align = "center"}
 knitr::include_graphics("./stimuli/stimuli_ges_d1.png")
 ```
 
@@ -88,7 +90,7 @@ In each test trial, children had one minute to establish communication. If they 
 
 ## General note on participants
 
-Children came from an ethnically homogeneous, mid-sized German city (approx. 550.000 inhabitants, median income €1767 per month as of 2017, see [Stadt Leipzig](https://statistik.leipzig.de/statcity/table.aspx?cat=9&rub=2)), were mostly mono-lingual and had mixed socio-economic background. They were recruited from a database of children whose parents volunteered to take part in studies on child development.
+All experiments were approved by an internal ethics committee at the Max Planck Institute for Evolutionary Anthropology. Children came from an ethnically homogeneous, mid-sized German city (approx. 550.000 inhabitants, median income €1767 per month as of 2017, see [Stadt Leipzig](https://statistik.leipzig.de/statcity/table.aspx?cat=9&rub=2)), were mostly mono-lingual and had mixed socio-economic background. They were recruited from a database of children whose parents volunteered to take part in studies on child development. Parents accompanying the children were introduced to the procedure and gave informed consent on behalf of their children.
 
 ## General note on analysis
 
@@ -170,7 +172,7 @@ Part 1.2 follows up on 1.1 developmentally. We repeated the initial phase of the
 d2 <- read.csv(file="data/pt1_trans_3_4.csv") 
 ```
 
-Twelve three-year-olds (mean = `r round(mean(d2$mage[d2$age=="m36"]),2)`, range = `r round(range(d2$mage[d2$age=="m36"])[1],2)` to `r round(range(d2$mage[d2$age=="m36"])[2],2)`) and 12 four-year-olds (mean = `r round(mean(d2$mage[d2$age=="m48"]),2)`, range = `r round(range(d2$mage[d2$age=="m48"])[1],2)` to `r round(range(d2$mage[d2$age=="m48"])[1],2)`) participated in the study. Nine additional three-year-olds started the experiment but had to be excluded. Data was collected between January and March 2017.
+Twelve three-year-olds (mean = `r round(mean(d2$mage[d2$age=="m36"]),2)`, range = `r round(range(d2$mage[d2$age=="m36"])[1],2)` to `r round(range(d2$mage[d2$age=="m36"])[2],2)`) and 12 four-year-olds (mean = `r round(mean(d2$mage[d2$age=="m48"]),2)`, range = `r round(range(d2$mage[d2$age=="m48"])[1],2)` to `r round(range(d2$mage[d2$age=="m48"])[2],2)`) participated in the study. Nine additional three-year-olds started the experiment but had to be excluded. Data was collected between January and March 2017.
 
 ### Design and procedure
 
@@ -627,7 +629,7 @@ We presented the videos from day 1 and 2 to twelve adult raters, who were unfami
 
 For the data collection on day 2, we made the following changes to the procedure compared to day 1. We used E2 as comprehension partner. Instead of a warm-up phase with sound, children received four training trials with the pictures from day 1, already without sound. Then the experimenter introduced the new pictures (deer, duck and fish, see Figure \@ref(fig:gesstimd2)) that were used for the remainder of the session. Children received a total of 30 test trials, 10 with each picture. The order of pictures was randomized in blocks of six, that is, each picture was selected twice before another picture could be selected a third time. Children who did not participate on day 1, received additional training trials with sound and were prompted to use gestures if they did not do so spontaneously.
 
-```{r gesstimd2, echo = F, fig.cap="Pictures used on day 2 of part 1", fig.align = "center", out.width="450px"}
+```{r gesstimd2, echo = F, fig.cap="Pictures used on day 2 of part 1", fig.align = "center"}
 knitr::include_graphics("./stimuli/stimuli_ges_d2.png")
 ```
 
@@ -773,7 +775,7 @@ Data in the control condition was collected prior to the test condition. The log
 Children in the control condition were tested in a separate room in their kindergarten. Videos were played on a 15 inch laptop located on a table. The pictures to which the gestures corresponded were put on the table between child and laptop. They were the same as the ones that would be later used in the test condition (deer, duck and fish, see Figure \@ref(fig:gesstimd2)). Children responded by pointing to or naming a picture. The videos showing the iconic and abstract depiction of each stimulus were pre-recorded in the same setup and involving the same experimenters as in the test condition. Children were instructed that they would see videos in which someone would depict one of the pictures in front of them and their task would be to guess which picture it was. As a warm-up, children received two training trials with videos of iconic depictions of different pictures (tiger and elephant). Subsequently, children received six test trials: first three with abstract gestures and then three with iconic gestures (each time, one trial per picture). Like children in the test condition, they received differential feedback on whether their gesture was correct. The order of stimuli was counterbalanced within trials of abstract and iconic depictions. Abstract gestures corresponded to stage 5 and iconic to stage 1 depictions described below.
 
 ##### Test
-The general setup and procedure for the test condition (drift to the arbitrary) were similar to day 1. Children played the role of the CC but instead of a peer, they were paired with an adult production partner. As a warm-up, children received one trial with each of the pictures from day 1. Children who did not participate in day 1, received additional training trials with sound. After the warm-up, the pictures were changed to test pictures (deer, duck and fish, same as in the previous section). Each child received 30 trials. There were 5 stages of abstraction with six trials (two per picture) per stage. The order of pictures within each stage was randomized. Gestures became more abstract in that elements of the iconic depictions were removed and aspects of the original gestures were depicted in a different way. Sample videos can be found in the online repository. Below are detailed descriptions of the gestures from each stage for each picture:  
+The general setup and procedure for the test condition (drift to the arbitrary) were similar to day 1. Children played the role of the CC but instead of a peer, they were paired with an adult production partner. As a warm-up, children received one trial with each of the pictures from day 1. Children who did not participate in day 1, received additional training trials with sound. After the warm-up, the pictures were changed to test pictures (deer, duck and fish, same as in the previous section). Each child received 30 trials. There were 5 stages of abstraction with six trials (two per picture) per stage. The order of pictures within each stage was randomized. Gestures became more abstract in that elements of the iconic depictions were removed and aspects of the original gestures were depicted in a different way. Sample videos for fish can be found [here](https://github.com/manuelbohn/ges3000/tree/master/stimuli/drift_to_arbitrary_comprehension). Below are detailed descriptions of the gestures from each stage for each picture:  
 
 *Deer*:
 
@@ -928,7 +930,7 @@ We tested 24 children, 12 six-year-olds (mean age = `r round(p2.move.p$mean_age[
 
 The basic design and procedure were the same as described in the [beginning](#general-setup). Children first interacted with their partner with the sound still working. Pictures in this phase were static depictions of three different referents (out of five: cat, goose, elephant, monkey and ball, see Figure \@ref(fig:movestim)). After the sound training (one trial per picture), they briefly left the room. When returning, they experienced that the sound was not working anymore. E1 told them that they could still continue to play the game and prompted children to use gestures if needed. The first six trials with gestures were training trials with static pictures only. Hereafter, E1 entered the room and told the child that they would now play the game with more pictures. For each static picture, E1 introduced a picture showing the same referent in a particular motion. Each child saw one type of movement ("jumping", "running" and "turning" - see Figure \@ref(fig:movestim). To make it common ground that their partner had the same pictures, E1 showed every picture to the child and then held it up into the camera. At the same time, the comprehension partner held up the same picture into their camera. When introducing a picture, E1 always labelled its content in present tense (e.g. "This is a jumping monkey"). After that, the game continued without any further instructions or prompts. Each of the now six pictures was selected three times in a random order with the constraint that each picture was selected once before another picture could be selected a second time. After 18 test trials, E1 introduced the two remaining static referents along with their moving equivalents. This transfer phase continued for another 8 trials during which each of the new pictures was selected twice. The adult partner was naive about the selected picture and was instructed to try their best to understand the child's gesture. Like in part 1, children received differential feedback about their partner's comprehension  
 
-```{r movestim, echo = F, fig.cap="Pictures used in the movement experiment. Each child saw one type of movement.", fig.align = "center", out.width="450px"}
+```{r movestim, echo = F, fig.cap="Pictures used in the movement experiment. Each child saw one type of movement.", fig.align = "center"}
 
 knitr::include_graphics("./stimuli/stimuli_movement.png")
 
@@ -1109,7 +1111,7 @@ We tested 24 children, 12 six-year-olds (mean age = `r round(p2.num.p$mean_age[1
 
 Design and procedure were the same as for the [movement](#design-and-procedure-5) experiment. Children started with three pictures showing a single object of each kind (see top row Figure \@ref(fig:numsizestim)) After the training, E1 introduced three additional pictures showing multiple depictions of the same referents (see bottom row Figure \@ref(fig:numsizestim)). After 18 test trials, E1 introduced the two remaining pictures showing single referents along with their multiple equivalents.
 
-```{r numsizestim, echo = F, fig.cap="Pictures used in the number (top and bottom row) and size (top and middle row) experiments.", fig.align = "center", out.width="450px"}
+```{r numsizestim, echo = F, fig.cap="Pictures used in the number (top and bottom row) and size (top and middle row) experiments.", fig.align = "center"}
 
 knitr::include_graphics("./stimuli/stimuli_number_size.png")
 
@@ -1344,7 +1346,7 @@ In the previous sections, we investigated how children depicted agents with vary
 
 In the first experiment of this kind, "transitive 2", children saw pictures of two animals interacting with one another. The actions were "chasing" and "petting". Throughout the experiment, we varied the action as well as the role of agent and patient. To be clear, children had to communicate who was the agent, what was the action and who was the patient. However, since there were only two agents in this experiment, the patient (or agent) could be omitted because the context of available pictures specified who the patient (or agent) was. This licensed the use of holistic gestures. For example, to depict *monkey chase cat* one could depict a running monkey. Since the cat was the only possible patient in this context, it could be omitted. For logistical reasons, we only tested 8-year-olds in transitive 2 and 3.   
 
-```{r transstim, echo = F, fig.cap="Examples of pictures used in transitive 2 and transitive 3. The other animals were: Elephant, Duck, Rabbit", out.width="450px", fig.align = "center"}
+```{r transstim, echo = F, fig.cap="Examples of pictures used in transitive 2 and transitive 3. The other animals were: Elephant, Duck, Rabbit"}
 
 knitr::include_graphics("./stimuli/stimuli_trans.png")
 
