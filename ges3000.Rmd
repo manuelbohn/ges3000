@@ -603,7 +603,7 @@ ggplot() +
 
 ## 1.7: Drift to arbitrary
 
-Adult communicators streamline their communication over time by reducing the effort of each utterance [see e.g. @fay2018create; @garrod2007foundations; @10.2307/412894]. When using iconic lexical items, this might result in a "drift to the arbitrary" with items gradually losing their iconicty. In part 3 we investigated this drift to the arbitrary in children's production and comprehension of gestures.
+Adult communicators streamline their communication over time by reducing the effort of each utterance [see e.g. @fay2018create; @garrod2007foundations; @frishberg1975arbitrariness]. When using iconic lexical items, this might result in a "drift to the arbitrary" with items gradually losing their iconicty. In part 3 we investigated this drift to the arbitrary in children's production and comprehension of gestures.
 
 In terms of production, we compared the first instance of a gesture for a picture to the last to see if children streamline their utterances over time. In terms of comprehension, we paired children with an adult who produced more and more abstract gestures over time.
 
@@ -1924,6 +1924,18 @@ pm_worder2 <- drop1(m_worder2, test = "Chisq")
 ```
 
 The data remaining after subsetting included more eight-year-olds (80%). We therefore did not analyse the influence of age on the choice of a particular word order. Similar to differentiation and the use of compositional gesture sequences, children's responses were highly auto-correlated. Like in previous analyses, we therefore classified each child as either using mostly German vs. using mostly non-German word order. To test for a bias towards German word order, we tested whether the intercept in a GLM with German word order (1/0) as depended variable was different from 0 (corresponding to 50%). We found a small, but non-significant bias for German word-order ($\beta$ = `r round(summary(m_worder)$coefficients[1,1], 2)`, se = `r round(summary(m_worder)$coefficients[1,2], 2)`, *p* = `r sub('^(-)?0[.]', '\\1.', round(summary(m_worder)$coefficients[1,4], 3))`), see also Figure \@ref(fig:wordorder)). In a second model, we analysed the effect of condition on word order and found no difference across conditions (LRT:  *p* = `r sub('^(-)?0[.]', '\\1.', round(pm_worder2[2,5], 3))`).
+
+```{r spovssop}
+spo_vs_sop <- gram_data %>%
+  filter(grepl("trans",condition),
+         order == "sop" | order == "spo")%>%
+  mutate(total_n = n())%>%
+  group_by(order, total_n)%>%
+  summarise(n = n())%>%
+  mutate(prop = n/total_n)
+```
+
+Previous work with adults focused largely on the distinction between SPO vs. SOP in descriptions of transitive events [e.g. @gibson2013noisy; @goldin2008natural]. When only focusing on transitive trials in which either one of these patterns was used, we found a higher proportion of SPO (`r round(spo_vs_sop%>%filter(order =="spo")%>%pull(prop),2)`) compared to SOP (`r round(spo_vs_sop%>%filter(order =="sop")%>%pull(prop),2)`) solutions.  
 
 ```{r wordorder, echo = F, fig.cap="Proportion of German word order in childrens compositional gestures by condition. This excludes 'compositional_part' for reasons outlined in the main text.", fig.width = 10, fig.height = 3, fig.scale = 1}
 
