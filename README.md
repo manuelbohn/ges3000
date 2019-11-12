@@ -8,7 +8,9 @@ Bohn, M., Kachel, G., & Tomasello, M. (*in press*). Young children spontaneously
 
 Raw data files are stored in `data/`. 
 
-Stimuli files used in the study can be found in `stimuli`
+Stimuli pictures used in the study can be found in `stimuli/`.
+
+The sample videos for the drift to the arbitrary comprehension study are in `stimuli/drift_to_arbitrary_comprehension`.
 
 The file `ges3000.Rmd` presents the supplementary material, which includes code for all analysis reported in the main paper and the supplementary material. 
 
